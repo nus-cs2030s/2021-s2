@@ -3,6 +3,10 @@ nav:
   - 0. Overview: '00-overview.md'
   - 1. Program and Compiler: '01-compiler.md'
   - 2. Variable and Type: '02-type.md'
+  - 3. Functions: '03-function.md'
+  - 4. Encapsultion: '04-encapsulation.md'
+  - 5. Information Hiding: '05-infohiding.md'
+  - 6. Tell, Don't Ask: '06-tell-dont-ask.md'
 
     #  - General: 
     #- About CS2030S: 'about.md'

@@ -1,6 +1,6 @@
 # Unit 1: Program and Compiler
 
-After this lecture, students should:
+After reading this unit, students should:
 
 - recap some fundamental programming concepts, including the concept of a program, a programming language, a compiler, and an interpreter
 - be aware of two modes of running a Java program (compiled vs. interpreted)

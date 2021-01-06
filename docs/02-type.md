@@ -1,4 +1,4 @@
-# Unit 2: Variables and Types
+# Unit 2: Variable and Type
 
 After this unit, students should
 
