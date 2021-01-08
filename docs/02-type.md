@@ -1,6 +1,6 @@
 # Unit 2: Variable and Type
 
-After this unit, students should
+After this unit, students should be able to:
 
 - appreciate the concept of variables as an abstraction
 - understand the concept of types and subtypes
@@ -57,10 +57,10 @@ On the other hand, a _weakly typed_ (or _loosely typed_) programming language is
 ```Java
 int i;   // declare a variable
 i = 4;   // ok
-i = (int)"5"; // you want to treat a string, ok, as you wish.   
+i = (int)"5"; // you want to treat a string as an int? ok, as you wish!   
 ```
 
-The last line forces the C compiler to treat the string as an integer, through typecasting.  The C compiler allows it.
+The last line forces the C compiler to treat the string (to be more precise, the address of the string) as an integer, through typecasting.
 
 In contrast, if we try the following in Java:
 
@@ -69,11 +69,29 @@ int i;   // declare a variable
 i = 4;   // ok
 i = (int)"5"; // error
 ```
-we will get the following error message:
+
+we will get the following compile-time error message:
 ```
 |  incompatible types: java.lang.String cannot be converted to int
 ```
+
 because the compiler enforces a stricter rule and allows typecasting only if it makes sense.
+
+## Type Checking with A Compiler
+
+In addition to check for syntax error, the compiler can check for type compilability according to the compile-time type, to can possible errors as early as possible.  Such type checking is made possible with static typing.  Consider the following Python program:
+
+```Python
+i = 0
+while (i < 10):
+	# do something that takes time
+	i = i + 1
+print("i is " + i)
+```
+
+The type mismatch error on Line 5 is only caught when Line 5 is executed.  Since the type of the variable `i` can change during run time, Python (and generally, dynamically typed languages) can not tell if Line 5 will lead to an error until it is evaluated at run-time.  
+
+In contrast, statically typed language like Java can detect type mismatch during compile time since the compile-time type of a variable is fixed.
 
 ## Primitive Types in Java
 
@@ -86,24 +104,25 @@ For storing integral values, Java provides four types, `byte`, `short`, `int`, a
 For storing floating-point values, Java provides two types, `float` and `double`, for 16-bit and 32-bit floating-point numbers.
 
 Unlike reference types, which we will see later, primitive type variables never share their value with each other, i.e., if we have:
-```
+```Java
 int i = 1000;
 int j = i;
 i = i + 1;
 ```
+
 `i` and `j` each store a copy of the value `1000` after Line 2.  Changing `i` on Line 3 does not change the content of `j`.
 
 ## Subtypes
 
 An important concept that we will visit repeatedly in CS2030/S is the concept of subtypes.
 
-Let $S$ and $T$ be two types.  We say that $T$ is a _subtype_ of $S$ if a piece of code written for variables of type $S$ can also safely be used on variables of type $T$.  
+Let $S$ and $T$ be two types.  We say that $T$ is a _subtype_ of $S$ if _a piece of code written for variables of type $S$ can also safely be used on variables of type $T$_.  
 
 We use the notation $T <: S$ or $S :> T$ to denote that $T$ is subtype of $S$.
 
 The subtype relationship is transitive, i.e., if $S <: T$ and $T <: U$, then $S <: U$.  It is also reflexive, for any type $S$, $S <: S$.
 
-We also use the term _supertype_ to denote the reverse relationship: if $T$ is a subtype of $S$, then $S$ is a supertype of $T$.
+We also use the term _supertype_ to denote the reversed relationship: if $T$ is a subtype of $S$, then $S$ is a supertype of $T$.
 
 ### Subtyping Between Java Primitive Types
 
@@ -125,9 +144,10 @@ Line 4 above would lead to an error:
 ```
 |  incompatible types: possible lossy conversion from double to int
 ```
+
 but Line 3 is OK.  
 
-This example shows how subtyping applies to type checking.  Java allows a variable of type $T$ to hold a value from a variable of type $S$ only if $S <: T$.  This step is called _widening type conversion_.
+This example shows how subtyping applies to type checking.  _Java allows a variable of type $T$ to hold a value from a variable of type $S$ only if $S <: T$_.  This step is called _widening type conversion_.  Such conversion can happen during assignment or parameter passing.
 
 # Additional Readings
 
