@@ -2,7 +2,7 @@
 
 After reading this unit, students should
 
-- understand composite data type as a even-higher level abstractions over variables
+- understand composite data type as a even-higher level abstraction over variables
 - understand encapsulation as an object-oriented (OO) principle
 - understand the meaning of class, object, fields, methods, in the context of OO programming
 - be able to define a class and instantiate one as an object in Java
