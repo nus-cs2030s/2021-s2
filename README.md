@@ -16,7 +16,9 @@ mkdocs serve
 
 # Compile and Publish on Github
 
+A Github Action has been setup to publish every `git push` automatically.
+
+but if there is a reason to publish manually, run
 ```
 mkdocs gh-deploy
 ```
-

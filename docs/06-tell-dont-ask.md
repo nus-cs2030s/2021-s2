@@ -56,24 +56,27 @@ class Circle {
 
 ## The "Tell Don't Ask" Principle
 
-The mutators and accessors above are pretty pointless.  If we need to know the internal and do something with it, then we are breaking the abstraction barrier.  The right approach is to implement a method within the class that does whatever we want the class to do.   For instance, suppose that we want to know the circumference of the circle `c`, one approach would be:
+The mutators and accessors above are pretty pointless.  If we need to know the internal and do something with it, then we are breaking the abstraction barrier.  The right approach is to implement a method within the class that does whatever we want the class to do.   For instance, suppose that we want to check if a given point (x,y) calls within the circle, one approach would be:
 
 ```Java
-   double circumference = 2*c.getR()*3.1415926;
+   double cX = c.getX();
+   double cY = c.getY();
+   double r = c.getR();
+   boolean isInCircle = ((x - cX) * (x - cX) + (y - cY) * (y - cY)) <= r * r;
 ```
 
 where `c` is a `Circle` object.
 
-A better approach would be to add a new method `getCircumference()` in the `Circle` class, and call it instead:
+A better approach would be to add a new `boolean` method in the `Circle` class, and call it instead:
 ```Java
-   double circumference = c.getCircumference();
+   boolean isInCircle = c.contain(x, y);
 ```
 
-The better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact.  If one fine day, the implementer of `Circle` decided to store the diameter of the circle instead of the radius, then only the implementer needs to change the implementation of `getCircumference`.  The client does not have to change anything.  
+The better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact.  If one fine day, the implementer of `Circle` decided to change the representation of the circle and remove the direct accessors to the fields, then only the implementer needs to change the implementation of `contain`.  The client does not have to change anything.  
 
 The principle around which we can think about this is the "Tell, Don't Ask" principle.  The client should tell a `Circle` object what to do (compute the circumference), instead of asking "what is your radius?" to get the value of a field then perform the computation on the object's behalf.
 
-While there are situations where we can't avoid using accessor or modifier in a class, for beginning OO programmers like yourself, it is better to not define classes with any accessor and modifier, and forces yourselves to think in the OO way -- to tell an object what task to perform as a client, and then implement this task within the class as a method as the implementer.
+While there are situations where we can't avoid using accessor or modifier in a class, for beginning OO programmers like yourself, it is better to not define classes with any accessor and modifier to the private fields, and forces yourselves to think in the OO way -- to tell an object what task to perform as a client, and then implement this task within the class as a method as the implementer.
 
 ## Further Reading
 

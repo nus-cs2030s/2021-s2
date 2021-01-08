@@ -9,6 +9,7 @@ After reading this unit, students should:
 ## Software Program
 
 A software program is a collection of data variables and instructions on how to modify these variables.  To dictate these instructions to the computer, programmers usually write down the instructions using a programming language, expressing their instructions in code that are made up of keywords, symbols, and names.  
+
 A programming language is a formal language that helps programmers specify _precisely_ what the instructions are at a higher level of _abstraction_ (i.e., at a higher conceptual level) so that a programmer only needs to write a few lines of code to give complex instructions to the computer.  
 
 ## Compiled vs. Interpreted Programs
@@ -74,7 +75,7 @@ While `jshell` is a convenient way to test things out and play with new Java con
 
 ## Compiler
 
-The compiler does more than just translating source code into machine code or bytecode.  The compiler also needs to parse the source code written and check if it follows the precise specification of the programming language (called _grammar_) used, and produces a _syntax error_ if the grammar is violated.  It therefore can detect any syntax error before the program is run.  In contrast, an interpreter may only detect the syntax error when it executes a particular line of code (e.g., when there is a typo in the name of a function) and so syntax errors are uncovered only during runtime.
+The compiler does more than just translating source code into machine code or bytecode.  The compiler also needs to parse the source code written and check if it follows the precise specification of the programming language (called _grammar_) used, and produces a _syntax error_ if the grammar is violated.  It therefore can detect any syntax error before the program is run.
 
 It is much better for a programmer to detect any error in its code during compilation -- since this is the phase when the program is still being developed and under the control of the programmer.  Runtime error, on the other hand, might occur when the customers are running the program, and so are much less desirable.  As such, we try to detect errors as much as possible during compilation.  The compiler is a powerful friend for any programmer if used properly.
 
