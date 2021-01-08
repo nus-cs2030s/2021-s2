@@ -1,5 +1,12 @@
 # Unit 7: Class Fields
 
+After this unit, students should:
+
+- understand the difference between instance fields and class fields
+- understand the meaning of keywords `final` and `static` in the context of a field
+- be able to define and use a class field
+- be able to use `import` to access classes from the Java standard libraries
+
 ## Class Fields 
 
 Let's revisit the following implementation of `Circle`.

@@ -24,22 +24,22 @@ While you can complete the programming assignments on your computers, the practi
 
 For older versions of Windows, such as those used in the SoC's programming labs, you can check out [XShell 6](https://www.netsarang.com/products/xsh_overview.html) (free for home/school use), or [PuTTY](https://www.putty.org).  These are GUI-based programs so the command line instructions below do not apply.
 
-## The Command to SSH
+## Basic Command to SSH
 
 Run:
 ```
-ssh <username>@pe1xx.comp.nus.edu.sg
+ssh <username>@<hostname>
 ```
 
-Replace `pe1xx` with the host you want to log into and `<username>` with your SoC Unix username.  Note that both are case sensitive.
+Replace `<hostname>` with the host you want to log into and `<username>` with your SoC Unix username.  Note that both are case sensitive.
 
-I would do:
+For instance, I would do:
 ```
-ssh ooiwt@pe115.comp.nus.edu.sg
+ssh ooiwt@sunfire.comp.nus.edu.sg
 ```
-to log into `pe115`.
+to log into `sunfire`.
 
-After the command above, following the instructions on the screen.  The first time you ever connect to a PE host, you will be warned that you are connecting to a previously unknown host.  Say `yes`, and you will be prompted with your SoC Unix password.
+After the command above, following the instructions on the screen.  The first time you ever connect to a host, you will be warned that you are connecting to a previously unknown host.  Say `yes`, and you will be prompted with your password for that host.
 
 ## Accessing The PE Hosts from Outside SoC
 
@@ -72,7 +72,7 @@ To set up the SOC Virtual Private Network (VPN), see [instruction here](https://
 
 !!! warning "Windows 10 Users: FortiClient from Windows Store"
 
-    Students have reported that running FortiClient downloaded from the Windows Store does not allow one to `ssh` from WSL to `sunfire` as expected.  Therefore, you should download and install For Windows 10 users, please download and install FortiClient VPN directly from [FortiClient's website](https://forticlient.com/downloads).
+    Students have reported that running FortiClient downloaded from the Windows Store does not allow one to `ssh` from WSL to `sunfire` as expected.  Therefore, Windows 10 users should download and install FortiClient VPN directly from [FortiClient's website](https://forticlient.com/downloads).
 
 Once you are connected to SoC VPN, you can run
 ```
