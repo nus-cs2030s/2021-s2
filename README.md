@@ -3,7 +3,7 @@
 Assuming you have Python installed.
 
 ```
-$(PIP) install mkdocs mkdocs-materials
+$(PIP) install mkdocs mkdocs-material
 ```
 
 where `PIP` is either `pip` or `pip3` depending on your system.

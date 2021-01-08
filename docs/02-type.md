@@ -11,13 +11,13 @@ After this unit, students should be able to:
 
 ## Data Abstraction: Variable
 
-One of the important abstractions that are provided by a programming language is _variable_.  Data are stored in some location in computer memory.  But we should not be referring to the memory location all the time.  First, referring to something like `0xFA49130E` is not user-friendly; Second, the location may change.  A _variable_ is an abstraction that allows us to give a user-friendly name to a piece of data in memory.  We use the _variable name_ whenever we want to access the _value_ in that location, and _pointer to the variable_ or _reference to the variable_ whenever we want to refer to the address of the location.
+One of the important abstractions that are provided by a programming language is the _variable_.  Data are stored in some location in computer memory.  But we should not be referring to the memory location all the time.  First, referring to something like `0xFA49130E` is not user-friendly; Second, the location may change.  A _variable_ is an abstraction that allows us to give a user-friendly name to a piece of data in memory.  We use the _variable name_ whenever we want to access the _value_ in that location, and _pointer to the variable_ or _reference to the variable_ whenever we want to refer to the address of the location.
 
 ## Type
 
 As programs get more complex, the number of variables that the programmer needs to keep track of increases.  These variables might be an abstraction over different types of data: some variables might refer to a number, some to a string, some to a list of numbers, etc.  Not all operations are meaningful over all types of data.
 
-To help mitigate the complexity,  we can assign a _type_ to a variable.  The type communicates to the readers what data type the variable is an abstraction over, and to the compiler/interpreter what operations are valid on this variable and how the operation behaves.  In lower-level programming languages like C, the type also inform the compiler how the bit representing the variable should be interpreted.
+To help mitigate the complexity,  we can assign a _type_ to a variable.  The type communicates to the readers what data type the variable is an abstraction over, and to the compiler/interpreter what operations are valid on this variable and how the operation behaves.  In lower-level programming languages like C, the type also informs the compiler how the bit representing the variable should be interpreted.
 
 As an example of how types can affect how an operation behaves, let's consider
 Python.  Suppose we have two variables `x` and `y`, storing the values `4` and `5` respectively and we run `print x + y`.  If `x` and `y` are both strings, you would get `45`; if `x` and `y` are integers, you would get `9`; if `4` is an integer and `5` is a string, you would get an error.  
@@ -52,7 +52,7 @@ A programming language can be strongly typed or weakly typed.  There are no form
 
 Generally, a _strongly typed_ programming language enforces strict rules in its type system, to ensure _type safety_, i.e., to catch type errors during compile time rather than leaving it to runtime.
 
-On the other hand, a _weakly typed_ (or _loosely typed_) programming language is more permissive in terms of typing checking.  C is an example of a static, weakly, type language.  In C, the following is possible:
+On the other hand, a _weakly typed_ (or _loosely typed_) programming language is more permissive in terms of typing checking.  C is an example of a static, weakly typed language.  In C, the following is possible:
 
 ```Java
 int i;   // declare a variable
@@ -79,7 +79,7 @@ because the compiler enforces a stricter rule and allows typecasting only if it 
 
 ## Type Checking with A Compiler
 
-In addition to check for syntax error, the compiler can check for type compilability according to the compile-time type, to can possible errors as early as possible.  Such type checking is made possible with static typing.  Consider the following Python program:
+In addition to checking for syntax errors, the compiler can check for type compilability according to the compile-time type, to catch possible errors as early as possible.  Such type checking is made possible with static typing.  Consider the following Python program:
 
 ```Python
 i = 0
