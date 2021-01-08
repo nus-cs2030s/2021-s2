@@ -15,7 +15,7 @@ Consider the case of `Circle` above, where we modify the radius `r` directly wit
 
 ## Data Hiding
 
-Many OO languages allow programmers to explicitly specify if a field or a method can be accessed from outside the abstraction barrier.  Java, for instance, supports `private` and `public` access modifiers[^5].  A field or a method that is declared as `private` cannot be accessed from outside the class, and can only be accessed within the class.  On the other hand, as you can guess, a `public` field or method can be accessed, modified, or invoked from outside the class.  
+Many OO languages allow programmers to explicitly specify if a field or a method can be accessed from outside the abstraction barrier.  Java, for instance, supports `private` and `public` access modifiers.  A field or a method that is declared as `private` cannot be accessed from outside the class, and can only be accessed within the class.  On the other hand, as you can guess, a `public` field or method can be accessed, modified, or invoked from outside the class.  
 
 Such a mechanism to protect the abstraction barrier from being broken is called _data hiding_ or _information hiding_.  This protection is enforced by the _compiler_ at compile time.
 
@@ -69,7 +69,7 @@ class Circle {
 ```
 
 Now, to create a `Circle` object, we need to pass in three arguments:
-```
+```Java
 Circle c = new Circle(0.0, 0.5, 10.0);
 ```
 
