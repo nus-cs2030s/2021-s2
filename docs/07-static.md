@@ -2,7 +2,7 @@
 
 ## Class Fields and Methods
 
-Let's look at the implementation of `getArea()` above.  We use the constant $\pi$ but hardcoded it as 3.1415926.  Hardcoding such a magic number is a _no-no_ in terms of coding style.  This constant can appear in more than one places. If we hardcode such a number and want to change its precision later, we would need to trace down and change every occurrence.  Every time we need to use $\pi$, we have to remember or look up what is the precision that we use.  Not only does this practice introduce more work, it is also likely to introduce bugs.  
+Let's look at the implementation of `getArea()` above.  We use the constant $\pi$ but hardcoded it as 3.1415926.  Hardcoding such a magic number is a _no-no_ in terms of coding style.  This constant can appear in more than one place. If we hardcode such a number and want to change its precision later, we would need to trace down and change every occurrence.  Every time we need to use $\pi$, we have to remember or look up what is the precision that we use.  Not only does this practice introduce more work, it is also likely to introduce bugs.  
 
 In C, we define $\pi$ as a macro constant `M_PI`.  But how should we do this in Java?  This is where the ideal that a program consists of only objects with internal states that communicate with each other feel a bit constraining.  The constant $\pi$ is universal, and does not really belong to any object (the value of $\pi$ is the same for every circle!).  Another example: if we define a method `sqrt()` that computes the square root of a given number, this is a general function that is not associated with any object as well.
 

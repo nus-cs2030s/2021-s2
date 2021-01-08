@@ -11,7 +11,7 @@ After taking this unit, students should:
 
 In the ideal case, the code above the abstraction barrier would just call the provided interface to use the composite data type.  There, however, may be cases where a programmer may intentionally or accidentally break the abstraction barrier.  
 
-Consider the case of `Circle` above, where we modify the radius `r` directly with `c.r = 10`.  In doing so, we, as the client to `Circle`, make an explicit assumption of how `Circle` implements a circle.  The implementation details have been leaked outside the abstraction barrier.   Now, if the implementer wishes to change the representation, to say, store the diameter, instead.  It would invalidate the code that the client has written!  The client will have to carefully change all the code that makes the assumption, and modify accordingly, increasing the chances of introducing a bug.
+Consider the case of `Circle` above, where we modify the radius `r` directly with `c.r = 10`.  In doing so, we, as the client to `Circle`, make an explicit assumption of how `Circle` implements a circle.  The implementation details have been leaked outside the abstraction barrier.   Now, if the implementer wishes to change the representation of the `Circle`, to say, store the diameter, instead.  This small implementation change would invalidate the code that the client has written!  The client will have to carefully change all the code that makes the assumption, and modify accordingly, increasing the chances of introducing a bug.
 
 ## Data Hiding
 
@@ -19,7 +19,7 @@ Many OO languages allow programmers to explicitly specify if a field or a method
 
 Such a mechanism to protect the abstraction barrier from being broken is called _data hiding_ or _information hiding_.  This protection is enforced by the _compiler_ at compile time.
 
-In our original `Circle` class (v0.1) in [Unit 4](04-encapsulation.md), we did not specify any access modifier -- this amount of using the _default_ modifier, the meaning of which is not our concern right now[^1]  For a start, we will explicitly indicate `private` or `public` for all our methods and fields.
+In our original `Circle` class (v0.1) in [Unit 4](04-encapsulation.md), we did not specify any access modifier -- this amounts to using the _default_ modifier, the meaning of which is not our concern right now[^1]  For a start, we will explicitly indicate `private` or `public` for all our methods and fields.
 
 ```Java
 // Circle v0.2
