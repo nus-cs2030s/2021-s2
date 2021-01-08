@@ -29,7 +29,7 @@ This is not a module on Java programming.  We will not comprehensively cover Jav
 
 This is not a module on software engineering either.  Software engineering is a broad discipline on its own and deserves another module.  Rather, this module is about the programming principles and constructs on top of which programmers can design better software.  To motivate the importance of these principles and constructs and see how they can be used, we will inevitably cover some of the software engineering design principles, such as the Liskov's Substitution Principle (the L in SOLID), Tell-Don't-Ask, Composition over Inheritence, etc.  But we will not comprehensively cover object-oriented design or software design in general (e.g., we will not cover S,O,I,D in SOLID).
 
-Finally, this is a module that focuses on computaional effeciency.  We have CS2040/S for that.  In CS2030/S, although reducing computational cost still plays a role, this is not the only cost that matters.  CS2030/S is also concern with the human cost of debugging or maintaining software.  In striving for simpler software that is easier to maintain and extend, we may have to sacrifice the computational efficiency.
+Finally, CS2030/S is not a module that focuses on computaional effeciency.  We have CS2040/S for that.  In CS2030/S, although reducing computational cost still plays a role, this is not the only cost that matters.  CS2030/S is also concern with the human cost of debugging or maintaining software.  In striving for simpler software that is easier to maintain and extend, we may have to sacrifice the computational efficiency.
 
 ## Taming Complexity in Software Development
 
