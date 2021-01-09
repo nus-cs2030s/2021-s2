@@ -4,7 +4,7 @@
 
 This website hosts the lecture notes, lecture slides, and other written guides about CS2030S.  You can explore the links on the menu on the left, or search for keywords in the search bar above.
 
-#### Other Critical Web Resources for Students Taking CS2030/S
+#### Other Critical Web Resources
 
 - [Piazza](https://piazza.com/class/kjez2jtso0033l) for Q&A and discussions
 
