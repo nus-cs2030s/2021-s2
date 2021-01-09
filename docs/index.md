@@ -10,4 +10,4 @@ This website hosts the lecture notes, lecture slides, and other written guides a
 
 - [LumiNUS](https://luminus.nus.edu.sg/modules/c8378b00-daa4-430e-b49f-22f6509a1287) for all other information (administration, logistic) and tools (surveys, grades).
 
-- [GitHub](https://www.github.com/) (under your own account) for accessing feedback from your code.
+- [GitHub](https://www.github.com/) (under your own account) for accessing feedback of your labs.
