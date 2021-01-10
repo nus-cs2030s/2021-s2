@@ -51,14 +51,14 @@ There are several ways to do this, the simplest way is to tunnel through `sunfir
 
 SoC's Sunfire (`sunfire.comp.nus.edu.sg`) is configured to allow your connection if it's originating from a local telco (See [more details here](https://dochub.comp.nus.edu.sg/cf/guides/unix/soc_unix_pass_your_direct_access_to_soc_unix_servers)).
 
-There are two ways to achieve this, and in both ways, it appears to the PE hosts that Sunfire is the client.
-
-Connect to sunfire at `sunfire.comp.nus.edu.sg` via command line `ssh` with the option `-t`.
+Since `sunfire` is within the SoC network, you can log into `sunfire` first, then from `sunfire`, log into one of the PE nodes from `sunfire`.  These two steps can be done with one command:
 ```
 ssh -t <username1>@sunfire.comp.nus.edu.sg ssh <username2>@pe1xx.comp.nus.edu.sg
 ```
 
-Note that in normal situations, `username1` and `username2` are both your SoC Unix username.  For practical exams, you will be issued a special exam account to log into the PE hosts.  In this case, `username1` will be your SoC Unix username and `username2` will be your special exam account.
+Note that in non-exam scenarios, `username1` and `username2` are both your SoC Unix username.  You will be prompted for password twice.  The first prompt will be for your password to `sunfire`, and the second, to `pe1xx`.
+
+For practical exams, you will be issued a special exam account to log into the PE hosts.  In this case, `username1` will be your SoC Unix username and `username2` will be your special exam account.
 
 Students not in Singapore will need to access `sunfire` via SoC VPN.  In which case, Option 2 would be better.
 
