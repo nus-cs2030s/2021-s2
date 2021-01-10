@@ -366,12 +366,146 @@ class: middle, center
 ### Encapsulation: bundle related variables and functions together to create a _class_
 
 ---
+class: middle
+
+In Java, the keyword _class_ allows us to define a new class named _Circle_.
+
+```Java
+class Circle {
+    double x;
+    double y;
+    double r;
+}
+```
+
+---
+class: middle
+
+```Java
+class Circle {
+    double x;
+    double y;
+    double r;
+    
+    double getArea() {
+      return 3.1415926 * r * r;
+    }
+}
+```
+
+---
+class: middle
+
+In Java classes:
+
+ - Functions are known as _methods_
+ 
+ - The bundled data in the class are known as _fields_ (or members, or states, or attributes)
+
+---
+class: middle
+
+Objects are instances of a class.
+
+In Java, the keyword _new_ creates (or _instantiates_) an object of a given class.
+```Java
+Circle c = new Circle();
+```
+
+---
+class: middle
+
+Unlike before, we can now call the method _getArea_ on the Circle object rather than passing it to the method.
+```Java
+Circle c = new Circle();
+c.r = 10;
+double area = c.getArea();
+```
+
+---
+class: middle, center
+
+# Object-Oriented Programming (OOP)
+
+---
+class: middle
+
+A program written in an object-oriented language (such as Java) consists of classes, with one main class as the entry point.
+.small[
+```Java
+public static void main(String[] args)
+{
+    ...
+}
+```
+]
+
+---
+class: middle
+
+A program runs by instantiating objects of different classes.
+
+These objects interact with each other by calling each others' methods.
+
+---
+class: middle
+
+### An Example: Modelling a Bank
+
+Classes: BankAccount, Customer, Teller, ...
+
+Fields: balance, creditRating, accountNumber, ...
+
+Methods: withdrawal, deposit, loan, ...
+
+---
+class: middle
+###Java Reference Types
+
+Everything else that is not a primitive type. Our new Circle class is an example.
+
+---
+class: middle, wide
+A reference variable stores only the reference to the value not the value itself.
+```Java
+Circle c1 = new Circle();
+Circle c2 = c1;
+System.out.println(c2.r); // print 0
+c1.r = 10.0;
+System.out.println(c2.r); // print 10.0
+```
+
+---
+class: middle
+
+What about sub/supertype relationships among Java Reference Types?
+
+We will get there don't worry!
+
+---
+class: middle, wide
+
+What happens if we don't initialise our reference variable?
+
+```Java
+Circle c1;
+c1.r = 10.0;  // NullPointerException
+```
+
+All non-initialised variables will have the special reference value _null_.
+
+---
+class: middle, center
+
+## Demo
+
+---
 class: bottom
 
 .tiny[
 Version: v0.1
 
-Last Updated: ???
+Last Updated: 10/01/21
 ]
 </textarea>
 
