@@ -9,6 +9,8 @@ nav:
     - 5. Information Hiding: '05-infohiding.md'
     - 6. Tell, Don't Ask: '06-tell-dont-ask.md'
     - 7. Class Fields: '07-static-field.md'
+  - Slides:
+    - Lec 1. Introduction: 'slides/cs2030s-lec01.html'
   - Guide:
     - Programming Environments: 'environments.md'
 
