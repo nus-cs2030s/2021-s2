@@ -12,7 +12,7 @@ For this semester, the two servers `pe115` and `pe116` are not available.
 
 You can choose which of the eight hosts to use.  You share the same home directory across all the hosts (this home directory, however, is different from that of `sunfire`).  If you notice that one host is crowded, you can use another host to spread out the load.
 
-While you can complete the programming assignments on your computers, the practical exams are done in a controlled environment using servers similar to the PE hosts.  It is therefore advisable for you to familiarize yourself with accessing the PE servers via `ssh` and edit your program with either `vim`.
+While you can complete the programming assignments on your computers, the practical exams are done in a controlled environment using servers similar to the PE hosts.  It is therefore advisable for you to familiarize yourself with accessing the PE servers via `ssh` and edit your program with either `vim` or `emacs` (`vim` is recommended and supported).
 
 ## Basic Requirements
 
