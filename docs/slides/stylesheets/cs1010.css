@@ -37,9 +37,26 @@ h1, h2 {
 	font-family: 'Roboto Mono'; 
 	font-size: inherit;
 }
+
+.remark-inline-code { 
+	background-color: #181818;
+	font-size: 85%;
+	padding: .1em .4em;
+	border-radius: 10px;
+	margin: 0;
+}
+
+.remark-code { 
+	border-radius: 14px;
+}
+
 .remark-slide-content {
 	font-size: 30pt;
 	background-size: contain;
+}
+
+em {
+	color: #fdd;
 }
 .wide {
     padding: 1em 2em 1em 2em;

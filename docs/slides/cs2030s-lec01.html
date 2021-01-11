@@ -173,9 +173,9 @@ class: middle
 background-image: url(figures/vivian-dynamically-typed.png)
 
 ---
-class: middle
+class: middle,center
 
-### Java is a statically typed language.  
+### Java is a statically typed language.
 
 ---
 class: middle
@@ -368,7 +368,7 @@ class: middle, center
 ---
 class: middle
 
-In Java, the keyword _class_ allows us to define a new class named _Circle_.
+In Java, the keyword `class` allows us to define a new class named `Circle`.
 
 ```Java
 class Circle {
@@ -407,7 +407,7 @@ class: middle
 
 Objects are instances of a class.
 
-In Java, the keyword _new_ creates (or _instantiates_) an object of a given class.
+In Java, the keyword `new` creates (or _instantiates_) an object of a given class.
 ```Java
 Circle c = new Circle();
 ```
@@ -415,7 +415,7 @@ Circle c = new Circle();
 ---
 class: middle
 
-Unlike before, we can now call the method _getArea_ on the Circle object rather than passing it to the method.
+Unlike before, we can now call the method `getArea` on the `Circle` object rather than passing it to the method.
 ```Java
 Circle c = new Circle();
 c.r = 10;
@@ -430,19 +430,6 @@ class: middle, center
 ---
 class: middle
 
-A program written in an object-oriented language (such as Java) consists of classes, with one main class as the entry point.
-.small[
-```Java
-public static void main(String[] args)
-{
-    ...
-}
-```
-]
-
----
-class: middle
-
 A program runs by instantiating objects of different classes.
 
 These objects interact with each other by calling each others' methods.
@@ -452,17 +439,17 @@ class: middle
 
 ### An Example: Modelling a Bank
 
-Classes: BankAccount, Customer, Teller, ...
+Classes: `BankAccount`, `Customer`, `Teller`, ...
 
-Fields: balance, creditRating, accountNumber, ...
+Fields: `balance`, `creditRating`, `accountNumber`, ...
 
-Methods: withdrawal, deposit, loan, ...
+Methods: `withdraw`, `deposit`, `loan`, ...
 
 ---
 class: middle
 ###Java Reference Types
 
-Everything else that is not a primitive type. Our new Circle class is an example.
+Everything else that is not a primitive type. Our new `Circle` class is an example.
 
 ---
 class: middle, wide
@@ -492,7 +479,7 @@ Circle c1;
 c1.r = 10.0;  // NullPointerException
 ```
 
-All non-initialised variables will have the special reference value _null_.
+All non-initialised variables will have the special reference value `null`.
 
 ---
 class: middle, center
@@ -503,9 +490,9 @@ class: middle, center
 class: bottom
 
 .tiny[
-Version: v0.1
+Version: v1.0
 
-Last Updated: 10/01/21
+Last Updated: Mon Jan 11 11:40:12 +08 2021
 ]
 </textarea>
 
@@ -526,7 +513,7 @@ var slideshow = remark.create({
 	    scroll: false
 	},
 	ratio: '16:9',
-	highlightStyle: 'monokai',
+	highlightStyle: 'ir-black',
     slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
 });
  // Setup MathJax
