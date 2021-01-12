@@ -100,3 +100,17 @@ table thead {
 .fifty {
   flex: 50%;
 }
+
+/* print filling whole paper */
+@media print {
+  .remark-slide-scaler {
+    left: 5vw !important;
+    width: 90vw !important;
+    top: 5vh !important;
+    height: 90vh !important;
+    transform: scale(0.9) !important;
+  }
+  .remark-slide-content {
+    padding: 0em 0em 0em 0em;
+  }
+}
