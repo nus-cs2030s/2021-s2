@@ -35,11 +35,9 @@ In C, we define $\pi$ as a macro constant `M_PI`.  But how should we do this in 
 
 Another example is the method `sqrt()` that computes the square root of a given number.  `sqrt` is a general function that is not associated with any object as well.
 
-A solution to this is to associate these _global_ values and functions with a _class_ instead of with an _object_.  For instance. Java predefines a [`java.lang.Math`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Math.html) class[^1] that is populated with constants `PI` and `E` (for Euler's number $e$), along with a long list of mathematical functions.  To associate a method or a field with a class in Java, we declare them with the `static` keyword.  We can additionally add a keyword `final` to indicate that the value of the field will not change[^2].
+A solution to this is to associate these _global_ values and functions with a _class_ instead of with an _object_.  For instance. Java predefines a [`java.lang.Math`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Math.html) class[^1] that is populated with constants `PI` and `E` (for Euler's number $e$), along with a long list of mathematical functions.  To associate a method or a field with a class in Java, we declare them with the `static` keyword.  We can additionally add a keyword `final` to indicate that the value of the field will not change and `public` to indicate that the field is accessible from outside the class.  In short, the combination of `public static final` modifiers is used for constant values in Java.
 
 [^1]: The class `Math` is provided by the package `java.lang` in Java.  A package is simply a set of related classes (and interfaces, but I have not told you what is an interface yet).  To use this class, we need to add the line `import java.lang.Math` at the beginning of our program.
-
-[^2]: A `final` method refers to a method that cannot be _overridden_.  Do not worry for now if you don't understand what overriding a method means.
 
 ```Java
 class Math {
@@ -50,11 +48,11 @@ class Math {
 }
 ```
 
-We call these fields that are associated with a class as _class fields_, and fields that are associated with an object as _instance fields_.
+We call these `static` fields that are associated with a class as _class fields_, and fields that are associated with an object as _instance fields_.  Note that, a `static` class field needs not be `final` and it needs not be `public`.  Class fields are useful for storing pre-computed values or configuration parameters associated to a class rather than individual objects.
 
 ## Accessing Class Fields
 
-A class field behave just like a global variable and can be access in the code, anywhere the class can be accessed.  We have to, however, specify the _class name_.  To use the static class field `PI`, for instance, we have to say `java.lang.Math.PI`.
+A class field behaves just like a global variable and can be access in the code, anywhere the class can be accessed.  Since a class field is associated with a class rather than an object, we access it through its  _class name_.  To use the static class field `PI`, for instance, we have to say `java.lang.Math.PI`.
 ```Java
 	public double getArea() {
 	  return java.lang.Math.PI * this.r * this.r;
