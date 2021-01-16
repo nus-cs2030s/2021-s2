@@ -9,10 +9,19 @@ nav:
     - 5. Information Hiding: '05-infohiding.md'
     - 6. Tell, Don't Ask: '06-tell-dont-ask.md'
     - 7. Class Fields: '07-static-field.md'
+    - 8. Class Methods: '08-static-method.md'
+    - 9. Composition: '09-composition.md'
+    - 10. Inheritance: '10-inheritance.md'
+    - 11. Overriding: '11-overriding.md'
+    - 12. Polymorphism: '12-polymorphism.md'
   - Slides:
     - Lec 1. Introduction: 'slides/cs2030s-lec01.html'
   - Guide:
     - Programming Environments: 'environments.md'
+    - Using Unix CLI:
+       - Background: 'unix-background.md'
+       - Essentials: 'unix-essentials.md'
+       - Advanced: 'unix-advanced.md'
 
     #  - General: 
     #- About CS2030S: 'about.md'
