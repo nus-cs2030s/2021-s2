@@ -86,7 +86,7 @@ Then, we can save some typing and write:
 Now, let revise our `Circle` class to improve the code and make it a little more complete.  We now add in comments for each method and variable as well, as we always should.
 
 ```Java
-// version 0.5
+// version 0.4
 import java.lang.Math;
 
 /**
