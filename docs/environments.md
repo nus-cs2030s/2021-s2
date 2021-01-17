@@ -22,7 +22,7 @@ While you can complete the programming assignments on your computers, the practi
 
 3. You need a command-line `ssh` client.  Windows 10, macOS, and Linux users should already have it installed by default.
 
-For older versions of Windows, such as those used in the SoC's programming labs, you can check out [XShell 6](https://www.netsarang.com/products/xsh_overview.html) (free for home/school use), or [PuTTY](https://www.putty.org).  These are GUI-based programs so the command line instructions below do not apply.
+For older versions of Windows, such as those used in the SoC's programming labs, you can check out [XShell 6](https://www.netsarang.com/en/free-for-home-school/) (free for home/school use), or [PuTTY](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html).  These are GUI-based programs so the command line instructions below do not apply.
 
 ## Basic Command to SSH
 
