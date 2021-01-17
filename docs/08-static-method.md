@@ -62,7 +62,7 @@ will invoke the `main` method defined within the class `Hello` to kick start the
 
 The `main` method must be defined in the following way:
 ```Java
-public final static void main(String args[]) {
+public final static void main(String[] args) {
 }
 ```
 
