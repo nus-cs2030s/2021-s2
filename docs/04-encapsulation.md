@@ -53,13 +53,13 @@ Let's see how we can encapsulate the fields and methods associated together, usi
 ```Java
 // Circle v0.1
 class Circle {
-	double x;
-	double y;
-	double r;
+  double x;
+  double y;
+  double r;
 
-	double getArea() {
-	  return 3.141592653589793 * r * r;
-	}
+  double getArea() {
+    return 3.141592653589793 * r * r;
+  }
 }
 ```
 

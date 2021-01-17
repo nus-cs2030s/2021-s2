@@ -16,13 +16,13 @@ Without penetrating the abstraction barrier of `Circle`, we can do the following
 ```Java
 // version 0.1 (using composition)
 class ColoredCircle {
-	private Circle circle;
-	private Color color;
+  private Circle circle;
+  private Color color;
 
-	public ColoredCircle(Circle circle, Color color) {
-		this.circle = circle;
-		this.color = color;
-	}
+  public ColoredCircle(Circle circle, Color color) {
+    this.circle = circle;
+    this.color = color;
+  }
 }
 ```
 
@@ -35,17 +35,17 @@ A better alternative is to let `ColoredCircle` provide its own `getArea()` metho
 ```Java
 // version 0.2 (using composition)
 class ColoredCircle {
-	private Circle circle;
-	private Color color;
+  private Circle circle;
+  private Color color;
 
-	public ColoredCircle(Circle circle, Color color) {
-		this.circle = circle;
-		this.color = color;
-	}
+  public ColoredCircle(Circle circle, Color color) {
+    this.circle = circle;
+    this.color = color;
+  }
 
-	public double getArea() {
-		return circle.getArea();
-	}
+  public double getArea() {
+    return circle.getArea();
+  }
 }
 ```
 
@@ -62,12 +62,12 @@ We now show you how we can introduce this subtype relationship in Java, using th
 ```Java
 // version 0.3 (using inheritance)
 class ColoredCircle extends Circle {
-	private Color color;
+  private Color color;
 
-	public ColoredCircle(Point center, double radius, Color color) {
-		super(center, radius);  // call the parent's constructor
-		this.color = color;
-	}
+  public ColoredCircle(Point center, double radius, Color color) {
+    super(center, radius);  // call the parent's constructor
+    this.color = color;
+  }
 }
 ```
 
@@ -112,9 +112,9 @@ The difference between these implementations and the one you have seen in [Unit 
 When we start to consider methods encapsulated with each object, things start to break down. Consider a piece of code written as follows:
 ```Java
 void foo(Circle c, Point p) {
-	if (c.contains(p)) {
-		// do something
-	}
+  if (c.contains(p)) {
+    // do something
+  }
 }
 ```
 

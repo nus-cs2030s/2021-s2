@@ -14,43 +14,43 @@ The use of accessor and mutator methods is a bit controversial.   Suppose that w
 ```Java
 // Circle v0.4
 class Circle {
-	private double x;
-	private double y;
-	private double r;
+  private double x;
+  private double y;
+  private double r;
 
-	public Circle(double x, double y, double r) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
-	}
+  public Circle(double x, double y, double r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
 
-	public double getX() {
-		return this.x;
-	}
+  public double getX() {
+    return this.x;
+  }
 
-	public void setX(double x) {
-		this.x = x;
-	}
+  public void setX(double x) {
+    this.x = x;
+  }
 
-	public double getY() {
-		return this.y;
-	}
+  public double getY() {
+    return this.y;
+  }
 
-	public void setY(double y) {
-		this.y = y;
-	}
+  public void setY(double y) {
+    this.y = y;
+  }
 
-	public double getR() {
-		return this.r;
-	}
+  public double getR() {
+    return this.r;
+  }
 
-	public void setR(double r) {
-		this.r = r;
-	}
+  public void setR(double r) {
+    this.r = r;
+  }
 
-	public double getArea() {
-		return 3.141592653589793 * this.r * this.r;
-	}
+  public double getArea() {
+    return 3.141592653589793 * this.r * this.r;
+  }
 }
 ```
 
@@ -59,17 +59,17 @@ class Circle {
 The mutators and accessors above are pretty pointless.  If we need to know the internal and do something with it, then we are breaking the abstraction barrier.  The right approach is to implement a method within the class that does whatever we want the class to do.   For instance, suppose that we want to check if a given point (x,y) calls within the circle, one approach would be:
 
 ```Java
-   double cX = c.getX();
-   double cY = c.getY();
-   double r = c.getR();
-   boolean isInCircle = ((x - cX) * (x - cX) + (y - cY) * (y - cY)) <= r * r;
+double cX = c.getX();
+double cY = c.getY();
+double r = c.getR();
+boolean isInCircle = ((x - cX) * (x - cX) + (y - cY) * (y - cY)) <= r * r;
 ```
 
 where `c` is a `Circle` object.
 
 A better approach would be to add a new `boolean` method in the `Circle` class, and call it instead:
 ```Java
-   boolean isInCircle = c.contain(x, y);
+boolean isInCircle = c.contain(x, y);
 ```
 
 The better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact.  If one fine day, the implementer of `Circle` decided to change the representation of the circle and remove the direct accessors to the fields, then only the implementer needs to change the implementation of `contain`.  The client does not have to change anything.  

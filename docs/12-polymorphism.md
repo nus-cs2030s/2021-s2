@@ -36,9 +36,9 @@ Before we get into this in more detail, let consider overriding `Object::equals`
 `Object::equals` compares if two object references refer to the same object.  Suppose we have:
 
 ```Java
-    Circle c0 = new Circle(new Point(0, 0), 10);
-    Circle c1 = new Circle(new Point(0, 0), 10);
-    Circle c2 = c1;
+Circle c0 = new Circle(new Point(0, 0), 10);
+Circle c1 = new Circle(new Point(0, 0), 10);
+Circle c2 = c1;
 ```
 
 `c2.equals(c1)` returns `true`, but `c0.equals(c1)` returns `false`.  Even though `c0` and `c1` are _semantically_ the same, they refer to the two different objects.
@@ -137,12 +137,12 @@ Let's consider the following example.  Suppose we have a general `contains` meth
 ```Java
 // version 0.1 (with polymorphism)
 boolean contains(Object array[], Object obj) {
-	for (Object curr : array) {
-		if (curr.equals(obj)) {
-			return true;
-		}
-	}
-	return false;
+  for (Object curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
 }
 ```
 
@@ -154,23 +154,23 @@ To have a generic `contains` method without polymorphism and overriding, we will
 ```Java
 // version 0.2 (without polymorphism)
 boolean contains(Object array[], Object obj) {
-	for (Object curr : array) {
-		if (obj instanceof Circle) {
-			if (array.equals((Circle)obj)) {
-				return true;
-			}
-		} else if (obj instanceof Square) {
-			if (array.equals((Square)obj)) {
-				return true;
-			}
-		} else if (obj instanceof Point) {
-			if (array.equals((Point)obj)) {
-				return true;
-			}
-		}
-		 :
-	}
-	return false;
+  for (Object curr : array) {
+    if (obj instanceof Circle) {
+      if (array.equals((Circle)obj)) {
+        return true;
+      }
+    } else if (obj instanceof Square) {
+      if (array.equals((Square)obj)) {
+        return true;
+      }
+    } else if (obj instanceof Point) {
+      if (array.equals((Point)obj)) {
+        return true;
+      }
+    }
+     :
+  }
+  return false;
 }
 ```
 

@@ -46,8 +46,8 @@ class Circle {
    * Return true if the given point p is within the circle.
    */
   public boolean contains(Point p) {
-    return false;
 	// TODO: Left as an exercise
+    return false;
   }
 }
 ```
@@ -62,14 +62,14 @@ Now let's build up another layer of abstraction and construct a 3D object -- a c
 
 ```Java
 class Cylinder {
-	private Circle base;
-	private double height;
+  private Circle base;
+  private double height;
 
-	public Cylinder(Circle base, double height) {
-		this.base = base;
-		this.height = height;
-	}
-	// :
+  public Cylinder(Circle base, double height) {
+    this.base = base;
+    this.height = height;
+  }
+    :
 }
 ```
 

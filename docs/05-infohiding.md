@@ -24,13 +24,13 @@ In our original `Circle` class (v0.1) in [Unit 4](04-encapsulation.md), we did n
 ```Java
 // Circle v0.2
 class Circle {
-	private double x;
-	private double y;
-	private double r;
+  private double x;
+  private double y;
+  private double r;
 
-	public double getArea() {
-	  return 3.141592653589793 * r * r;
-	}
+  public double getArea() {
+    return 3.141592653589793 * r * r;
+  }
 }
 ```
 

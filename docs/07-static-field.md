@@ -13,19 +13,19 @@ Let's revisit the following implementation of `Circle`.
 ```Java
 // Circle v0.3
 class Circle {
-	private double x;
-	private double y;
-	private double r;
+  private double x;
+  private double y;
+  private double r;
 
-	public Circle(double x, double y, double r) {
-		this.x = x;
-		this.y = y;
-		this.r = r;
-	}
+  public Circle(double x, double y, double r) {
+    this.x = x;
+    this.y = y;
+    this.r = r;
+  }
 
-	public double getArea() {
-	  return 3.141592653589793 * this.r * this.r;
-	}
+  public double getArea() {
+    return 3.141592653589793 * this.r * this.r;
+  }
 }
 ```
 
