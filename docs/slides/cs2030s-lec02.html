@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
 
 <!-- CHANGE TITLE -->
-<title>CS2030S AY20/21 S2 Lecture 1</title>
+<title>CS2030S AY20/21 S2 Lecture 2</title>
 <meta charset="utf-8">
 </head>
 <body>
@@ -54,20 +54,62 @@ class: top,center
 ## Aliasing
 
 ---
-class: top,center
+class: middle,center
 
 ## Inheritance
 
----
-class: top,center
-
+In Java, we use the `extends` keyword.
 
 ---
-class: top,center
+class: middle,wide
 
 ## Run-Time Type
 
+If `ColoredCircle` $<:$ `Circle`
 
+.small[```Java
+ColoredCircle c = new Circle(p, 0); // error
+Circle c = new ColoredCircle(p, 0, blue); // OK
+```]
+
+---
+class: middle,center
+
+## java.lang.Object
+
+###The mother of all classes!
+
+Now a chance to have a look at the [java documentation!](https://docs.oracle.com/en/java/javase/11/docs/api/index.html)
+
+---
+class: middle,center
+
+## java.lang.Object
+
+We will discuss two methods:
+
+`toString()`
+
+`equals(Object obj)`
+
+---
+class: middle,center
+
+## Overriding
+
+`@Override`
+---
+class: middle,center
+
+# Polymorphism
+
+### _many_ _forms_
+---
+class: middle,center
+
+# Polymorphism
+
+### _many_ _forms_
 
 ---
 class: bottom

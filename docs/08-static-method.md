@@ -68,4 +68,4 @@ public final static void main(String args[]) {
 
 You have learned what `public` and `static` means.  The return type `void` indicates that `main` must not return a value.  We have discussed what `final` means on a field, but are not ready to explain what `final` means on a method yet.
 
-`main` takes in an array (`[]`) of strings as parameters.  These are the command-line arguments that we can pass in when invoking `java`.  [`String`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html) (or `java.lang.String`) is another class provided by the Java library that encapsulates a sequence of characters.
+The `main` method takes in an array (`[]`) of strings as parameters.  These are the command-line arguments that we can pass in when invoking `java`.  [`String`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/String.html) (or `java.lang.String`) is another class provided by the Java library that encapsulates a sequence of characters.
