@@ -50,7 +50,7 @@ class Circle {
 
 	public double getArea() {
 		return 3.141592653589793 * this.r * this.r;
-	};
+	}
 }
 ```
 
