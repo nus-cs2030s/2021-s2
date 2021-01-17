@@ -74,9 +74,9 @@ class Cylinder {
 ```
 
 
-## Sharing References
+## Sharing References (aka Aliasing)
 
-Recall that unlike primitive types, reference types may share the same reference values.  Let's look at the subtleties of how this could affect our code and catch us by surprise.
+Recall that unlike primitive types, reference types may share the same reference values.  +This is called _aliasing_.+  Let's look at the subtleties of how this could affect our code and catch us by surprise.
 
 Consider the following, where we create two circles `c1` and `c2` centered at the origin (0, 0).
 ```Java
