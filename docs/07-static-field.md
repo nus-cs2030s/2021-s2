@@ -54,9 +54,9 @@ We call these `static` fields that are associated with a class as _class fields_
 
 A class field behaves just like a global variable and can be access in the code, anywhere the class can be accessed.  Since a class field is associated with a class rather than an object, we access it through its  _class name_.  To use the static class field `PI`, for instance, we have to say `java.lang.Math.PI`.
 ```Java
-	public double getArea() {
-	  return java.lang.Math.PI * this.r * this.r;
-	};
+public double getArea() {
+  return java.lang.Math.PI * this.r * this.r;
+}
 ```
 
 A more common way, however, is to use `import` statements at the top of the program.  If we have this line:
@@ -66,9 +66,9 @@ import java.lang.Math;
 
 Then, we can save some typing and write:
 ```Java
-	public double getArea() {
-	  return Math.PI * this.r * this.r;
-	};
+public double getArea() {
+  return Math.PI * this.r * this.r;
+}
 ```
 
 !!! note "Class Fields and Methods in Python"
