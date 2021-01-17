@@ -31,7 +31,7 @@ class Circle {
 
 In the code above, we use the constant $\pi$ but hardcoded it as 3.141592653589793.  Hardcoding such a magic number is a _no-no_ in terms of coding style.  This constant can appear in more than one places. If we hardcode such a number and want to change its precision later, we would need to trace down and change every occurrence.  Every time we need to use $\pi$, we have to remember or look up what is the precision that we use.  Not only does this practice introduce more work, it is also likely to introduce bugs.  
 
-In C, we define $\pi$ as a macro constant `M_PI`.  But how should we do this in Java?  This is where the ideal that a program consists of only objects with internal states that communicate with each other feel a bit constraining.  The constant $\pi$ is universal, and does not really belong to any object (the value of $\pi$ is the same for every circle!).  
+In C, we define $\pi$ as a macro constant `M_PI`.  But how should we do this in Java?  This is where the ideal that a program consists of only objects with internal states that communicate with each other can feel a bit constraining.  The constant $\pi$ is universal, and does not really belong to any object (the value of $\pi$ is the same for every circle!).  
 
 Another example is the method `sqrt()` that computes the square root of a given number.  `sqrt` is a general function that is not associated with any object as well.
 
@@ -48,11 +48,11 @@ class Math {
 }
 ```
 
-We call these `static` fields that are associated with a class as _class fields_, and fields that are associated with an object as _instance fields_.  Note that, a `static` class field needs not be `final` and it needs not be `public`.  Class fields are useful for storing pre-computed values or configuration parameters associated to a class rather than individual objects.
+We call these `static` fields that are associated with a class as _class fields_, and fields that are associated with an object as _instance fields_.  Note that, a `static` class field needs not be `final` and it needs not be `public`.  Class fields are useful for storing pre-computed values or configuration parameters associated with a class rather than individual objects.
 
 ## Accessing Class Fields
 
-A class field behaves just like a global variable and can be access in the code, anywhere the class can be accessed.  Since a class field is associated with a class rather than an object, we access it through its  _class name_.  To use the static class field `PI`, for instance, we have to say `java.lang.Math.PI`.
+A class field behaves just like a global variable and can be accessed in the code, anywhere the class can be accessed.  Since a class field is associated with a class rather than an object, we access it through its  _class name_.  To use the static class field `PI`, for instance, we have to say `java.lang.Math.PI`.
 ```Java
 public double getArea() {
   return java.lang.Math.PI * this.r * this.r;

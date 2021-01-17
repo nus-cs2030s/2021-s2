@@ -49,7 +49,7 @@ class ColoredCircle {
 }
 ```
 
-Then, the client to `ColoredCircle` can just call `#!Java coloredCircle.getArea()` without knowing or needing to know how a colored circle is represented internally.  The drawback of this approach is that we might end up with many boilerplate forwarding methods.
+Then, the client to `ColoredCircle` can just call `#!Java coloredCircle.getArea()` without knowing or needing to know how a colored circle is represented internally.  The drawback of this approach is that we might end up with many such boilerplate forwarding methods.
 
 ## Extension with Inheritance
 
@@ -118,9 +118,9 @@ void foo(Circle c, Point p) {
 }
 ```
 
-Since `Cylinder` is a subtype of `Point` according to the implementation above, the code above should still work also if we replace `Point` with a `Cylinder` (according to the semantic of subtyping).   But it gets weird -- what is the meaning of a `Circle` (in 2D) contain a Cylinder (in 3D)?  We could come up with a convoluted meaning that explains this, but it is likely not what the original implementer of `foo` expects.
+Since `Cylinder` is a subtype of `Point` according to the implementation above, the code above should still work also if we replace `Point` with a `Cylinder` (according to the semantic of subtyping).   But it gets weird -- what is the meaning of a `Circle` (in 2D) containing a Cylinder (in 3D)?  We could come up with a convoluted meaning that explains this, but it is likely not what the original implementer of `foo` expects.
 
-The message here is this: _Use composition to model has-a relationship; inheritance for is-a relationship_.  _Make sure inheritance preserves the meaning of subtyping_.  
+The message here is this: _Use composition to model a has-a relationship; inheritance for a is-a relationship_.  _Make sure inheritance preserves the meaning of subtyping_.  
 
 ## Run-Time Type
 

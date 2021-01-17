@@ -12,7 +12,7 @@ After reading this unit, students should
 
 ## `Object` and `String`
 
-In Java, every class that does not extend another class inherits from the [class `Object`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html) implicitly.  `Object` is, therefore, the "ancestors" of all classes in Java and is at the root of the class hierarchy.
+In Java, every class that does not extend another class inherits from the [class `Object`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/lang/Object.html) implicitly.  `Object` is, therefore, the "ancestor" of all classes in Java and is at the root of the class hierarchy.
 
 The `Object` class does not encapsulate anything in particular.  It is a very general class that provides useful methods common to all objects.  The two useful ones that we are going to spend time with are:
 
@@ -31,7 +31,7 @@ Circle c = new Circle(new Point(0, 0), 4.0);
 String s = "Circle c is " + c;
 ```
 
-You will see that `s` now contains the string "Circle c is Circle@1ce92674` (the seemingly gibberish after `@` is the reference to the object and so your result will be different).
+You will see that `s` now contains the string "Circle c is Circle@1ce92674 " (the seemingly gibberish text after @` is the reference to the object and so your result will be different).
 
 What happened here is that the `+` operator sees that one of the operands is a string but the other is not, so it converts the one that is not a string to a string by calling its `toString()` method automatically for us.  This is equivalent to[^1]
 ```Java
@@ -39,7 +39,7 @@ Circle c = new Circle(new Point(0, 0), 4.0);
 String s = "Circle c is " + c.toString();
 ```
 
-[^1]: Calling `toString` explicit is not wrong, but we usually omit the call to keep the code readable and succinct.
+[^1]: Calling `toString` explicitly is not wrong, but we usually omit the call to keep the code readable and succinct.
 
 Recall that in our `Circle` class (up to version 0.5) we do not have any `toString` method.  The `toString` method that we invoked here is the `toString` method inherited from its parent `Object`.
 
@@ -94,7 +94,7 @@ class Circle {
 }
 ```
 
-The body of the method `toString` simply constructs a string representation for this circle object and returns.  With this `toString` implemented, the output will look something like this:
+The body of the method `toString` simply constructs a string representation for this circle object and returns it.  With this `toString` implemented, the output will look something like this:
 ```
 Circle c is { center: (0.0, 0.0), radius: 4.0 }
 ```
