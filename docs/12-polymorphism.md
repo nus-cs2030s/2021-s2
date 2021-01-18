@@ -86,7 +86,7 @@ class Circle {
    */
   @Override
   public String toString() {
-	  return "{ center: " + this.c + ", radius:" + this.r + " }";
+	  return "{ center: " + this.c + ", radius: " + this.r + " }";
   }
 
   /**

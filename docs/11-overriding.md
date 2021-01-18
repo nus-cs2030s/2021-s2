@@ -89,7 +89,7 @@ class Circle {
    */
   @Override
   public String toString() {
-	  return "{ center: " + this.c + ", radius:" + this.r + " }";
+	  return "{ center: " + this.c + ", radius: " + this.r + " }";
   }
 }
 ```
@@ -122,6 +122,6 @@ It is therefore recommended and expected that all overriding methods in your cod
     ```Java
     @Override
     public String toString() {
-	  return super.toString() + " { center: " + this.c + ", radius:" + this.r + " }";
+	  return super.toString() + " { center: " + this.c + ", radius: " + this.r + " }";
     }
     ```
