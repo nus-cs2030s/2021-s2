@@ -22,6 +22,8 @@ nav:
        - Background: 'unix-background.md'
        - Essentials: 'unix-essentials.md'
        - Advanced: 'unix-advanced.md'
+    - Using Vim: 'vim.md'
+    - Java Style Guide: 'style.md'
 
     #  - General: 
     #- About CS2030S: 'about.md'
