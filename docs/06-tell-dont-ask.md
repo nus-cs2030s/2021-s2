@@ -69,10 +69,10 @@ where `c` is a `Circle` object.
 
 A better approach would be to add a new `boolean` method in the `Circle` class, and call it instead:
 ```Java
-boolean isInCircle = c.contain(x, y);
+boolean isInCircle = c.contains(x, y);
 ```
 
-The better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact.  If one fine day, the implementer of `Circle` decided to change the representation of the circle and remove the direct accessors to the fields, then only the implementer needs to change the implementation of `contain`.  The client does not have to change anything.  
+The better approach involves writing a few more lines of code to implement the method, but it keeps the encapsulation intact.  If one fine day, the implementer of `Circle` decided to change the representation of the circle and remove the direct accessors to the fields, then only the implementer needs to change the implementation of `contains`.  The client does not have to change anything.  
 
 The principle around which we can think about this is the "Tell, Don't Ask" principle.  The client should tell a `Circle` object what to do (compute the circumference), instead of asking "what is your radius?" to get the value of a field then perform the computation on the object's behalf.
 
