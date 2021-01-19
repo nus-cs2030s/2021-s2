@@ -156,15 +156,15 @@ To have a generic `contains` method without polymorphism and overriding, we will
 boolean contains(Object array[], Object obj) {
   for (Object curr : array) {
     if (obj instanceof Circle) {
-      if (array.equals((Circle)obj)) {
+      if (curr.equals((Circle)obj)) {
         return true;
       }
     } else if (obj instanceof Square) {
-      if (array.equals((Square)obj)) {
+      if (curr.equals((Square)obj)) {
         return true;
       }
     } else if (obj instanceof Point) {
-      if (array.equals((Point)obj)) {
+      if (curr.equals((Point)obj)) {
         return true;
       }
     }
