@@ -90,7 +90,13 @@ If you accidentally break your repo by running `git` commands on it or edit it d
 
 ### Grace Period
 
-You have until Lab 2 to get familiarize with the procedure above.  From Lab 3 onwards, we will not entertain requests or appeals for students who failed to follow the procedure (e.g., forgot to run the `submit` command, submitted the wrong lab).
+You have until Lab 2 to get familiarize with the procedure above.  From Lab 3 onwards, we will not entertain requests or appeals for students who failed to follow the procedure (e.g., forgot to run the `submit` command, submitted the wrong lab, wrong password).
+
+### Authenticating to GitHub with SSH
+
+By default, GitHub uses password for authentication.  So, upon running `get-labX` or `submit-labX`, you will be prompted for your GitHub password.  An alternative is to use SSH to connect to GitHub.  You can refer to this [GitHub help page](https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) for setup instructions.  
+
+If your GitHub account has 2FA enabled, SSH is the recommended method for authenticating yourself to GitHub.
 
 ## Lab Timeline
 
