@@ -4,7 +4,6 @@ After taking this unit, students should:
 
 - understand interface as a type for modeling "can do" behavior
 - understand the subtype-supertype relationship between a class and its interfaces
--
 
 ## Modeling Behavior
 
