@@ -86,7 +86,7 @@ It should print your GitHub username as already set. If there is a typo, you nee
 
 If it is not clear to you by now, let us repeat: You should only interact with your lab submissions on GitHub using the provided scripts `get-labX` and `submit-labX`.  Failure to do so will break our workflow and will not be appreciated.
 
-If you accidentally break your repo by running `git` commands on it or edit it directly on GitHub, you should save a copy of your code elsewhere, then reset your lab directory, by (i) deleting the repo on GitHub, (ii) deleting the corrupted lab directory on PE nodes, (iii) go through Steps 1 and 2 again, then copy back your edited code into the lab directory.
+If you accidentally break your repo by running `git` commands on it or edit it directly on GitHub, you should save a copy of your code elsewhere, then reset your lab directory, by (i) {--deleting--} {++requesting your tutor to delete++} the repo on GitHub, (ii) deleting the corrupted lab directory on PE nodes, (iii) go through Steps 1 and 2 again, then copy back your edited code into the lab directory.
 
 ### Grace Period
 
