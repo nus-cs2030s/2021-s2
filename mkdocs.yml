@@ -14,6 +14,9 @@ nav:
     - 10. Inheritance: '10-inheritance.md'
     - 11. Overriding: '11-overriding.md'
     - 12. Polymorphism: '12-polymorphism.md'
+    - 13. Liskov Substitution Principle: '13-lsp.md'
+    - 14. Abstract Class: '14-abstract.md'
+    - 15. Interface: '15-interface.md'
   - Slides:
     - Lec 1. Introduction: 'slides/cs2030s-lec01.html'
   - Guide:
