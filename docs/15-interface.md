@@ -24,7 +24,7 @@ double findLargest(Shape[] array) {
 }
 ```
 
-Note that all that is required for this method to work, is that the type of objects in `array` supports a `getArea` method.  While `Shape` that we defined in the previous unit meets this requirement, it does not have to be.  We could pass in an array of countries or an array of HDB flats.  It is unnatural to model a `Country` or a `Flat` as a subclass of `Shape` (recall inheritance models IS-A relationship).
+Note that all that is required for this method to work, is that the type of objects in `array` supports a `getArea` method.  While `Shape` that we defined in the previous unit meets this requirement, it does not have to be.  We could pass in an array of countries or an array of HDB flats.  It is unnatural to model a `Country` or a `Flat` as a subclass of `Shape` (recall inheritance models the IS-A relationship).
 
 To resolve this, we will look at an abstraction that models what can an entity do, possibly across different class hierarchies.
 
@@ -32,7 +32,7 @@ To resolve this, we will look at an abstraction that models what can an entity d
 
 The abstraction to do this is called an _interface_.  An interface is also a type and is declared with the keyword `interface`.
 
-Since interface models what an entity can do, the name usually ends with the -able suffix[^1].
+Since an interface models what an entity can do, the name usually ends with the -able suffix[^1] .
 
 Suppose we want to create a type that supports the` getArea()` method, be it a shape, a geographical region, or a real estate property.  Let's call it `GetAreable`:
 ```Java
@@ -116,6 +116,6 @@ Suppose that, after we define that `GetAreable` interface, other developers in t
 
 This is what happened to the Java language when they transitted from version 7 to version 8.  The language needed to add a bunch of useful methods to standard interfaces provided by the Java library, but doing so would break existing code in the 1990s that rely on these interfaces.
 
-The solution that Java came up with is the allow an interface to provide a default implementation of methods that all implementation subclasses will inherit (unless they override).  A method with default implementation is tagged with the `default` keyword.  This leads to a less elegant situation where an `interface` has some abstract methods and some non-abstract default methods.  In CS2030S, we refer to this as _impure interfaces_ and it is a pain to explain since it breaks our clean distinction between a class and an interface.  We prefer not to talk about it -- but it is there in Java 8 or later.
+The solution that Java came up with is the allow an interface to provide a default implementation of methods that all implementation subclasses will inherit (unless they override).  A method with default implementation is tagged with the `default` keyword.  This leads to a less elegant situation where an `interface` has some abstract methods and some non-abstract default methods.  In CS2030S, we refer to this as _impure interfaces_ and it is a pain to explain since it breaks our clean distinction between a class and an interface.  _We prefer not to talk about it_ -- but it is there in Java 8 and up.
 
-[^1] Although in recent Java releases, this is less common.    
+[^1]: Although in recent Java releases, this is less common.    

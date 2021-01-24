@@ -8,7 +8,7 @@ After reading this unit, students should
 
 ## Taking on Many Forms
 
-Method overriding enables _polymorphism_, the fourth and the last pillar of OOP, and arguably the most powerful one.  It allows us to change how existing code behaves, without changing a single of the existing code (or even have access to the code).
+Method overriding enables _polymorphism_, the fourth and the last pillar of OOP, and arguably the most powerful one.  It allows us to change how existing code behaves, without changing a single line of the existing code (or even having access to the code).
 
 Consider the function `say` below:
 ```Java
