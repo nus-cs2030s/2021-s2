@@ -1,6 +1,7 @@
 # Unit 13: Liskov Substitution Principle
 
 After this unit, the student should:
+
 - understand the type of bugs that reckless developers can introduce when using inheritance and polymorphism
 - understand the Liskov Substitution Principle and thus be aware that not all IS-A relationship should be modeled with inheritance
 - know how to explicitly disallow inheritance when writing a class or disallow overriding with the `final` keyword
