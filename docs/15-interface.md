@@ -104,7 +104,7 @@ Note:
 
 ## Interface as Supertype
 
-If a class $C$ implements an interface $I$, $C <: I$.   This definition implies that a type can be multiple supertypes.  
+If a class $C$ implements an interface $I$, $C <: I$.   This definition implies that a type can have multiple supertypes.
 
 In the example above, `Flat` <: `GetAreable` and `Flat` <: `RealEstate`.
 
