@@ -25,7 +25,7 @@ The method served our purpose well, but it is NOT a very well-designed method.  
 
 Let's write our `findLargest` method to find which object has the largest area instead.  
 
-```Java hl_line="2 4 9 12"
+```Java hl_lines="2 4 9 12"
 // version 0.4
 GetAreable findLargest(GetAreable[] array) {
   double maxArea = 0;
