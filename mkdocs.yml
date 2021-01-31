@@ -18,6 +18,9 @@ nav:
     - 14. Abstract Class: '14-abstract.md'
     - 15. Interface: '15-interface.md'
     - 16. Wrapper Class: '16-wrapper.md'
+    - 17. Casting: '17-casting.md'
+    - 18. Variance: '18-variance.md'
+    - 19. Exception: '19-exception.md'
   - Guide:
     - Programming Environments: 'environments.md'
     - Using Unix CLI:
