@@ -1,5 +1,13 @@
 # Unit 19: Exceptions
 
+After this unit, students should:
+
+- understand about handling java exceptions and how to use the `try`-`catch`-`finally` blocks
+- understand the hierarchy of exception classes and the difference between checked and unchecked exceptions
+- be able to create their own exceptions
+- understand the control flow of exceptions
+- be aware of good practices for exception handling
+
 One of the nuances of programming is having to write code to deal with exceptions and errors. Consider writing a method that reads in a single integer value from a file.  Here are some things that could go wrong:
 
 - The file to read from may not exist
@@ -36,7 +44,7 @@ if (scanned == EOF) {
 }
 ```
 
-Out of the lines above, only TWO lines correspond to the actual tasks, the others are for exception checking/handling.  The actual tasks are interspersed between exception checking code, making reading and understanding the logic of the code difficult.
+Out of the lines above, only TWO lines correspond to the actual task of opening and reading in a file, the others are for exception checking/handling.  The actual tasks are interspersed between exception checking code, which makes reading and understanding the logic of the code difficult.
 
 The examples above also have to return different values to the calling method, because the calling method may have to do something to handle the errors. Note that the POSIX API has a global variable `errno` that signifies the detailed error. First, we have to check for different `errno` values and react accordingly (we can use `perror`, but that has its limits). Second, `errno` is global, and using a global variable is a bad practice.  In fact, the code above might not work because `fprintf` in Line 3 might have changed `errno`.
 
@@ -122,11 +130,11 @@ catch (FileNotFoundException | InputMismatchException | NoSuchElementException e
 }
 ```
 
-## Throwing Exception
+## Throwing Exceptions
 
-The `try`-`catch`-`finally` blocks above show you how to _handle_ exception.  Let's see how we can throw an exception.  Let's revisit our `Circle` class.  A circle cannot have a negative radius.  Let's say that we wish our constructor to throw an `IllegalArgumentException` when a negative radius is passed in.  
+The `try`-`catch`-`finally` blocks above show you how to _handle_ exceptions.  Let's see how we can throw an exception.  Let's revisit our `Circle` class.  A circle cannot have a negative radius.  Let's say that we wish our constructor to throw an `IllegalArgumentException` when a negative radius is passed in.  
 
-We need to do two things.  First, we need to declare that the construct is throwing an exception, with the `throws` keyword.  Second, we have to create a new IllegalArgumentException object and throw it to the caller with the `throw` keywords.
+We need to do two things.  First, we need to declare that the construct is throwing an exception, with the `throws` keyword.  Second, we have to create a new `IllegalArgumentException` object and throw it to the caller with the `throw` keywords.
 
 ```Java
   public Circle(Point c, double r) throws IllegalArgumentException {
@@ -139,7 +147,7 @@ We need to do two things.  First, we need to declare that the construct is throw
 }
 ```
 
-Note that executing the `throw` statement causes the method to immediately returns.  In the example above, the initialization of the center `c` and radius `r` does not happen.
+Note that executing the `throw` statement causes the method to immediately return.  In the example above, the initialization of the center `c` and radius `r` does not happen.
 
 The caller then can catch and handle this exception:
 ```Java
@@ -154,15 +162,15 @@ try {
 
 Java distinguishes between two types of exceptions: checked and unchecked.  
 
-An unchecked exception is an exception caused by a programmer's errors.  They should not happen if a perfect code is written.  `IllegalArgumentException`, `NullPointerException`, `ClassCastException` are examples of unchecked exception.  Generally, unchecked exceptions are not explicitly caught or thrown.  They indicate that something is wrong with the program and cause run-time errors.
+An unchecked exception is an exception caused by a programmer's errors.  They should not happen if perfect code is written.  `IllegalArgumentException`, `NullPointerException`, `ClassCastException` are examples of unchecked exceptions.  Generally, unchecked exceptions are not explicitly caught or thrown.  They indicate that something is wrong with the program and cause run-time errors.
 
-A checked exception is an exception that a programmer has no control over.  Even if the code is written is perfect, such an exception might still happen.  The programmer should thus actively anticipate the exception and handle them.  For instance, when we open a file, we should anticipate that in some cases, the file cannot be opened.  `FileNotFoundException` and `InputMismatchException` are two examples of checked exceptions.  A checked exception must be either handled, or else the program will not compile.
+A checked exception is an exception that a programmer has no control over.  Even if the code written is perfect, such an exception might still happen.  The programmer should thus actively anticipate the exception and handle them.  For instance, when we open a file, we should anticipate that in some cases, the file cannot be opened.  `FileNotFoundException` and `InputMismatchException` are two examples of checked exceptions.  A checked exception must be either handled, or else the program will not compile.
 
 In Java, unchecked exceptions are subclasses of the class `RuntimeException`.
 
-## Passing the Bucket
+## Passing the Buck
 
-The caller of the method that generates (i.e., `new` and `throws`) an exception needs not catches the exception.  The caller can pass the exception to its caller, and so on if the programmer deems that it is not the right place to handle it.  
+The caller of the method that generates (i.e., `new` and `throws`) an exception need not catch the exception.  The caller can pass the exception to its caller, and so on if the programmer deems that it is not the right place to handle it.  
 
 An unchecked exception, if not caught, will propagate automatically down the stack until either, it is caught or if it is not caught at all, resulting in an error message displayed to the user.
 
@@ -213,7 +221,7 @@ class Toy {
 }
 ```
 
-Alternatively, `openFile` can pass the bucket to the caller instead of catching it.  
+Alternatively, `openFile` can pass the buck to the caller instead of catching it.  
 ```Java
 // version 0.3 (passing exception to caller)
 class Toy {
@@ -245,13 +253,13 @@ class Toy {
 }
 ```
 
-In the code above, every method passes the bucket around.  No one takes the responsibility to handle it and the user ends up with the exception.  The ugly internals of the program (such as the call stack) is then revealed to the user.
+In the code above, every method passes the buck around.  No one takes the responsibility to handle it and the user ends up with the exception.  The ugly internals of the program (such as the call stack) is then revealed to the user.
 
 _A good program always handle checked exception gracefully_ and hide the details from the users.  
 
-## Control Flow of Exception
+## Control Flow of Exceptions
 
-Here is a more detailed description of the control flow of exceptions. Consider we have a try-catch-finally block that catches two exceptions E1 and E2. Inside the try block, we call a method m1(); m1() calls m2(); m2() calls m3(), and m3() calls m4().
+Here is a more detailed description of the control flow of exceptions. Consider we have a `try`-`catch`-`finally` block that catches two exceptions `E1` and `E2`. Inside the try block, we call a method `m1()`; `m1()` calls `m2()`; `m2()` calls `m3()`, and `m3()` calls `m4()`.
 
 ![control flow](figures/exceptions/exceptions.001.png)
 
@@ -288,7 +296,7 @@ void m3() {
 
 void m4() {
 	:
-	throws new E2();
+	throw new E2();
 	:
 }
 ```
@@ -299,14 +307,14 @@ In a normal (no exception) situation, the control flow looks like this:
 
 The statements in the try block are executed, followed by the statements in the `finally` block.
 
-Now, let's suppose something went wrong deep inside the nested call, in `m4()`. One of the statement executes `throws new E2();`, which causes the execution in `m4()` to stop. JVM now looks for the block of code that catches `E2`, going down the call stack, until it can find a place where the exception is handled. In this example, we suppose that none of `m1()`-`m4()` handles (i.e., `catch`) the exception. Thus, JVM then jumps to the code that handles `E2`. Finally, JVM executes the `finally` block.
+Now, let's suppose something went wrong deep inside the nested call, in `m4()`. One of the statement executes `throw new E2();`, which causes the execution in `m4()` to stop. JVM now looks for the block of code that catches `E2`, going down the call stack, until it can find a place where the exception is handled. In this example, we suppose that none of `m1()`-`m4()` handles (i.e., `catch`) the exception. Thus, JVM then jumps to the code that handles `E2`. Finally, JVM executes the `finally` block.
 
 Note that the `finally` block is always executed even when return or throw is called in a catch block.
 
 ![control flow](figures/exceptions/exceptions.003.png)
 
 
-## Creating Our Own Exception
+## Creating Our Own Exceptions
 
 If you find that none of the exceptions provided by Java meet your needs, you can create your own exceptions, by simply inheriting from one of the existing ones. But, you should only do so if there is a good reason, for instance, to provide additional useful information to the exception handler.
 
@@ -331,13 +339,13 @@ class IllegalCircleException extends IllegalArgumentException {
 
 ## Overriding Method that Throws Exceptions
 
-When you override a method that throws a checked exception, the overriding method must throw only the same, or a more specific checked exception, than the overridden method. This rule follows the Liskov Substitution Principle. The caller of the overridden method cannot expect any new checked exception than what has already been "promised" in the method specification.
+When you override a method that throws a checked exception, the overriding method must throw only the same, or a more specific checked exception, than the overridden method. This rule follows the Liskov Substitution Principle. The caller of the overridden method cannot expect any new checked exception beyond what has already been "promised" in the method specification.
 
 ## Good Practices for Exception Handling
 
 ### Catch Exceptions to Clean Up
 
-While it is convenient to just pass the bucket and let the calling method deals with exceptions ("Hey! Not my problem!"), it is not always responsible to do so. Consider the example earlier, where `m1()`, `m2()`, and `m3()` do not handle exception `E2`. Let's say that `E2` is a checked exception, and it is possible to react to this and let the program continues properly. Also, suppose that `m2()` allocated some system resources (e.g., temporary files, network connections) at the beginning of the method, and deallocated the resources at the end of the method. By not handling the exception, the code that deallocates these resources does not get called when an exception occurs.  It is better for `m2()` to catch the exception, handle the resource deallocation in a `finally` block. If there is a need for the calling methods to be aware of the exception, `m2()` can always re-throw the exception:
+While it is convenient to just pass the buck and let the calling method deals with exceptions ("Hey! Not my problem!"), it is not always responsible to do so. Consider the example earlier, where `m1()`, `m2()`, and `m3()` do not handle exception `E2`. Let's say that `E2` is a checked exception, and it is possible to react to this and let the program continues properly. Also, suppose that `m2()` allocated some system resources (e.g., temporary files, network connections) at the beginning of the method, and deallocated the resources at the end of the method. By not handling the exception, the code that deallocates these resources does not get called when an exception occurs.  It is better for `m2()` to catch the exception, handle the resource deallocation in a `finally` block. If there is a need for the calling methods to be aware of the exception, `m2()` can always re-throw the exception:
 
 ```Java
 public void m2() throws E2 {
@@ -363,11 +371,11 @@ try {
   // your code
 }
 catch (Exception e) {
-  :
+  // do nothing
 }
 ```
 
-to stop the compiler from complaining.  DO NOT DO THIS.  Since `Exception` is the superclass of all exceptions, every exception that is thrown, checked or unchecked, is now silently ignored!  You will not be able to figure out if something is wrong with your program.  This practice is such as bad practice that there is a name for this -- this is call _Pokemon Exception Handling_.
+to stop the compiler from complaining.  **DO NOT DO THIS.**  Since `Exception` is the superclass of all exceptions, every exception that is thrown, checked or unchecked, is now silently ignored!  You will not be able to figure out if something is wrong with your program.  This practice is such a bad practice that there is a name for it -- this is called _Pokemon Exception Handling_.
 
 ### Overreacting
 
@@ -384,7 +392,7 @@ catch (Exception e) {
 
 ### Do Not Break Abstraction Barrier
 
-Sometimes, letting the calling method handles the exception causes the implementation details to be leaked, and make it harder to change the implementation later.
+Sometimes, letting the calling method handle the exception causes the implementation details to be leaked, and make it harder to change the implementation later.
 
 For instance, suppose we design a class `ClassRoster` with a method `getStudents()`, which reads the list of students from a text file.
 

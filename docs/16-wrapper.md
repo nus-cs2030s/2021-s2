@@ -3,7 +3,7 @@
 After this unit, students should:
 
 - be aware that Java provides wrapper classes around the primitive types
-- be aware that Java transparently and automatically box and unbox between primitive types and their corresponding wrapper class
+- be aware that Java will transparently and automatically box and unbox between primitive types and their corresponding wrapper classes
 
 ## Writing General Code for Primitive Types
 
@@ -89,7 +89,7 @@ for (int i = 0; i < Integer.MAX_VALUE; i++)
 ```
 
 The second one can be about 2 times faster. 
-All primitive wrapper class objects are immutable -- once you create an object, it cannot be changed. Thus, every time sum in the example above is updated, a new object gets created.
-Due to autoboxing and unboxing, the cost of creating objects become hidden and often forgotten.
+All primitive wrapper class objects are immutable -- once you create an object, it cannot be changed. Thus, every time the sum in the first example above is updated, a new `Double` object gets created.
+Due to autoboxing and unboxing, the cost of creating objects becomes hidden and is often forgotten.
 
 The Java API in fact, provides multiple versions of the same method, one for all the reference types using `Object`, and one for each of the primitive types.  This decision leads to multiple versions of the same code, but with the benefits of better performance.  See the [Arrays](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Arrays.html) class for instance.

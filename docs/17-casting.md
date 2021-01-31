@@ -54,13 +54,13 @@ Circle c1 = findLargest(circles); // error
 Circle c2 = (Circle) findLargest(circles); // ok
 ```
 
-The return type of `findLargest` (version 0.4) is now `GetAreable`.  On Line 6 above, we assign the return object with a compile-time type of `GetAreable` to `ga`, which also has `GetAreabale` as its compile-time type.  Since the variable `ga` is of type `GetAreable`, however, it is not very useful.  Recall that `GetAreable` is an interface with only one method `getArea`.  We cannot use it as a circle.
+The return type of `findLargest` (version 0.4) is now `GetAreable`.  On Line 6 above, we assign the return object with a compile-time type of `GetAreable` to `ga`, which also has `GetAreable` as its compile-time type.  Since the variable `ga` is of type `GetAreable`, however, it is not very useful.  Recall that `GetAreable` is an interface with only one method `getArea`.  We cannot use it as a circle.
 
 On Line 7, we try to return the return object to a variable with compile-time type `Circle`.  This line, however, causes a compile-time error.  Since `Circle` <: `GetAreable`, this is a narrowing type conversion and thus is not allowed (See [Unit 12](12-polymorphism.md)).  We will have to make an explicit cast of the result to `Circle` (on Line 8).  Only with casting, our code can compile and we get a reference with a compile-time type of `Circle`.
 
 ## Cast Carefully
 
-Typecasting, as we did in Line 8 above, basically is a way for programmers to ask the compiler to trust that the object returned by `findLargest` has a run-time type of `Circle` (or its subtype).
+Typecasting, as we did in Line 8 above, is basically is a way for programmers to ask the compiler to trust that the object returned by `findLargest` has a run-time type of `Circle` (or its subtype).
 
 In the snippet above, we can be sure (even _prove_) that the returned object from `findLargest` must have a run-time type of `Circle` since the input variable `circles` contains only `Circle` objects.
 
