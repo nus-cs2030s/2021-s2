@@ -34,19 +34,19 @@ class Array<T> {
   private T[] array;
 
   Array(int size) {
-    array = (T[]) new Object[size];
+    this.array = (T[]) new Object[size];
   }
 
   public void set(int index, T item) {
-    array[index] = item;
+    this.array[index] = item;
   }
 
   public T get(int index) {
-    return array[index];
+    return this.array[index];
   }
 
   public T[] getArray() {
-    return array[];
+    return this.array[];
   }
 }
 ```
@@ -81,7 +81,7 @@ An unchecked warning is basically a message from the compiler that he has done w
 Recall that type erasure generates the following code:
 ```Java
   public String get(int index) {
-    return (String) array[index];
+    return (String) this.array[index];
   }
 ```
 
@@ -105,15 +105,15 @@ class Array<T> {
   private T[] array;
 
   Array(int size) {
-    array = (T[]) new Object[size];
+    this.array = (T[]) new Object[size];
   }
 
   public void set(int index, T item) {
-    array[index] = item;
+    this.array[index] = item;
   }
 
   public T get(int index) {
-    return array[index];
+    return this.array[index];
   }
 }
 ```
@@ -143,20 +143,22 @@ class Array<T> {
   }
 
   public void set(int index, T item) {
-    array[index] = item;
+    this.array[index] = item;
   }
 
   public T get(int index) {
-    return array[index];
+    return this.array[index];
   }
 }
 ```
 
 `@SuppressWarning` is a powerful annotation that suppresses warning messages from compilers.  Like everything that is powerful, we have the responsibility to use it properly:
 
-- `@SuppressWarning` can apply to different scope: a statement, a function, a class, etc.  We must always use `@SuppressWarning` to the _most limited_ scope to avoid unintentionally suppressing warnings that are valid concerns from the compiler.
+- `@SuppressWarning` can apply to declaration at a different scope: a local variable, a method, a type, etc.  We must always use `@SuppressWarning` to the _most limited_ scope to avoid unintentionally suppressing warnings that are valid concerns from the compiler.
 - We must suppress a warning _only if_ we are sure that it will not cause a type error later.  
 - We must always add a note (as a comment) to fellow programmers explaining why a warning can be safely suppressed.
+
+Note that since `@SuppressWarnings` cannot apply to an assignment but only to declaration, we declare a local variable `a` in the example above before assigning `this.array` to `a`.
 
 ## Raw Types
 
