@@ -23,7 +23,7 @@ nav:
     - 19. Exception: '19-exception.md'
     - 20. Generics: '20-generics.md'
     - 21. Type Erasure: '21-erasure.md'
-    - 22. Unchecked Errors: '22-unchecked.md'
+    - 22. Unchecked Warnings: '22-unchecked.md'
   - Guide:
     - Programming Environments: 'environments.md'
     - Using Unix CLI:
