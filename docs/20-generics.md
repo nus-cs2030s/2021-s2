@@ -291,7 +291,7 @@ class Pair<S extends Comparable<S>,T> implements Comparable<Pair<S,T>> {
 
   @Override
   public int compareTo(Pair<S,T> s1) {
-	  return this.first.compareTo(s1.first)
+	  return this.first.compareTo(s1.first);
   }
 
   @Override
@@ -313,7 +313,7 @@ Let's see this in action with [`Arrays::sort`](https://docs.oracle.com/en/java/j
       new Pair<String,Integer>("Alice", 1),
       new Pair<String,Integer>("Carol", 2),
       new Pair<String,Integer>("Bob", 3),
-      new Pair<String,Integer>("Dave", 3),
+      new Pair<String,Integer>("Dave", 4),
     };
 
     java.util.Arrays.sort(array);
