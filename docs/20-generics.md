@@ -4,11 +4,11 @@ After taking this unit, students should:
 
 - know how to define and instantiate a generic type and a generic method
 - be familiar with the term parameterized types, type arguments, type parameters
-- appreciate how generics can reduce duplication of code and improves type safety
+- appreciate how generics can reduce duplication of code and improve type safety
 
 ## The `Pair` class
 
-Sometimes it is useful to have a lightweight class to bundle a pair of variables together.  One could, for instance, write a function that returns two values.  The example defines a class `IntPair` that bundles two `int` variables together. This is a utility class with no semantics nor methods associated with it and so, we did not attempt to hide the implementation details.
+Sometimes it is useful to have a lightweight class to bundle a pair of variables together.  One could, for instance, write a method that returns two values.  The example defines a class `IntPair` that bundles two `int` variables together. This is a utility class with no semantics nor methods associated with it and so, we did not attempt to hide the implementation details.
 
 ```Java
 class IntPair {
@@ -56,22 +56,22 @@ class Pair {
   private Object first;
   private Object second;
 
-  public Pair(Objet first, Objet second) {
+  public Pair(Object first, Object second) {
 	  this.first = first;
 	  this.second = second;
   }
 
-  Objet getFirst() {
+  Object getFirst() {
 	  return this.first;
   }
 
-  Objet getSecond() {
+  Object getSecond() {
 	  return this.second;
   }
 }
 ```
 
-At the cost of using [wrapper class](16-wrapper.md) in place of primitive types, we get a single class that can be used to store any type of values.  
+At the cost of using a [wrapper class](16-wrapper.md) in place of primitive types, we get a single class that can be used to store any type of values.  
 
 You might recall that we used a similar approach for our [`contains` method](12-polymorphism.md) to implement a general _method_ that works for any type of object.  Here, we are using this approach for a general _class_ that encapsulates any type of object.
 
@@ -86,7 +86,7 @@ Pair p = foo();
 Integer i = (Integer) p.getFirst(); // run-time ClassCastException
 ```
 
-To reduce the risk of human errors, what we need is a way to specify the following: suppose the type of `first` is $S$ and type of `second` is $T$, then we want the return type of `getFirst` to be $S$ and of `getSecond` to be $T$.
+To reduce the risk of human error, what we need is a way to specify the following: suppose the type of `first` is $S$ and type of `second` is $T$, then we want the return type of `getFirst` to be $S$ and of `getSecond` to be $T$.
 
 ## Generic Types
 
@@ -291,7 +291,7 @@ class Pair<S extends Comparable<S>,T> implements Comparable<Pair<S,T>> {
 
   @Override
   public int compareTo(Pair<S,T> s1) {
-	  return this.first.compareTo(s1.first)
+	  return this.first.compareTo(s1.first);
   }
 
   @Override
@@ -313,7 +313,7 @@ Let's see this in action with [`Arrays::sort`](https://docs.oracle.com/en/java/j
       new Pair<String,Integer>("Alice", 1),
       new Pair<String,Integer>("Carol", 2),
       new Pair<String,Integer>("Bob", 3),
-      new Pair<String,Integer>("Dave", 3),
+      new Pair<String,Integer>("Dave", 4),
     };
 
     java.util.Arrays.sort(array);
