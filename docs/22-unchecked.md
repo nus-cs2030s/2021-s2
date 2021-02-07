@@ -4,11 +4,11 @@ After this unit, students should:
 
 - be aware of how to use generics with an array
 - be aware of unchecked warnings that compilers can give when we are using generics
-- be able to make arguments for simple cases why a piece of code is type-safe
+- be able to make arguments why a piece of code is type-safe for simple cases
 - know how to suppress warnings from compilers
-- be aware of the ethics when using @SuppressWarnings("unchecked") annotation
+- be aware of the ethics when using the @SuppressWarnings("unchecked") annotation
 - know what is a raw type
-- be aware that raw type should never never be used in modern Java
+- be aware that raw types should never never be used in modern Java
 
 ## Creating Arrays with Type Parameters
 
@@ -25,7 +25,7 @@ ArrayList<Object> objList = pairList;  // error
 
 `ArrayList` itself is a generic class, and when parameterized, it ensures type-safety by checking for appropriate types during compile time.  We can't add a `Pair<Double,Boolean>` object to a list of `Pair<String,Integer>`.  Furthermore, unlike Java array, which is covariant, generics are invariant.  There is no subtyping relationship between `ArrayList<Object>` and `ArrayList<Pair<String,Integer>>` so we can't alias one with another, preventing the possibility of heap pollution.
 
-Using `ArrayList` instead of arrays only _get around_ the problem of mixing arrays and generics, as a user.  `ArrayList` is implemented with an array internally after all.  As computing students, especially computer science students, it is important to know how to implement your own data structures instead of using ones provided by Java or other libraries.  
+Using `ArrayList` instead of arrays only _gets around_ the problem of mixing arrays and generics, as a user.  `ArrayList` is implemented with an array internally after all.  As computing students, especially computer science students, it is important to know how to implement your own data structures instead of using ones provided by Java or other libraries.  
 
 Let's try to build one:
 ```Java
@@ -77,7 +77,7 @@ We get a warning that our Line 6 is doing an unchecked cast.
 
 ## Unchecked Warnings
 
-An unchecked warning is basically a message from the compiler that he has done what he can, and because of type erasures, there could be a run-time error that it cannot prevent.
+An unchecked warning is basically a message from the compiler that it has done what it can, and because of type erasures, there could be a run-time error that it cannot prevent.
 Recall that type erasure generates the following code:
 ```Java
   public String get(int index) {
@@ -85,7 +85,7 @@ Recall that type erasure generates the following code:
   }
 ```
 
-Since `array` is an array of `Object` instances and Java array is covariance, the compiler can't guarantee that the code it generated is safe anymore.
+Since `array` is an array of `Object` instances and Java array is covariant, the compiler can't guarantee that the code it generated is safe anymore.
 
 Consider the following:
 ```Java
@@ -167,7 +167,7 @@ Another common scenario where we can get an unchecked warning is the use of _raw
 Array a = new Array(4);
 ```
 
-The code would compile perfectly.  We are using the generic `Array<T>` as a raw type `Array`.  Java allows this code to compile for backward compatibility.  This is anyway what the code looks like after type erasure and how we would write the code in Java before version 5.   Without type argument, the compiler can't do any type checking at all.  We are back to the uncertainty that our code could bomb with `ClassCastException` after it ships.
+The code would compile perfectly.  We are using the generic `Array<T>` as a raw type `Array`.  Java allows this code to compile for backward compatibility.  This is anyway what the code looks like after type erasure and how we would write the code in Java before version 5.   Without a type argument, the compiler can't do any type checking at all.  We are back to the uncertainty that our code could bomb with `ClassCastException` after it ships.
 
 Mixing raw types with paramterized types can also lead to errors.  Consider:
 ```Java
