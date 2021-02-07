@@ -16,7 +16,8 @@ We have seen how arrays and generics do not mix well.  One way to get around thi
 provides similar functionality to an array, with some performance overhead.  
 
 ```Java
-ArrayList<Pair<String,Integer>> pairList = new ArrayList<Pair<String,Integer>>(); // ok
+ArrayList<Pair<String,Integer>> pairList;
+pairList = new ArrayList<Pair<String,Integer>>(); // ok
 
 pairList.add(0, new Pair<Double,Boolean>(3.14, true));  // error
 
