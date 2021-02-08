@@ -47,7 +47,7 @@ class Array<T> {
   }
 
   public T[] getArray() {
-    return this.array[];
+    return this.array;
   }
 }
 ```
