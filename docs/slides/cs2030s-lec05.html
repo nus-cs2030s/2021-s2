@@ -271,9 +271,92 @@ class: middle,center
 ## Type Erasure
 
 ---
-class: middle,center
+class: middle
 
-## Unchecked
+### How to implement generics
+
+- *code specialisation* (C#, C++, Rust): generate a new class for every new type argument.
+
+```Java
+class Pair_String_Integer { .. }
+class Pair_Double_Boolean { .. }
+  :
+```
+
+---
+class: middle
+
+### How to implement generics
+
+- *code sharing* (Java): erase type arguments and type parameters after type checking
+
+---
+class: middle
+
+### How to implement generics
+
+- *code sharing* (Java): erase type arguments and type parameters after type checking
+
+---
+class: middle, wide
+
+.small[
+```Java
+Pair<String,Integer>[] pairArray;
+Object[] objArray;
+
+pairArray = new Pair<String,Integer>[2];
+objArray = pairArray;
+objArray[0] = new Pair<Double,Boolean>(3.14, true);
+```
+]
+
+---
+class: middle, wide
+
+.small[
+```Java
+Pair[] pairArray;
+Object[] objArray;
+
+pairArray = new Pair[2];
+objArray = pairArray;
+objArray[0] = new Pair(3.14, true);
+
+String str = pairArray[0].getFirst();
+```
+]
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+
+---
+class: middle
+
+### Let's build `Array<T>`
+
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+
 
 ---
 class: bottom
