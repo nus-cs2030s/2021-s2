@@ -81,9 +81,7 @@ We get a warning that our Line 6 is doing an unchecked cast.
 An unchecked warning is basically a message from the compiler that it has done what it can, and because of type erasures, there could be a run-time error that it cannot prevent.
 Recall that type erasure generates the following code:
 ```Java
-  public String get(int index) {
-    return (String) this.array[index];
-  }
+(String) array.get(0);
 ```
 
 Since `array` is an array of `Object` instances and Java array is covariant, the compiler can't guarantee that the code it generated is safe anymore.
