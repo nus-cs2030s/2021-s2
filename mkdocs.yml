@@ -24,6 +24,8 @@ nav:
     - 20. Generics: '20-generics.md'
     - 21. Type Erasure: '21-erasure.md'
     - 22. Unchecked Warnings: '22-unchecked.md'
+    - 23. Wildcards: '23-wildcard.md'
+    - 24. Type Inference: '24-inference.md'
   - Guide:
     - Programming Environments: 'environments.md'
     - Using Unix CLI:
