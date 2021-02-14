@@ -71,7 +71,7 @@ class A {
 }
 ```
 
-Recall that we want to prevent non-sensical calls where we are searching for an integer in an array of strings.
+Recall that we want to prevent nonsensical calls where we are searching for an integer in an array of strings.
 ```Java
 String[] strArray = new String[] { "hello", "world" };
 A.<String>contains(strArray, 123); // type mismatch error
@@ -93,7 +93,7 @@ The intersection between the two is the type `Object`, which is also the most sp
 A.<Object>contains(strArray, 123);
 ```
 
-And our version 0.4 of `contains` actually is quite fragile and does not work as intended.  We were bitten by the fact that Java array is covariant, again.
+And our version 0.4 of `contains` actually is quite fragile and does not work as intended.  We were bitten by the fact that the Java array is covariant, again.
 
 ## Target Typing
 

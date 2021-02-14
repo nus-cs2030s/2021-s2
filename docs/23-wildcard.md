@@ -26,7 +26,7 @@ class A {
 }
 ```
 
-Similar to the version that takes in `T[]`, using generics allow us to constrain the type of the elements of the array and the object to search for to be the same.  This allows the following code to type-check correctly:
+Similar to the version that takes in `T[]`, using generics allows us to constrain the type of the elements of the array and the object to search for to be the same.  This allows the following code to type-check correctly:
 ```Java
 Array<String> stringArray;
 Array<Circle> circleArray;
@@ -74,10 +74,9 @@ A.<Shape>contains(circleArray, shape); // compilation error
 A.<Circle>contains(circleArray, shape); // compilation error
 ```
 
-Thus, with our current implementation, we can't look for a shape (which may be a circle) in an array of circles, even though this is something reasonable that a programmer might want to do.  This constraint is due to the invariance of generics -- while we avoided the possibility of run-time errors by avoiding covariance arrays, our methods become less general.
+Thus, with our current implementation, we can't look for a shape (which may be a circle) in an array of circles, even though this is something reasonable that a programmer might want to do.  This constraint is due to the invariance of generics -- while we avoided the possibility of run-time errors by avoiding covariance arrays, our methods have become less general.
 
-Let's see how we can fix this with bounded type parameters first.  We can introduce another type parameter, say `S`, to remove the constraints that the type of the array must be the same as the type of the object to search for.  I.e., we change 
-from
+Let's see how we can fix this with bounded type parameters first.  We can introduce another type parameter, say `S`, to remove the constraints that the type of the array must be the same as the type of the object to search for.  I.e., we change from
 ```Java
   public static <T> boolean contains(Array<T> array, T obj) { .. }
 ```
@@ -87,7 +86,7 @@ to:
   public static <S,T> boolean contains(Array<T> array, S obj) { .. }
 ```
 
-But we don't want to completely decoupled `T` and `S`, we want `T` to be a subtype of `S`.  We can thus make `T` a bounded type parameter, and write:
+But we don't want to completely decouple `T` and `S`, as we want `T` to be a subtype of `S`.  We can thus make `T` a bounded type parameter, and write:
 ```Java
   public static <S, T extends S> boolean contains(Array<T> array, S obj) { .. }
 ```
@@ -155,9 +154,9 @@ Let's consider the method `copyFrom`.  We should be able to copy from an array o
 
 The type that we are looking for is `Array<? extends Shape>`.  This generic type uses the _wildcard_ `?`.  Just like a wild card in card games, it is a substitute for any type.   A wildcard can be bounded.  Here, this wildcard is upper-bounded by `Shape`, i.e., it can be substituted with either `Shape` or any subtype of `Shape`.
 
-The upper-bounded wildcard has the following subtyping relations:
+The upper-bounded wildcard is an example of covariance. The upper-bounded wildcard has the following subtyping relations:
 
-- If `S` <: `T`, then `A<? extends S>` <: `A<? extends T>`
+- If `S` <: `T`, then `A<? extends S>` <: `A<? extends T>` (covariance)
 - For any type `S`, `A<S>` <: `A<? extends S>`
 
 For instance, we have:

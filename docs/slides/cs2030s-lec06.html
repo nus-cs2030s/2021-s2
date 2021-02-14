@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 6</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 6
+
+### 15 February 2021
+---
+class: middle
+
+### Reminder: 
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+---
+
+class: middle,center
+
+## Continuing with our `Array<T>`
+
+---
+class: middle,wide
+
+.tiny[
+```Java
+class A {
+  // version 0.5 (with generic array)
+  public static <T> boolean contains(Array<T> array, T obj) {
+    for (int i = 0; i < array.getLength(); i++) {
+      T curr = array.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+---
+class: middle,wide
+
+.small[
+```Java
+Array<String> stringArray;
+Array<Circle> circleArray;
+Circle circle;
+
+A.<String>contains(stringArray, "hello"); // ok
+A.<Circle>contains(circleArray, circle); // ok
+A.<String>contains(stringArray, circle); // error
+```
+]
+---
+class: middle,wide
+
+.small[
+```Java
+Array<Shape> shapeArray;
+Array<Circle> circleArray;
+Shape shape;
+Circle circle;
+
+A.<Shape>contains(shapeArray, shape); // ok
+A.<Circle>contains(circleArray, circle); // ok
+A.<Shape>contains(shapeArray, circle); // ok
+```
+]
+
+---
+class: middle,wide
+
+.small[
+```Java
+A.<Circle>contains(shapeArray, circle); 
+// compilation error
+```
+]
+---
+class: middle,wide
+
+.tiny[
+```Java
+public static <S,T> boolean contains(Array<T> array, S obj) {
+  for (int i = 0; i < array.getLength(); i++) {
+    T curr = array.get(i);
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+---
+class: middle,wide
+
+.tiny[
+```Java
+public static <S, T extends S> boolean contains(Array<T> array, S obj) {
+  for (int i = 0; i < array.getLength(); i++) {
+    T curr = array.get(i);
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+---
+class: middle,wide
+
+.small[
+```Java
+A.<Shape,Circle>contains(shapeArray, circle); // ok
+```
+]
+---
+class: middle
+
+## Wildcards ? 
+---
+
+class: middle,wide
+
+.tiny[
+```Java
+public void copyFrom(Array<T> src) {
+  int len = Math.min(this.array.length, src.array.length);
+  for (int i = 0; i < len; i++) {
+      this.set(i, src.get(i));
+  }
+}
+```
+]
+---
+class: middle,wide
+
+.tiny[
+```Java
+public void copyTo(Array<T> dest) {
+  int len = Math.min(this.array.length, dest.array.length);
+  for (int i = 0; i < len; i++) {
+      dest.set(i, this.get(i));
+  }
+}
+```
+]
+
+---
+class: middle,wide
+
+.small[
+```Java
+Array<Circle> circleArray;
+Array<Shape> shapeArray;
+  
+shapeArray.copyFrom(circleArray); // error
+circleArray.copyTo(shapeArray); // error
+```
+]
+---
+class: middle, center
+
+## Upper-bounded wildcard
+
+### `? extends X`
+---
+class: middle, wide
+
+## Upper-bounded wildcard
+
+If `S` $<:$ `T`, then `A<? extends S>` $<:$ `A<? extends T>`
+
+For any type `S`, `A<S>` $<:$ `A<? extends S>`
+---
+class: middle,wide
+  
+.tiny[
+```Java
+  public void copyFrom(Array<? extends T> src) {
+    int len = Math.min(this.array.length, src.array.length);
+    for (int i = 0; i < len; i++) {
+        this.set(i, src.get(i));
+    }
+  }
+```
+]
+
+.small[
+```Java
+shapeArray.copyFrom(circleArray); // ok
+```
+]
+
+---
+
+class: middle, center
+
+## Lower-bounded wildcard
+
+### `? super X`
+
+---
+class: middle, wide
+
+## Lower-bounded wildcard
+
+If `S` <: `T`, then `A<? super T>` <: `A<? super S>` 
+
+For any type `S`, `A<S>` <: `A<? super S>`
+  
+---
+class: middle,wide
+  
+.tiny[
+```Java
+  public void copyTo(Array<? super T> dest) {
+    int len = Math.min(this.array.length, dest.array.length);
+    for (int i = 0; i < len; i++) {
+        dest.set(i, this.get(i));
+    }
+  }
+```
+]
+
+.small[
+```Java
+circleArray.copyTo(shapeArray);
+```
+]
+
+---
+class: middle
+
+## Producer Extends, Consumer Super (PECS) 
+---
+class: middle
+
+## Unbounded Wildcards
+
+`Array<?>` is the supertype of all generic `Array<T>`.
+
+---
+class: middle,wide
+  
+.tiny[
+```Java
+class A {
+  // version 0.7 (with wild cards array)
+  public static <S> boolean contains(Array<? extends S> array, S obj) {
+    for (int i = 0; i < array.getLength(); i++) {
+      T curr = array.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Sun Jan 31 15:15:00 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>
