@@ -298,6 +298,16 @@ class: middle
 - *code sharing* (Java): erase type arguments and type parameters after type checking
 
 ---
+class: middle
+
+.tiny[
+```Java
+Pair<String,Integer> p = new Pair<String,Integer>("hello", 4);
+Integer i = p.getSecond();
+```
+]
+
+---
 class: middle, wide
 
 .small[
