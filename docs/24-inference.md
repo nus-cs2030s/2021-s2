@@ -1,5 +1,10 @@
 # Unit 24: Type Inference
 
+After this unit, students should:
+
+- be familiar how Java infers missing type arguments
+
+
 We have seen in the past units the importance of types in preventing run-time errors.  Utilizing types properly can help programmers catch type mismatch errors that could have caused a program to fail during run-time, possibly after it is released and shipped.
 
 By including type information everywhere in the code, we make the code explicit in communicating the intention of the programmers to the readers.  Although it makes the code more verbose and cluttered -- it is a small price to pay for ensuring the type correctness of the code and reducing the likelihood of bugs as the code complexity increases.
@@ -28,7 +33,7 @@ class A {
   // version 0.7 (with wild cards array)
   public static <S> boolean contains(Array<? extends S> array, S obj) {
     for (int i = 0; i < array.getLength(); i++) {
-      T curr = array.get(i);
+      S curr = array.get(i);
       if (curr.equals(obj)) {
         return true;
       }
