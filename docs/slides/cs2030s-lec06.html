@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
 
 <!-- CHANGE TITLE -->
-<title>CS2030S AY20/21 S2 Lecture 5</title>
+<title>CS2030S AY20/21 S2 Lecture 6</title>
 <meta charset="utf-8">
 </head>
 <body>
@@ -25,14 +25,69 @@ class: middle, center
 ### 15 February 2021
 ---
 class: middle
+	
+## Midterm 
+### 1st of March, Monday 2-4 pm
 
-### Midterm
+---
+class: middle
+	
+We have a survey for those who are unable to take assessments at home.
+
+We will collect this information and try and make arrangements for you.
 
 ---
 class: middle
 
-### Mock Practical and Practical I
+## Mock Practical
+### During your lab session
 
+## Practical I 
+### 6th of March, Saturday 9 am - 12 pm
+
+---
+class: middle
+
+## Q & A session 
+### During recess week lecture slot
+
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+---
+
+class: middle,center
+
+## Continuing with our `Array<T>`
+
+---
+class: middle,wide
+
+.tiny[
+```Java
+class A {
+  // version 0.5 (with generic array)
+  public static <T> boolean contains(Array<T> array, T obj) {
+    for (int i = 0; i < array.getLength(); i++) {
+      T curr = array.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
 ---
 class: middle
 
@@ -61,7 +116,7 @@ class: middle
 Array<? super Shape>  
 ```
 
-`?` can be substituted by a supertpe of `Shape`
+`?` can be substituted by a supertype of `Shape`
 
 ---
 class: middle
@@ -113,6 +168,7 @@ class: middle
 Infer type argument automatically.  If there are multiple types that match, pick the _most specific one_.
 
 ---
+
 
 class: bottom
 
