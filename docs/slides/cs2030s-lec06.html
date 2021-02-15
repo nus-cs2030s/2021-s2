@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 5</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 6
+
+### 15 February 2021
+---
+class: middle
+
+### Midterm
+
+---
+class: middle
+
+### Mock Practical and Practical I
+
+---
+class: middle
+
+### Upper-Bounded Wildcard
+
+```Java
+Array<? extends Shape>  
+```
+
+`?` can be substituted by a subtype of `Shape`
+
+---
+class: middle
+
+- Covariance: if `S` <: `T`, then  
+     `A<? extends S>` <: `A<? extends T>`
+
+- For any type `S`, `A<S>` <: `A<? extends S>`
+
+---
+class: middle
+
+### Lower-Bounded Wildcard
+
+```Java
+Array<? super Shape>  
+```
+
+`?` can be substituted by a supertpe of `Shape`
+
+---
+class: middle
+
+- Contravariance: if `S` <: `T`, then  
+     `A<? super T>` <: `A<? super S>`
+
+- For any type `S`, `A<S>` <: `A<? super S>`
+
+---
+class: middle
+
+## PECS
+
+Producer `extends`; Consumer `super`
+
+---
+class: middle
+
+### Unbounded Wildcard
+
+```Java
+Array<?>  
+```
+
+`?` can be substituted by a type
+
+---
+class: middle
+
+- For any type S, `A<S>` <: `A<?>`
+- For any type S, `A<? super S>` <: `A<?>`
+- For any type S, `A<? extends S>` <: `A<?>`
+
+---
+class: middle
+
+### Diamond Operator `<>`
+
+```Java
+Pair<String,Integer> p = new Pair<>();
+```
+
+---
+class: middle
+
+### Type Inference
+
+Infer type argument automatically.  If there are multiple types that match, pick the _most specific one_.
+
+---
+
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Sun Jan 31 15:15:00 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>
