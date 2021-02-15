@@ -10,6 +10,11 @@ Note that for your labs, you are free to install any plugins you find useful.
 
 `vim` colorschemes are installed under `~/.vim/colors`.  You put `<scheme>.vim` under `~/.vim/colors` directly.
 
+Before running all the `ln -s` commands to add the plugins, you will need to create the folders that store the plugins. To do so, run
+```
+mkdir -p ~/.vim/pack/plugins/start
+```
+
 ## Color Schemes
 
 We have installed the [Sweeter-than-Fiction](https://vimawesome.com/plugin/vim-colorschemes-sweeter-than-fiction) colorscheme bundle under `~cs2030s/.vim/colors`.
