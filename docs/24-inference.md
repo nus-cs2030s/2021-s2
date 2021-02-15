@@ -64,15 +64,15 @@ Type inferencing can have unexpected consequences.  Let's consider an [older ver
 
 ```Java
 class A {
-	// version 0.4 (with generics)
-	public static <T> boolean contains(T[] array, T obj) {
-	  for (T curr : array) {
-		if (curr.equals(obj)) {
-		  return true;
-		}
-	  }
-	  return false;
-	}
+    // version 0.4 (with generics)
+    public static <T> boolean contains(T[] array, T obj) {
+      for (T curr : array) {
+        if (curr.equals(obj)) {
+          return true;
+        }
+      }
+      return false;
+    }
 }
 ```
 
@@ -105,20 +105,20 @@ And our version 0.4 of `contains` actually is quite fragile and does not work as
 The example above performs type inferencing on the parameters of the generic methods.  Type inferencing can involve the type of the expression as well.  This is known as _target typing_.  Take the following upgraded version of `findLargest`:
 
 ```Java
-	// version 0.6 (with Array<T>)
-	public static <T extends GetAreable> T findLargest(Array<? extends T> array) {
-		double maxArea = 0;
-		T maxObj = null;
-		for (int i = 0; i < array.getLength(); i++) {
-      T curr = array.get(i);
-			double area = curr.getArea();
-			if (area > maxArea) {
-				maxArea = area;
-				maxObj = curr;
-			}
-		}
-		return maxObj;
-	}
+// version 0.6 (with Array<T>)
+public static <T extends GetAreable> T findLargest(Array<? extends T> array) {
+  double maxArea = 0;
+  T maxObj = null;
+  for (int i = 0; i < array.getLength(); i++) {
+    T curr = array.get(i);
+    double area = curr.getArea();
+    if (area > maxArea) {
+      maxArea = area;
+      maxObj = curr;
+    }
+  }
+  return maxObj;
+}
 ```
 
 and we call
