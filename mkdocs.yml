@@ -33,6 +33,7 @@ nav:
        - Essentials: 'unix-essentials.md'
        - Advanced: 'unix-advanced.md'
     - Using Vim: 'vim.md'
+    - Vim Plugins on PE: 'plugins.md'
     - Java Style Guide: 'style.md'
     - Lab Guide: 'lab.md'
 
