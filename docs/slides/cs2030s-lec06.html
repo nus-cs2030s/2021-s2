@@ -7,7 +7,7 @@
 <link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
 
 <!-- CHANGE TITLE -->
-<title>CS2030S AY20/21 S2 Lecture 5</title>
+<title>CS2030S AY20/21 S2 Lecture 6</title>
 <meta charset="utf-8">
 </head>
 <body>
@@ -25,7 +25,6 @@ class: middle, center
 ### 15 February 2021
 ---
 class: middle
-
 ### Midterm
 
 ---
@@ -33,6 +32,42 @@ class: middle
 
 ### Mock Practical and Practical I
 
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+---
+
+class: middle,center
+
+## Continuing with our `Array<T>`
+
+---
+class: middle,wide
+
+.tiny[
+```Java
+class A {
+  // version 0.5 (with generic array)
+  public static <T> boolean contains(Array<T> array, T obj) {
+    for (int i = 0; i < array.getLength(); i++) {
+      T curr = array.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
 ---
 class: middle
 
@@ -108,11 +143,14 @@ Pair<String,Integer> p = new Pair<>();
 ---
 class: middle
 
+---
+
 ### Type Inference
 
 Infer type argument automatically.  If there are multiple types that match, pick the _most specific one_.
 
 ---
+
 
 class: bottom
 
