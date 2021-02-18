@@ -353,7 +353,7 @@ class A {
   // version 0.7 (with wild cards array)
   public static <S> boolean contains(Array<? extends S> array, S obj) {
     for (int i = 0; i < array.getLength(); i++) {
-      T curr = array.get(i);
+      S curr = array.get(i);
       if (curr.equals(obj)) {
         return true;
       }
