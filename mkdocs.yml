@@ -1,12 +1,12 @@
 nav:
   - Home: 'index.md'
   - Notes:
-    - Introduction:
+    - 0-3 Introduction:
       - 0. Overview: '00-overview.md'
       - 1. Program and Compiler: '01-compiler.md'
       - 2. Variable and Type: '02-type.md'
       - 3. Functions: '03-function.md'
-    - OOP:
+    - 4-16 OOP:
       - 4. Encapsulation: '04-encapsulation.md'
       - 5. Information Hiding: '05-infohiding.md'
       - 6. Tell, Don't Ask: '06-tell-dont-ask.md'
@@ -20,7 +20,7 @@ nav:
       - 14. Abstract Class: '14-abstract.md'
       - 15. Interface: '15-interface.md'
       - 16. Wrapper Class: '16-wrapper.md'
-    - Types:
+    - 17-24 Types:
       - 17. Casting: '17-casting.md'
       - 18. Variance: '18-variance.md'
       - 19. Exception: '19-exception.md'
@@ -29,6 +29,8 @@ nav:
       - 22. Unchecked Warnings: '22-unchecked.md'
       - 23. Wildcards: '23-wildcard.md'
       - 24. Type Inference: '24-inference.md'
+    - 25. Immutability: '25-immutability.md'
+    - 26. Nested Classes: '26-nested-classes.md'
     - References: 'references.md'
   - Guide:
     - Programming Environments: 'environments.md'
