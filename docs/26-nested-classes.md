@@ -4,7 +4,15 @@ So far, we have defined a class only at the "top-level" of our program.  Java al
 
 ## Nested Class
 
-A nested class is a class defined within another containing class.
+A nested class is a class defined within another containing class.  For example, the following declaration declares a private nested class named `B` within the class `A`.
+
+```Java
+class A {
+  private class B {
+      :
+  }
+}
+```
 
 Nested classes are used to group logically relevant classes together.  Typically, a nested class is tightly coupled with the container class and would have no use outside of the container class.  Nested classes can be used to encapsulate information within a container class, for instance, when the implementation of the container class becomes too complex.  As such, it is useful for "helper" classes that serve specific purposes.
 
@@ -16,7 +24,7 @@ Take the `HashMap<K,V>` class for instance.  [The implementation of `HashMap<K,V
 
 !!! note "Example from CS2030S This Semester"
 
-   We can take another example from your labs on shop simulation.  In one of many possible designs, the subclasses of `Event: `ArrivalEvent`, `DepartureEvent`, etc. are not used anywhere outside of `ShopSimulation`.  They can be safely encapsulated within `ShopSimulation` as inner classes, so that these classes can access the fields within the `ShopSimulation` class, simplifying their implementation.
+    We can take another example from your labs on shop simulation.  In one of many possible designs, the subclasses of `Event`: `ArrivalEvent`, `DepartureEvent`, etc. are not used anywhere outside of `ShopSimulation`.  They can be safely encapsulated within `ShopSimulation` as inner classes, so that these classes can access the fields within the `ShopSimulation` class, simplifying their implementation.
 
 A nested class can be either static or non-static.  Just like static fields and static methods, a _static nested class_ is associated with the containing _class_, NOT an _instance_.  So, it can only access static fields and static methods of the containing class.  A _non-static nested class_, on the other hand, can access all fields and methods of the containing class.  A _non-static nested class_ is also known as an _inner class_.
 
@@ -24,26 +32,26 @@ The example below shows a container class `A` with two nested classes, a non-sta
 
 ```Java
 class A {
- private int x;
- static int y;
+  private int x;
+  static int y;
 
- class B {
- void foo() {
-     x = 1; // accessing x from A is OK
-     y = 1; // accessing y from A is OK
- }
- }
+  class B {
+    void foo() {
+      x = 1; // accessing x from A is OK
+      y = 1; // accessing y from A is OK
+    }
+  }
 
- static class C {
- void bar() {
-   x = 1; // accessing x from A is not OK since C is static
-   y = 1; // accessing y is OK
- }
- }
+  static class C {
+    void bar() {
+      x = 1; // accessing x from A is not OK since C is static
+      y = 1; // accessing y is OK
+    }
+  }
 }
 ```
 
-Recall that we recommend that all access to fields be access through the `this` reference.  In the example above, however, we can't access `this.x` from within `B`.
+Recall that we recommend that all access to instance fields be done through the `this` reference.  In the example above, however, we can't access `this.x` from within `B`.
 
 ```Java
 class A {
@@ -83,13 +91,13 @@ Suppose we have a list of strings, and we want to sort them in the order of thei
 ```Java
 void sortNames(List<String> names) {
 
- class NameComparator implements Comparator<String> {
- public int compare(String s1, String s2) {
-   return s1.length() - s2.length();
- }
- }
+  class NameComparator implements Comparator<String> {
+    public int compare(String s1, String s2) {
+      return s1.length() - s2.length();
+    }
+  }
 
- names.sort(new NameComparator());
+  names.sort(new NameComparator());
 }
 ```
 
@@ -101,19 +109,19 @@ For example,
 
 ```Java
 class A {
- int x = 1;
+  int x = 1;
 
- void f() {
- int y = 1;
+  void f() {
+    int y = 1;
 
- class B {
-   void g() {
-   x = y; // accessing x and y is OK.
-   }
- }
+    class B {
+      void g() {
+        x = y; // accessing x and y is OK.
+      }
+    }
 
- new B().g();
- }
+    new B().g();
+  }
 }
 ```
 
@@ -125,23 +133,24 @@ Recall that when a method returns, all local variables of the methods are remove
 
 ```Java
 interface C {
- void g();
+  void g();
 }
+
 class A {
- int x = 1;
+  int x = 1;
 
- C f() {
- int y = 1;
+  C f() {
+    int y = 1;
+ 
+    class B implements C {
+      void g() {
+        x = y; // accessing x and y is OK.
+      }
+    }
 
- class B implements C {
-   void g() {
-   x = y; // accessing x and y is OK.
-   }
- }
-
- B b = new B();
- return b;
- }
+    B b = new B();
+    return b;
+  }
 }
 ```
 
@@ -162,18 +171,18 @@ Variable captures could be confusing.  Consider the following code:
 
 ```Java
 void sortNames(List<String> names) {
- boolean ascendingOrder = true;
- class NameComparator implements Comparator<String> {
- public int compare(String s1, String s2) {
-   if (ascendingOrder)
-   return s1.length() - s2.length();
-   else
-   return s2.length() - s1.length();
- }
- }
+  boolean ascendingOrder = true;
+  class NameComparator implements Comparator<String> {
+    public int compare(String s1, String s2) {
+      if (ascendingOrder)
+        return s1.length() - s2.length();
+      else
+        return s2.length() - s1.length();
+    }
+  }
 
- ascendingOrder = false;
- names.sort(new NameComparator());
+  ascendingOrder = false;
+  names.sort(new NameComparator());
 }
 ```
 
@@ -190,8 +199,8 @@ An anonymous class is one where you declare a class and instantiate it in a sing
 
 ```Java
 names.sort(new Comparator<String>() {
- public int compare(String s1, String s2) {
- return s1.length() - s2.length();
+  public int compare(String s1, String s2) {
+    return s1.length() - s2.length();
  }
 });
 ```
@@ -208,9 +217,9 @@ The syntax might look overwhelming at the beginning, but we can also write it as
 
 ```Java
 Comparator<String> cmp = new Comparator<String>() {
- public int compare(String s1, String s2) {
- return s1.length() - s2.length();
- }
+  public int compare(String s1, String s2) {
+    return s1.length() - s2.length();
+  }
 };
 names.sort(cmp);
 ```
