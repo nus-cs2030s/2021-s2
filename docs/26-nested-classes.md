@@ -103,7 +103,7 @@ void sortNames(List<String> names) {
 
 This makes the code easier to read since we keep the definition of the class and its usage closer together.
 
-Classes like `NameComparator` that are declared inside a method (to be more precise, inside a block of code between `{` and `}`) is called a _local class_.  Just like a local variable, a local class is scoped within the method.  Like a nested class, a local class has access to the variables of the enclosing class through the qualified `this` reference.  Further, it can access the variables of the local variables of the enclosing method.
+Classes like `NameComparator` that are declared inside a method (or to be more precise, inside a block of code between `{` and `}`) is called a _local class_.  Just like a local variable, a local class is scoped within the method.  Like a nested class, a local class has access to the variables of the enclosing class through the qualified `this` reference.  Further, it can access the local variables of the enclosing method.
 
 For example,
 
@@ -167,7 +167,7 @@ For this reason, even though a local class can access the local variables in the
 
 ### Effectively `final`
 
-Variable captures could be confusing.  Consider the following code:
+Variable captures can be confusing.  Consider the following code:
 
 ```Java
 void sortNames(List<String> names) {
@@ -226,4 +226,4 @@ names.sort(cmp);
 
 Line 1 above looks just like what we do when we instantiate a class, except that we are instantiating an interface with a `{ .. }` body.
 
-An anonymous class is just like a local class, it captures the variables of the enclosing scope as well -- the same rules to variable access as local class applies.
+An anonymous class is just like a local class, it captures the variables of the enclosing scope as well -- the same rules to variable access as local classes applies.
