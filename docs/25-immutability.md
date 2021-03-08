@@ -158,7 +158,7 @@ final class Point {
 		this.y = y;
 	}
 
-	private final static ORIGIN = new Point(0, 0);
+	private final static Point ORIGIN = new Point(0, 0);
 
 	public static Point of(double x, double y) {
 		if (x == 0 && y == 0) {
