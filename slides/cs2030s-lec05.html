@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 5</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 5
+
+### 8 February 2021
+---
+class: middle
+
+### Reminder: CNY Eve and CNY classes
+
+- All classes end officialy at 2 PM on CNY Eve.
+- Tutors of affected labs and recitations will contact you to arrange for online make-up session.
+
+---
+class: middle
+
+### Lab 3
+
+- Released one day earlier (10 Feb, Wednesday)
+- Due four days later (19 Feb, Friday)
+
+---
+class: middle,center
+
+## Remember Pairs?
+
+---
+class: middle,wide
+
+.small[
+```Java
+class IntPair {
+  private int first;
+  private int second;
+
+  public IntPair(int first, int second) {
+      this.first = first;
+      this.second = second;
+  }
+
+  int getFirst() { return this.first; }
+
+  int getSecond() { return this.second; }
+}
+```
+]
+---
+class: middle,wide
+
+.small[
+```Java
+IntPair findMinMax(int[] array) {
+  int min = Integer.MAX_VALUE;  // stores the min
+  int max = Integer.MIN.VALUE; // stores the max
+  for (int i : array) {
+      if (i < min)  {
+          min = i;
+      }
+      if (i > max) {
+          max = i;
+      }
+  }
+  return new IntPair(min, max);
+}
+```
+]
+---
+class: middle,center
+
+## Ok works for int...
+
+### What about double? String? 
+
+### What if we wanted a pair of different types?
+
+---
+class: middle,wide
+
+.small[
+```Java
+class Pair {
+  private Object first;
+  private Object second;
+
+  public Pair(Object first, Object second) {
+      this.first = first;
+      this.second = second;
+  }
+
+  Object getFirst() { return this.first; }
+
+  Object getSecond() { return this.second; }
+}
+```
+]
+
+---
+class: middle,wide
+
+.small[
+```Java
+Pair foo() {
+  return new Pair("hello", 4);
+}
+
+Pair p = foo();
+Integer i = (Integer) p.getFirst(); 
+// run-time ClassCastException
+```
+]
+---
+class: middle,center
+
+## Generic Types
+
+---
+class: middle,wide
+
+.small[
+```Java
+class Pair<S,T> {
+  private S first;
+  private T second;
+
+  public Pair(S first, T second) {
+      this.first = first;
+      this.second = second;
+  }
+
+  S getFirst() { return this.first; }
+
+  T getSecond() { return this.second; }
+}
+```
+]
+
+---
+class: middle,wide
+
+.small[
+```Java
+Pair<String,Integer> foo() {
+  return new Pair<String,Integer>("hello", 4);
+}
+
+Pair<String,Integer> p = foo();
+Integer i = (Integer) p.getFirst(); 
+// compile-time error
+```
+]
+---
+
+class: middle,wide
+
+.small[
+```Java
+class DictEntry<T> extends Pair<String,T> {
+  :
+}
+```
+]
+---
+class: middle,center
+
+## Generic Methods
+
+### Let's revisit our friend `contains`
+
+---
+class: middle,wide
+
+.small[
+```Java
+public static <T> boolean contains(T[] array, T obj) {
+  for (T curr : array) {
+    if (curr.equals(obj)) {
+      return true;
+    }
+  }
+  return false;
+}
+```
+]
+---
+class: middle,center
+
+## Bounded Type Parameters
+
+### Let's try applying generics to `findLargest`
+---
+class: middle,wide
+
+.tiny[
+```Java
+public static <T extends GetAreable> T findLargest(T[] array) {
+  double maxArea = 0;
+  T maxObj = null;
+  for (T curr : array) {
+    double area = curr.getArea();
+    if (area > maxArea) {
+      maxArea = area;
+      maxObj = curr;
+    }
+  }
+  return maxObj;
+}
+```
+]
+---
+class: middle,wide
+
+.tiny[
+```Java
+class Pair<S extends Comparable<S>,T> implements Comparable<Pair<S,T>> {
+  :
+
+  @Override
+  public int compareTo(Pair<S,T> s1) {
+      return this.first.compareTo(s1.first)
+  }
+
+  @Override
+  public String toString() {
+    return this.first + " " + this.second;
+  }
+}
+```
+]
+---
+class: middle,wide
+
+.small[
+```Java
+Object[] array = new Object[] {
+  new Pair<String,Integer>("Alice", 1),
+  new Pair<String,Integer>("Carol", 2),
+  new Pair<String,Integer>("Bob", 3),
+  new Pair<String,Integer>("Dave", 3),
+};
+
+java.util.Arrays.sort(array);
+
+for (Object o : array) {
+  System.out.println(o);
+}
+```
+]
+---
+class: middle,center
+
+## Type Erasure
+
+---
+class: middle
+
+### How to implement generics
+
+- *code specialisation* (C#, C++, Rust): generate a new class for every new type argument.
+
+```Java
+class Pair_String_Integer { .. }
+class Pair_Double_Boolean { .. }
+  :
+```
+
+---
+class: middle
+
+### How to implement generics
+
+- *code sharing* (Java): erase type arguments and type parameters after type checking
+
+---
+class: middle
+
+### How to implement generics
+
+- *code sharing* (Java): erase type arguments and type parameters after type checking
+
+---
+class: middle
+
+.tiny[
+```Java
+Pair<String,Integer> p = new Pair<String,Integer>("hello", 4);
+Integer i = p.getSecond();
+```
+]
+
+---
+class: middle, wide
+
+.small[
+```Java
+Pair<String,Integer>[] pairArray;
+Object[] objArray;
+
+pairArray = new Pair<String,Integer>[2];
+objArray = pairArray;
+objArray[0] = new Pair<Double,Boolean>(3.14, true);
+```
+]
+
+---
+class: middle, wide
+
+.small[
+```Java
+Pair[] pairArray;
+Object[] objArray;
+
+pairArray = new Pair[2];
+objArray = pairArray;
+objArray[0] = new Pair(3.14, true);
+
+String str = pairArray[0].getFirst();
+```
+]
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+
+---
+class: middle
+
+### Let's build `Array<T>`
+
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+
+
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Sun Jan 31 15:15:00 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>

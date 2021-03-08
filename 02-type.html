@@ -1,0 +1,1203 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2030s.github.io/2021-s2/02-type.html">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.0.5">
+    
+    
+      
+        <title>2. Variable and Type - CS2030S Programming Methodology II</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.77f3fd56.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.7fa14f5b.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unit-2-variable-and-type" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="https://nus-cs2030s.github.io/2021-s2" title="CS2030S Programming Methodology II" class="md-header__button md-logo" aria-label="CS2030S Programming Methodology II">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2030S Programming Methodology II
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2. Variable and Type
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://nus-cs2030s.github.io/2021-s2" title="CS2030S Programming Methodology II" class="md-nav__button md-logo" aria-label="CS2030S Programming Methodology II">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CS2030S Programming Methodology II
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        Introduction (00-03)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Introduction (00-03)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction (00-03)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="00-overview.html" class="md-nav__link">
+        0. Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-compiler.html" class="md-nav__link">
+        1. Program and Compiler
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          2. Variable and Type
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="02-type.html" class="md-nav__link md-nav__link--active">
+        2. Variable and Type
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-abstraction-variable" class="md-nav__link">
+    Data Abstraction: Variable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    Type
+  </a>
+  
+    <nav class="md-nav" aria-label="Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-vs-static-type" class="md-nav__link">
+    Dynamic vs. Static Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strong-typing-vs-weak-typing" class="md-nav__link">
+    Strong Typing vs. Weak Typing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-checking-with-a-compiler" class="md-nav__link">
+    Type Checking with A Compiler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primitive-types-in-java" class="md-nav__link">
+    Primitive Types in Java
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subtypes" class="md-nav__link">
+    Subtypes
+  </a>
+  
+    <nav class="md-nav" aria-label="Subtypes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subtyping-between-java-primitive-types" class="md-nav__link">
+    Subtyping Between Java Primitive Types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-function.html" class="md-nav__link">
+        3. Functions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        OOP (04-16)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="OOP (04-16)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          OOP (04-16)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-encapsulation.html" class="md-nav__link">
+        4. Encapsulation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-infohiding.html" class="md-nav__link">
+        5. Information Hiding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-tell-dont-ask.html" class="md-nav__link">
+        6. Tell, Don't Ask
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-static-field.html" class="md-nav__link">
+        7. Class Fields
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-static-method.html" class="md-nav__link">
+        8. Class Methods
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-composition.html" class="md-nav__link">
+        9. Composition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-inheritance.html" class="md-nav__link">
+        10. Inheritance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-overriding.html" class="md-nav__link">
+        11. Overriding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-polymorphism.html" class="md-nav__link">
+        12. Polymorphism
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-lsp.html" class="md-nav__link">
+        13. Liskov Substitution Principle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-abstract.html" class="md-nav__link">
+        14. Abstract Class
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="15-interface.html" class="md-nav__link">
+        15. Interface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="16-wrapper.html" class="md-nav__link">
+        16. Wrapper Class
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Types (17-24)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Types (17-24)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Types (17-24)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="17-casting.html" class="md-nav__link">
+        17. Casting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="18-variance.html" class="md-nav__link">
+        18. Variance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="19-exception.html" class="md-nav__link">
+        19. Exception
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="20-generics.html" class="md-nav__link">
+        20. Generics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="21-erasure.html" class="md-nav__link">
+        21. Type Erasure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="22-unchecked.html" class="md-nav__link">
+        22. Unchecked Warnings
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="23-wildcard.html" class="md-nav__link">
+        23. Wildcards
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="24-inference.html" class="md-nav__link">
+        24. Type Inference
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="25-immutability.html" class="md-nav__link">
+        25. Immutability
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="26-nested-classes.html" class="md-nav__link">
+        26. Nested Classes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="references.html" class="md-nav__link">
+        References
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="environments.html" class="md-nav__link">
+        Programming Environments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_2" type="checkbox" id="__nav_3_2" >
+      
+      <label class="md-nav__link" for="__nav_3_2">
+        Using Unix CLI
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Using Unix CLI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          Using Unix CLI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-background.html" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-essentials.html" class="md-nav__link">
+        Essentials
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-advanced.html" class="md-nav__link">
+        Advanced
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vim.html" class="md-nav__link">
+        Using Vim
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugins.html" class="md-nav__link">
+        Vim Plugins on PE
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="style.html" class="md-nav__link">
+        Java Style Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lab.html" class="md-nav__link">
+        Lab Guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#data-abstraction-variable" class="md-nav__link">
+    Data Abstraction: Variable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type" class="md-nav__link">
+    Type
+  </a>
+  
+    <nav class="md-nav" aria-label="Type">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-vs-static-type" class="md-nav__link">
+    Dynamic vs. Static Type
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#strong-typing-vs-weak-typing" class="md-nav__link">
+    Strong Typing vs. Weak Typing
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#type-checking-with-a-compiler" class="md-nav__link">
+    Type Checking with A Compiler
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#primitive-types-in-java" class="md-nav__link">
+    Primitive Types in Java
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subtypes" class="md-nav__link">
+    Subtypes
+  </a>
+  
+    <nav class="md-nav" aria-label="Subtypes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#subtyping-between-java-primitive-types" class="md-nav__link">
+    Subtyping Between Java Primitive Types
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="unit-2-variable-and-type">Unit 2: Variable and Type</h1>
+<p>After this unit, students should be able to:</p>
+<ul>
+<li>appreciate the concept of variables as an abstraction</li>
+<li>understand the concept of types and subtypes</li>
+<li>contrast between statically typed language vs. dynamically typed language</li>
+<li>contrast between strongly typed language vs. weakly typed language</li>
+<li>be familiar with Java variables and primitive types</li>
+<li>understand widening type conversion in the context of variable assignments and how subtyping dictates whether the type conversion is allowed.</li>
+</ul>
+<h2 id="data-abstraction-variable">Data Abstraction: Variable</h2>
+<p>One of the important abstractions that are provided by a programming language is the <em>variable</em>.  Data are stored in some location in computer memory.  But we should not be referring to the memory location all the time.  First, referring to something like <code>0xFA49130E</code> is not user-friendly; Second, the location may change.  A <em>variable</em> is an abstraction that allows us to give a user-friendly name to a piece of data in memory.  We use the <em>variable name</em> whenever we want to access the <em>value</em> in that location, and <em>pointer to the variable</em> or <em>reference to the variable</em> whenever we want to refer to the address of the location.</p>
+<h2 id="type">Type</h2>
+<p>As programs get more complex, the number of variables that the programmer needs to keep track of increases.  These variables might be an abstraction over different types of data: some variables might refer to a number, some to a string, some to a list of numbers, etc.  Not all operations are meaningful over all types of data.</p>
+<p>To help mitigate the complexity,  we can assign a <em>type</em> to a variable.  The type communicates to the readers what data type the variable is an abstraction over, and to the compiler/interpreter what operations are valid on this variable and how the operation behaves.  In lower-level programming languages like C, the type also informs the compiler how the bit representing the variable should be interpreted.</p>
+<p>As an example of how types can affect how an operation behaves, let's consider
+Python.  Suppose we have two variables <code>x</code> and <code>y</code>, storing the values <code>4</code> and <code>5</code> respectively and we run <code>print x + y</code>.  If <code>x</code> and <code>y</code> are both strings, you would get <code>45</code>; if <code>x</code> and <code>y</code> are integers, you would get <code>9</code>; if <code>4</code> is an integer and <code>5</code> is a string, you would get an error.  </p>
+<p>In the last instance above, you see that assigning a type to each variable helps to keep the program meaningful, as the operation <code>+</code> is not defined over an integer and a string in Python.</p>
+<p>Java and Javascript, however,  would happily convert <code>4</code> into a string for you, and return <code>45</code>.</p>
+<h3 id="dynamic-vs-static-type">Dynamic vs. Static Type</h3>
+<p>Python and Javascript are examples of <em>dynamically typed</em> programming languages.  The same variable can hold values of different types, and checking if the right type is used is done during the execution of the program.  Note that, the type is associated with the <em>values</em>, and the type of the variable changes depending on the value it holds.  For example, we can do the following:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>i = 4   // i is an integer
+i = &quot;5&quot; // ok, i is now a string
+</code></pre></div>
+</td></tr></table></p>
+<p>Java, on the other hand, is a <em>statically typed</em> language.  We need to <em>declare</em> every variable we use in the program and specify its type.  A variable can only hold values of the same type as the type of the variable, so we can't assign, for instance, a string to a variable of type <code>int</code>.  Once a variable is assigned a type, its type cannot be changed.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>   <span class="c1">// declare a variable</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>   <span class="c1">// ok</span>
+<span class="n">i</span> <span class="o">=</span> <span class="s">&quot;5&quot;</span><span class="p">;</span> <span class="c1">// error, cannot assign a string to an `int`</span>
+</code></pre></div>
+</td></tr></table>
+<p>The type that a variable is assigned with when we declare the variable is also known as the <em>compile-time type</em>.  During the compilation, this is the only type that the compiler is aware of.  The compiler will check if the compile-time type matches when it parses the variables, expressions, values, and function calls, and throw an error if there is a type mismatch.  This type-checking step helps to catch errors in the code early.</p>
+<h3 id="strong-typing-vs-weak-typing">Strong Typing vs. Weak Typing</h3>
+<p>A <em>type system</em> of a programming language is a set of rules that govern how the types can interact with each other.  </p>
+<p>A programming language can be strongly typed or weakly typed.  There are no formal definitions of "strong" vs. "weak" typing of a programming language, and there is a spectrum of "strength" between the typing discipline of a language.  </p>
+<p>Generally, a <em>strongly typed</em> programming language enforces strict rules in its type system, to ensure <em>type safety</em>, i.e., to catch type errors during compile time rather than leaving it to runtime.</p>
+<p>On the other hand, a <em>weakly typed</em> (or <em>loosely typed</em>) programming language is more permissive in terms of typing checking.  C is an example of a static, weakly typed language.  In C, the following is possible:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>   <span class="c1">// declare a variable</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>   <span class="c1">// ok</span>
+<span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="s">&quot;5&quot;</span><span class="p">;</span> <span class="c1">// you want to treat a string as an int? ok, as you wish!   </span>
+</code></pre></div>
+</td></tr></table>
+<p>The last line forces the C compiler to treat the string (to be more precise, the address of the string) as an integer, through typecasting.</p>
+<p>In contrast, if we try the following in Java:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="n">i</span><span class="p">;</span>   <span class="c1">// declare a variable</span>
+<span class="n">i</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>   <span class="c1">// ok</span>
+<span class="n">i</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="s">&quot;5&quot;</span><span class="p">;</span> <span class="c1">// error</span>
+</code></pre></div>
+</td></tr></table>
+<p>we will get the following compile-time error message:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>|  incompatible types: java.lang.String cannot be converted to int
+</code></pre></div>
+</td></tr></table></p>
+<p>because the compiler enforces a stricter rule and allows typecasting only if it makes sense.</p>
+<h2 id="type-checking-with-a-compiler">Type Checking with A Compiler</h2>
+<p>In addition to checking for syntax errors, the compiler can check for type compilability according to the compile-time type, to catch possible errors as early as possible.  Such type checking is made possible with static typing.  Consider the following Python program:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">while</span> <span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="c1"># do something that takes time</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;i is &quot;</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
+</code></pre></div>
+</td></tr></table>
+<p>The type mismatch error on Line 5 is only caught when Line 5 is executed.  Since the type of the variable <code>i</code> can change during run time, Python (and generally, dynamically typed languages) can not tell if Line 5 will lead to an error until it is evaluated at run-time.  </p>
+<p>In contrast, statically typed language like Java can detect type mismatch during compile time since the compile-time type of a variable is fixed.</p>
+<h2 id="primitive-types-in-java">Primitive Types in Java</h2>
+<p>We now switch our focus to Java, particularly to the types supported.  There are two categories of types in Java, the <em>primitive types</em> and the <em>reference types</em>.  We will first look at primitive types in this unit.</p>
+<p>Primitive types are types that holds numeric values (integers, floating-point numbers) as well as boolean values (<code>true</code> and <code>false</code>).  </p>
+<p>For storing integral values, Java provides four types, <code>byte</code>, <code>short</code>, <code>int</code>, and <code>long</code>, for storing 8-bit, 16-bit, 32-bit, 64-bit signed integers respectively.  The type <code>char</code> stores 16-bit unsigned integers representing UTF-16 Unicode characters.</p>
+<p>For storing floating-point values, Java provides two types, <code>float</code> and <code>double</code>, for 16-bit and 32-bit floating-point numbers.</p>
+<p>Unlike reference types, which we will see later, primitive type variables never share their value with each other, i.e., if we have:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table></p>
+<p><code>i</code> and <code>j</code> each store a copy of the value <code>1000</code> after Line 2.  Changing <code>i</code> on Line 3 does not change the content of <code>j</code>.</p>
+<h2 id="subtypes">Subtypes</h2>
+<p>An important concept that we will visit repeatedly in CS2030/S is the concept of subtypes.</p>
+<p>Let <span class="arithmatex">\(S\)</span> and <span class="arithmatex">\(T\)</span> be two types.  We say that <span class="arithmatex">\(T\)</span> is a <em>subtype</em> of <span class="arithmatex">\(S\)</span> if <em>a piece of code written for variables of type <span class="arithmatex">\(S\)</span> can also safely be used on variables of type <span class="arithmatex">\(T\)</span></em>.  </p>
+<p>We use the notation <span class="arithmatex">\(T &lt;: S\)</span> or <span class="arithmatex">\(S :&gt; T\)</span> to denote that <span class="arithmatex">\(T\)</span> is subtype of <span class="arithmatex">\(S\)</span>.</p>
+<p>The subtype relationship is transitive, i.e., if <span class="arithmatex">\(S &lt;: T\)</span> and <span class="arithmatex">\(T &lt;: U\)</span>, then <span class="arithmatex">\(S &lt;: U\)</span>.  It is also reflexive, for any type <span class="arithmatex">\(S\)</span>, <span class="arithmatex">\(S &lt;: S\)</span>.</p>
+<p>We also use the term <em>supertype</em> to denote the reversed relationship: if <span class="arithmatex">\(T\)</span> is a subtype of <span class="arithmatex">\(S\)</span>, then <span class="arithmatex">\(S\)</span> is a supertype of <span class="arithmatex">\(T\)</span>.</p>
+<h3 id="subtyping-between-java-primitive-types">Subtyping Between Java Primitive Types</h3>
+<p>Consider the range of values that the primitive types can take, Java defines the following subtyping relationship:</p>
+<p><code>byte</code> &lt;: <code>short</code> &lt;: <code>int</code> &lt;: <code>long</code> &lt;: <code>float</code> &lt;: <code>double</code></p>
+<p><code>char</code> &lt;: <code>int</code></p>
+<p>Valid subtype relationship is part of what the Java compiler checks for when it compiles.  Consider the following example:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">5.0</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+<span class="n">i</span> <span class="o">=</span> <span class="n">d</span><span class="p">;</span> <span class="c1">// error</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>Line 4 above would lead to an error:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>|  incompatible types: possible lossy conversion from double to int
+</code></pre></div>
+</td></tr></table></p>
+<p>but Line 3 is OK.  </p>
+<p>This example shows how subtyping applies to type checking.  <em>Java allows a variable of type <span class="arithmatex">\(T\)</span> to hold a value from a variable of type <span class="arithmatex">\(S\)</span> only if <span class="arithmatex">\(S &lt;: T\)</span></em>.  This step is called <em>widening type conversion</em>.  Such conversion can happen during assignment or parameter passing.</p>
+<h1 id="additional-readings">Additional Readings</h1>
+<ul>
+<li><a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/datatypes.html">Java Tutorial: Primitive Data Types</a> and other <a href="https://docs.oracle.com/javase/tutorial/java/nutsandbolts/index.html">Language Basics</a></li>
+</ul>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="01-compiler.html" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              1. Program and Compiler
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="03-function.html" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              3. Functions
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright by Department of Computer Science, National University of Singapore 2021
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fb4a9340.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.5cf3e710.min.js"></script>
+      
+        <script src="javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>
