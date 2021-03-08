@@ -92,7 +92,7 @@ Note that, to avoid (likely malicious or ignorant) subclasses of `Point` overrid
 
 Now, let's make `Circle` immutable:
 
-```
+```Java
 final class Circle {
 	final private Point c;
 	final private double r;
@@ -110,7 +110,7 @@ final class Circle {
 }
 ```
 
-With both `Point` and `Circle` immutable, we can be sure that once an instance is created, it remains be unchanged (outside the abstraction barrier):
+With both `Point` and `Circle` immutable, we can be sure that once an instance is created, it remains unchanged (outside the abstraction barrier):
 
 ```Java
 Point p = new Point(0, 0);
@@ -127,7 +127,7 @@ c1 = c1.moveTo(1, 1);
 
 Now, `c1` moves to a new location, but `c2` remains unchanged.
 
-Compare our new immutable approach to the two approaches above. The first shares all the references and is bug-prone.  The second creates a new copy of the instance every time and is resource-intensive.  Our third approach, using immutable classes, allows us to share all the references until we need to modify the instance, in which case we make a copy.  Such _copy-on-write_ semantic allows us to avoid aliasing bugs without creating excessive copies of objects.
+Compare our new immutable approach to the two approaches above. The first shares all the references and is bug-prone.  The second creates a new copy of the instance every time and is resource-intensive.  Our third approach, using immutable classes, allows us to share all the references until we need to modify the instance, in which case we make a copy.  Such a _copy-on-write_ semantic allows us to avoid aliasing bugs without creating excessive copies of objects.
 
 ## Advantages of Being Immutable
 
@@ -141,9 +141,9 @@ Code written with immutable objects is easier to reason with and easier to under
 Circle c = new Circle(new Point(0, 0), 8);
 ```
 
-We pass `c` around to many other methods.  These other methods may invoke `c`'s methods; we may invoke `c`'s methods locally as well.  But, despite putting `c` through so much, unless we have explicitly reassigned `c`, we can guarantee that `c` is still a circle centered at (0,0) with a radius of 8.  Such immutable property makes it significantly easier to read, understand, and debug our code.
+We pass `c` around to many other methods.  These other methods may invoke `c`'s methods; we may invoke `c`'s methods locally as well.  But, despite putting `c` through so much, unless we have explicitly reassigned `c`, we can guarantee that `c` is still a circle centered at (0,0) with a radius of 8.  This immutable property makes it significantly easier to read, understand, and debug our code.
 
-Without this property, we have to trace through all the methods that we pass `c` to, and each call of `c`'s methods to make sure that none of these code modifies `c`.
+Without this property, we have to trace through all the methods that we pass `c` to, and each call of `c`'s methods to make sure that none of these codes modifies `c`.
 
 ### Enabling Safe Sharing of Objects
 
@@ -206,7 +206,7 @@ There are a few things to note here.
 
 *Varargs* The parameter to the class factory method `of` has the form `T... items`.  The triple `.` notation is a Java syntax for a variable number of arguments of the same type (`T`).  Often called _varargs_, this is just syntactic sugar for passing in an array of items to a method.  We can then call `of` with a variable number of arguments, such as:
 
-```
+```Java
 ImmutableArray<Integer> a;
 a = ImmutableArray.of(1, 2, 3);
 a = ImmutableArray.of(1, 2, 3, 4, 5);
@@ -217,7 +217,8 @@ a = ImmutableArray.of(1, 2, 3, 4, 5);
 Notice that we removed the `set` method and there is no other way an external client can modify the array once it is created.
 
 Now, suppose that we wish to support a `subarray` method, that returns a new array containing only a range of elements in the original array.  It behaves as follows:
-```
+
+```Java
 ImmutableArray<Integer> a = ImmutableArray.of(10, 20, 30, 40, 50, 60);
 ImmutableArray<Integer> b = a.subarray(2, 4); // b is [30, 40, 50]
 b.get(0) // returns 30
@@ -259,4 +260,4 @@ class ImmutableArray<T> {
 
 ### Enabling Safe Concurrent Execution
 
-We will explore concurrent execution of code towards the end of the class, but making our classes immutable goes a long way in reducing bugs related to concurrent execution.  Without going into details here (you will learn the details later), concurrent programming allows multiple threads of code to run in an interleave fashion, in arbitrary interleaving order.   If we have complex code that is difficult to debug to begin with, imagine having code where we have to ensure its correctness regardless of how the execution interleaves!  Immutability helps us ensure that regardless of how the code interleaves, our objects remain unchanged.
+We will explore concurrent execution of code towards the end of the module, but making our classes immutable goes a long way in reducing bugs related to concurrent execution.  Without going into details here (you will learn the details later), concurrent programming allows multiple threads of code to run in an interleaved fashion, in an arbitrary interleaving order.   If we have complex code that is difficult to debug to begin with, imagine having code where we have to ensure its correctness regardless of how the execution interleaves!  Immutability helps us ensure that regardless of how the code interleaves, our objects remain unchanged.
