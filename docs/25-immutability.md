@@ -246,7 +246,7 @@ class ImmutableArray<T> {
   }
 
   public T get(int index) {
-    if (index < 0 && this.start + index > this.end) {
+    if (index < 0 || this.start + index > this.end) {
       throw new IllegalArgumentException("Index out of bound");
     }
     return this.array[this.start + index];
