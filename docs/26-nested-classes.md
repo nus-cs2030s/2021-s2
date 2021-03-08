@@ -83,7 +83,7 @@ class A {
 
 We can also declare a class within a function, just like a local variable.  
 
-To motivate this, let's consider how one would use the [`java.lang.Comparator`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Comparator.html) interface.    
+To motivate this, let's consider how one would use the [`java.util.Comparator`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/Comparator.html) interface.    
 The `Comparator` interface allows us to specify how to compare two elements, by implementing this interface with a customized `compare()` method.  `compare(o1,o2)` should return 0 if the two elements are equals, a negative integer if o1 is "less than" o2, and a positive integer otherwise.
 
 Suppose we have a list of strings, and we want to sort them in the order of their length, we can write the following method:
