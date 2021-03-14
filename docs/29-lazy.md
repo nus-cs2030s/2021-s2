@@ -10,14 +10,14 @@ After this lecture, students should understand:
 ## Lambda as Delayed Data
 
 When we write a lambda expression like this:
-```
+```Java
 Transformer<Integer, Integer> f = x -> x + 1;
 ```
 
 we are just defining an expression.  We are not invoking the function `x + 1`.  This is perhaps clear to most students since to invoke the function, we need an argument for `x`, and no argument is supplied when we define `f`.
 
 Consider the following functional interfaces instead:
-```
+```Java
 @FunctionalInteface
 interface Producer<T> {
 	T produce();
@@ -31,7 +31,7 @@ interface Task {
 
 These functional interfaces have a method that does not take in a parameter.  So, we would be using them like such:
 
-```java
+```Java
 i = 4;
 Task print = () -> System.out.println(i);
 Producer<String> toStr = () -> Integer.toString(i);
@@ -43,7 +43,7 @@ Lambda expression, therefore, allows us to delay the execution of code, saving t
 
 Consider the following class:
 
-```
+```Java
 // Version 0.1 (eager evaluation)
 enum LogLevel { INFO, WARNING, ERROR, NONE };
 
@@ -60,7 +60,8 @@ class Logger {
 The `log` method checks the seriousness level of the message against the current log level, and only prints the message if the level of the message is the same or higher.  For instance, if the current log level is `WARNING`, then
 
 ```
-log(LogLevel.INFO, "User " + System.getProperty("user.name") + " has logged in");
+log(LogLevel.INFO, 
+    "User " + System.getProperty("user.name") + " has logged in");
 ```
 
 will not get printed.
@@ -69,7 +70,7 @@ However, regardless of whether the log message will be printed, the method `Syst
 
 A better design for this case is to wrap the message `msg` within a producer.  The new `lazyLog` method would look like this:
 
-```
+```Java
 // Version 0.2 (with Producer)
 enum LogLevel { INFO, WARNING, ERROR, NONE };
 
@@ -84,8 +85,9 @@ class Logger {
 ```
 
 and is invoked like this:
-```
-log(LogLevel.INFO, () -> "User " + System.getProperty("user.name") + " has logged in");
+```Java
+log(LogLevel.INFO, 
+    () -> "User " + System.getProperty("user.name") + " has logged in");
 ```
 
 The method `System.getProperty("user.name")` is now called only if the message is going to be printed.
@@ -120,7 +122,7 @@ class Lazy<T> {
 
 We can now rewrite our `Logger` as
 
-```
+```Java
 // version 0.3 (with Lazy)
 enum LogLevel { INFO, WARNING, ERROR, NONE };
 
@@ -135,8 +137,9 @@ class Logger {
 ```
 
 and call it with:
-```
-Lazy<String> loginMessage = new Lazy(() -> "User " + System.getProperty("user.name") + " has logged in");
+```Java
+Lazy<String> loginMessage = new Lazy(
+    () -> "User " + System.getProperty("user.name") + " has logged in");
 log(LogLevel.INFO, loginMessage);
 ```
 
