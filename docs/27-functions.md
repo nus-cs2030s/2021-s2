@@ -17,7 +17,7 @@ Recall that, a function, in mathematics, refers to a mapping from a set of input
 
 We know how to deal with mathematical functions very well.  There are certain rules that we follow when we reason about functions.  For instance, suppose we have an unknown $x$ and a function $f$, we know that applying $f$ on $x$, i.e., $f(x)$ does not change the value of $x$, or any other unknowns $y$, $z$, etc.  We say that mathematical functions have _no side effects_.  It simply computes and returns the value.
 
-Another property of mathematical function is _referential transparency_.  Let $f(x) = a$.  Then in every formula that $f(x)$ appears in, we can safely replace occurances of $f(x)$ with $a$.  Conversely, where where $a$ appears, we can replace it with $f(x)$.  We can be guarantee that the resulting formulas are still equivalent.
+Another property of mathematical function is _referential transparency_.  Let $f(x) = a$.  Then in every formula that $f(x)$ appears in, we can safely replace occurances of $f(x)$ with $a$.  Conversely, everywhere $a$ appears, we can replace it with $f(x)$.  We can be guarantee that the resulting formulas are still equivalent.
 
 These two fundamental properties of mathematical functions allow us to solve equations, prove theorems, and reason about mathematical objects rigorously.
 
@@ -69,8 +69,8 @@ void incrCount(int i) {
                    // and has side effects on count
 }
 
-int addToList(ArrayList<Integer> queue, int i) {
-  queue.add(i);  // has side effects on queue
+int addToQ(Queue<Integer> queue, int i) {
+  queue.enq(i);  // has side effects on queue
 }
 ```
 
@@ -80,7 +80,7 @@ In the OO paradigm, we commonly need to write methods that update the fields of 
 
 In computer science, we refer to the style of programming where we build a program from pure functions as _functional programming_ (FP). Examples of functional programming languages include Haskell, OCaml, Erlang, Clojure, F#, and Elixir.
 
-Many modern programming languages, such as Java, C++, Python, Rust, Swift, support this style of programming.  As these languages are not designed to be functional, we cannot build a program from only pure functions.  Java, for instance, is still an OO language at its core.  As such, we will refer to this style as _functional-style programming_.  We won't be able to achieve pure functions without side effects in Java, but we can write methods that reduce side effects and objects that are immutable, as much as possible.
+Many modern programming languages, such as Java, C++, Python, Rust, Swift, support this style of programming.  As these languages are not designed to be functional, we cannot build a program from only pure functions.  Java, for instance, is still an OO language at its core.  As such, we will refer to this style as _functional-style programming_.  We won't be able to write code consists of only pure functions in Java, but we can write methods that has no side effects and objects that are immutable, as much as possible.
 
 ## Function as First-Class Citizen in Java
 
@@ -97,7 +97,7 @@ void sortNames(List<String> names) {
 }
 ```
 
-First, let's take a moment to appreciate the beauty of the `List::sort` method.  We can use this method to sort items of _any type_, in _any defined order_.  We achieve the generality of types with generics, and the generality of sorting order through passing in the comparison function as a parameter.  This design eliminates the need to write one sorting method for every possible sorting order for a list of strings, (`sortAlphabeticallyIncreasing`, `sortByLengthDecreasing`, etc..)
+First, let's take a moment to appreciate the beauty of the `List::sort` method.  We can use this method to sort items of _any type_, in _any defined order_.  We achieve the generality of types with generics, and the generality of sorting order through passing in the comparison function as a parameter.  The latter the need to write one sorting method for every possible sorting order for a list of strings, (`sortAlphabeticallyIncreasing`, `sortByLengthDecreasing`, etc..)
 
 The comparison function here is implemented _as a method in an anonymous class that implements an interface_.  We can think of an instance of this anonymous class as the function.  Since a function is now just an instance of an object in Java, we can pass it around, return it from a function, and assign it to a variable, just like any other reference type.
 
@@ -110,7 +110,7 @@ interface Transformer<T, R> {
 
 `Transformer<T, R>` is a generic interface with two type parameters: `T` is the type of the input, `R` is the type of the result.  It has one abstract method `R transform(T t)` that applies the function to a given argument.
 
-We can use this interface to write any function that takes in a value and return another value.  (Java has a similar interface called, unsurprisingly, `Function<T, R>`). For instance, a function that computes the square of an integer can be written as:
+We can use this interface to write any function that takes in a value and return another value.  (Java has a similar interface called, unsurprisingly, `[java.util.function.Function<T, R>](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Function.html)`). For instance, a function that computes the square of an integer can be written as:
 ```Java
 new Transformer<Integer, Integer>() {
   @Override
@@ -126,8 +126,8 @@ return the new computation:
 // Use of PECS left as an exercise
 <T, R, S> Transformer<T,R> chain(Transformer<T,S> t1, Transformer<S,R> t2) {
   return new Transformer<T,R>() {
-	public R transform(T t) {
-	  return t2.transform(t1.transform(t));
+	public R transform(T value) {
+	  return t2.transform(t1.transform(value));
 	}
   }
 }
@@ -165,7 +165,7 @@ Transformer<Integer, Integer> incr = new Transformer<>() {
 ```
 
 You can see that there is much boilerplate code in the two functions above.  Since we are assigning it to a variable of type`Transformer` interface, we don't have to write `new Transformer<>() { .. }`.  Since there is only one abstract method to overwrite, we don't have to write `@Override public Integer transform(..) { .. }`.
-What remains is the parameter `Integer x` and the body of `transform`, which is `{ return x * x; }`.  
+What remain after we eliminate the obvious and biolerplate are (i) the parameter `Integer x` and (ii) the body of `transform`, which is `{ return x * x; }`.  
 
 We can use the Java arrow notation `->` to now link the parameter and the body:
 ```Java
@@ -178,11 +178,13 @@ You might notice that the type of the parameter is redundant as well since the t
 Transformer<Integer, Integer> square = (x) -> { return x * x; };
 Transformer<Integer, Integer> incr = (x) -> { return x + 1; };
 ```
+
 or simply:
 ```Java
 Transformer<Integer, Integer> square = x -> { return x * x; };
 Transformer<Integer, Integer> incr = x -> { return x + 1; };
 ```
+
 where there is only one parameter.
 
 Since the body has only a single return statement, we can simplify it further:
@@ -193,7 +195,7 @@ Transformer<Integer, Integer> incr = x -> x + 1;
 
 Now, that's much better!
 
-The expressions above, including `x -> x * x`, are called _lambda expressions_.  You can recognize one by the use of `->`.   The left-hand side lists the parameters (use `()` if there is no parameter), while the right-hand side is the computation.  We do not need the type in cases where Java can infer the type, nor need the return statements and the curly brackets.
+The expressions above, including `x -> x * x`, are called _lambda expressions_.  You can recognize one by the use of `->`.   The left-hand side lists the parameters (use `()` if there is no parameter), while the right-hand side is the computation.  We do not need the type in cases where Java can infer the type, nor need the return keyword and the curly brackets when there is only a single return statement.
 
 !!! note "lambda"
     Alonzo Church invented lambda calculus ($\lambda$-calculus) in 1936, before electronic computers, as a way to express computation.  In $\lambda$-calculus, all functions are anonymous.  The term lambda expression originated from there.
@@ -239,19 +241,18 @@ Transformer<Point, Double> dist = origin::distanceTo;
 The double-colon notation `::` is used to specify a _method reference_.  We can use method references to refer to a (i) static method in a class, (ii) instance method of a class or interface, (iii) constructor of a class.  Here are some examples (and their equivalent lambda expression)
 
 ```Java
-Box::of;            // x -> Box.of(x);
-Box::new;           // x -> new Box(x)
-x::compareTo        // y -> x.compareTo(y)
-A::foo              // (x, y) -> x.foo(y) or (x, y) -> A.foo(x,y)
+Box::of            // x -> Box.of(x)
+Box::new           // x -> new Box(x)
+x::compareTo       // y -> x.compareTo(y)
+A::foo             // (x, y) -> x.foo(y) or (x, y) -> A.foo(x,y)
 ```
 
 The last example shows that the same method reference expression can be interpreted in two different ways.  The actual interpretation depends on how many parameters `foo` takes and whether `foo` is a class method or an instance method.  When compiling, Java searches for the matching method, performing type inferences to find the method that matches the given method reference.  A compilation error will be thrown if there are multiple matches or if there is ambiguity in which method matches.
 
 ## Curried Functions
 
-Mathematically, a function takes in only one value and returns one value (e.g., `square` above).  In programming, we often need to write functions that take in more than one argument (e.g., `add` above).  We will see how to reconcile this later.
-
-Functions have an _arity_.  While `Transformer` only supports function with a single parameter, we can build functions that take in multiple arguments.  Let's look at this mathematically first.  Consider a binary function $f: (X, Y) \rightarrow Z$.  We can introduce $F$ as a set of all functions $f': Y \rightarrow Z$, and rewrite $f$ as $f: X \rightarrow F$, of $f: X \rightarrow Y \rightarrow Z$.
+Mathematically, a function takes in only one value and returns one value (e.g., `square` above).  In programming, we often need to write functions that take in more than one argument (e.g., `add` above).
+Even though `Transformer` only supports function with a single parameter, we can build functions that take in multiple arguments.  Let's look at this mathematically first.  Consider a binary function $f: (X, Y) \rightarrow Z$.  We can introduce $F$ as a set of all functions $f': Y \rightarrow Z$, and rewrite $f$ as $f: X \rightarrow F$, of $f: X \rightarrow Y \rightarrow Z$.
 
 A trivial example of this is the `add` method that adds two `int` values.
 ```Java
