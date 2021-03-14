@@ -31,6 +31,9 @@ nav:
       - 24. Type Inference: '24-inference.md'
     - 25. Immutability: '25-immutability.md'
     - 26. Nested Classes: '26-nested-classes.md'
+    - 27. Functions: '27-functions.md'
+    - 28. Box and Maybe: '28-box-maybe.md'
+    - 29. Lazy Evaluation: '29-lazy.md'
     - References: 'references.md'
   - Guide:
     - Programming Environments: 'environments.md'
