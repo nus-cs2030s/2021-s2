@@ -56,7 +56,7 @@ Methods such as these accept a function as a parameter allows the client to mani
 Let's now look at `Box<T>` in a slightly different light.  Let's rename it to `Maybe<T>`.  `Maybe<T>` is an _option type_, a common abstraction in programming languages (`java.util.Optional` in Java, `option` in Scala, `Maybe` in Haskell, `Nullable<T>` in C#, etc) that is a wrapper around a value that is either there or is `null`.  The `Maybe<T>` abstraction allows us to write code without mostly not worrying about the possibility that our value is missing.  When we call `map` on a value that is missing, nothing happens.
 
 Recall that we wish to write a program that is as close to pure mathematical functions as possible, a mathematical function always has a well-defined domain and codomain.  If we have a method that looks this like this:
-```
+```Java
 Counter c = shop.findCounter();
 ```
 
@@ -65,7 +65,7 @@ Then `findCounter` is mapping from the domain on shops or counters.  However, if
 One way to fix this is to have a special counter (say, `class NullCounter extends Counter`) that is returned whenever no counter is available.  This way, our `findCounter` remains a pure function.  But this is not a general solution.  If we adopt this solution, everywhere we return `null` in place of a non-null instance we have to create a special subclass.
 
 Another way, that is more general, is to expand the codomain of the function to include `null`, and wrap both `null` and `Counter` under a type called `Maybe<Counter>`.  We make `findCounter` returns a `Maybe<Counter>` instead
-```
+```Java
 Maybe<Counter> c = shop.findCounter();
 ```
 

@@ -86,7 +86,7 @@ Many modern programming languages, such as Java, C++, Python, Rust, Swift, suppo
 
 Let's explore functions as a first-class citizen in Java.  We have seen some examples of this when we use the `Comparator` interface.
 
-```java
+```Java
 void sortNames(List<String> names) {
 	Comparator<String> cmp = new Comparator<String>() {
 	  public int compare(String s1, String s2) {
@@ -102,7 +102,7 @@ First, let's take a moment to appreciate the beauty of the `List::sort` method. 
 The comparison function here is implemented _as a method in an anonymous class that implements an interface_.  We can think of an instance of this anonymous class as the function.  Since a function is now just an instance of an object in Java, we can pass it around, return it from a function, and assign it to a variable, just like any other reference type.
 
 Let's look at another example.  Consider the following interface:
-```java
+```Java
 interface Transformer<T, R> {
   R transform(T t);
 }
@@ -122,7 +122,7 @@ new Transformer<Integer, Integer>() {
 
 We can write a method `chain` that composes two given computations together and
 return the new computation:
-```
+```Java
 // Use of PECS left as an exercise
 <T, R, S> Transformer<T,R> chain(Transformer<T,S> t1, Transformer<S,R> t2) {
   return new Transformer<T,R>() {
@@ -139,7 +139,7 @@ While we have achieved functions as first-class citizens in Java, the code is ve
 
 An interface in Java with only one abstract method is called a _functional interface_.  Both `Comparator` and `Transformer` are functional interfaces.  It is recommended that, if a programmer intends an interface to be a functional interface, they should annotate the interface with the `@FunctionalInteface` annotation.
 
-```java
+```Java
 @FunctionalInteface
 interface Transformer<T, R> {
   R transform(T t);
@@ -204,7 +204,7 @@ Lambda expression is useful for specifying a new anonymous method.  Sometimes, w
 
 Recall the `distanceTo` method in `Point`, which takes in another point as a parameter and returns the distance between this point and the given point.
 
-```java
+```Java
 class Point {
 	:
 	public double distanceTo(Point p) {
@@ -214,7 +214,7 @@ class Point {
 ```
 
 We can write our `Transformer` like this using an anonymous class:
-```java
+```Java
 Point origin = new Point(0, 0);
 Transformer<Point, Double> dist = new Transformer<>() {
 	@Override
@@ -287,7 +287,7 @@ How is currying useful?  Consider `add(1, 1)` -- we have to have both arguments 
 ## Lambda as Closure
 
 In the example, we showed earlier,
-```
+```Java
 Point origin = new Point(0, 0);
 Transformer<Point, Double> dist = origin::distanceTo;
 ```
