@@ -44,6 +44,7 @@ nav:
     - Using Vim: 'vim.md'
     - Vim Plugins on PE: 'plugins.md'
     - Java Style Guide: 'style.md'
+    - JavaDoc Guide: 'javadoc.md'
     - Lab Guide: 'lab.md'
 
     #  - General: 
