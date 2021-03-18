@@ -90,7 +90,7 @@ class Logger {
 
 and is invoked like this:
 ```Java
-Logger.log(Logger.LogLevel.INFO, 
+Logger.lazyLog(Logger.LogLevel.INFO, 
     () -> "User " + System.getProperty("user.name") + " has logged in");
 ```
 
@@ -146,7 +146,7 @@ and call it with:
 ```Java
 Lazy<String> loginMessage = new Lazy(
     () -> "User " + System.getProperty("user.name") + " has logged in");
-Logger.log(Logger.LogLevel.INFO, loginMessage);
+Logger.lazyLog(Logger.LogLevel.INFO, loginMessage);
 ```
 
 If `loginMessage` is used in multiple places, memoization ensures that `System.getProperty("user.name")` and the concatenation of the strings are done only once.
