@@ -18,12 +18,12 @@ we are just defining an expression.  We are not invoking the function `x + 1`.  
 
 Consider the following functional interfaces instead:
 ```Java
-@FunctionalInteface
+@FunctionalInterface
 interface Producer<T> {
 	T produce();
 }
 
-@FunctionalInteface
+@FunctionalInterface
 interface Task {
 	void run();
 }

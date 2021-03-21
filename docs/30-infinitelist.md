@@ -23,7 +23,7 @@ class EagerList<T> {
     return this.tail;
   }
 
-  public EagerList<T> empty() {
+  public static <T> EagerList<T> empty() {
     @SuppressWarnings("unchecked")
     EagerList<T> temp = (EagerList<T>) EMPTY;
     return temp;
@@ -100,16 +100,17 @@ We have the special `EmptyList` cases,
 
 The resulting list can be used this way:
 ```Java
-EagerList.iterate(0, i -> i < 10, i -> i + 1); // [0, 1, ... 9]
+EagerList<Integer> l = EagerList.iterate(1, i -> i < 10, i -> i + 1) // [1, ... 9]
     .filter(i -> i % 3 == 0)  // [3, 6, 9]
     .map(i -> i * 2);  // [6, 12, 18]
 l.head();        // 6
 l.tail().head(); // 12
+l.tail().tail().head(); // 18
 ```
 
 ## An Infinite List
 
-Lazy evaluation allows us to delay the computation that produces data until the data is needed data.  This powerful concept enables us to build computationally-efficient data structures.  We will focus on building a list with a possibly infinite number of elements -- something that couldn't be done without lazy evaluation.  Any eager-evaluation-based solution will just run in an infinite loop if the list is infinitely long.  For instance,
+Lazy evaluation allows us to delay the computation that produces data until the data is needed.  This powerful concept enables us to build computationally-efficient data structures.  We will focus on building a list with a possibly infinite number of elements -- something that couldn't be done without lazy evaluation.  Any eager-evaluation-based solution will just run in an infinite loop if the list is infinitely long.  For instance,
 
 ```Java
 EagerList.iterate(1, i > 0, i -> i + 1); // infinite loop
@@ -130,15 +131,15 @@ class InfiniteList<T> {
   }
 
   public T head() {
-    return this.head;
+    return this.head.produce();
   }
 
   public InfiniteList<T> tail() {
-    return this.tail;
+    return this.tail.produce();
   }
 }
 ```
-Note that we don't need `EmptyList` for now.  We will need it if we have operations that truncate the list to a finite one, but let's not worry about it yet.
+Note that we don't need an `EmptyList` for now.  We will need it if we have operations that truncate the list to a finite one, but let's not worry about it yet.
 
 We now change the `generate` method to be lazy, by passing in a producer instead.  We no longer need to pass in the size, since the list can be infinitely long!
 ```Java
@@ -160,13 +161,13 @@ Here are some examples of how to use the two methods above:
 
 ```Java
 InfiniteList<Integer> ones = InfiniteList.generate(() -> 1); // 1, 1, 1, 1, ....
-InfiniteList<Integer> even = InfiniteList.iterate(0, x -> x + 2); // 0, 2, 4, 6, ...
+InfiniteList<Integer> evens = InfiniteList.iterate(0, x -> x + 2); // 0, 2, 4, 6, ...
 evens.head(); // -> 0
 evens = evens.tail(); 
 evens.head(); // -> 2
 ```
 
-Both the lists `ones` and `even` are infinitely long, but due to lazy evaluation, we do not generate all the elements in advance, but only when an element is needed.  
+Both the lists `ones` and `evens` are infinitely long, but due to lazy evaluation, we do not generate all the elements in advance, but only when an element is needed.  
 
 ## Map
 
@@ -174,7 +175,7 @@ Let's now write the lazy version of `map` as well:
 
 ```Java
 public <R> InfiniteList<R> map(Transformer<? super T, ? extends R> mapper) {
-  return new InfiniteList(
+  return new InfiniteList<>(
       () -> mapper.transform(this.head()),
     () -> this.tail().map(mapper));
 }
@@ -276,7 +277,7 @@ We have the following objects set up.
 
 ![altEvens](figures/infinitelist/infinitelist.003.png)
 
-Let's now trace through what happened when we call `altEvens.head()`.  This method leads to the call `this.head().produce()`, where `this` refers to `altEvens`.  The call to `produce` invoked `mapper.transform(this.head.produce())` of the producer labelled 1 in the figure below.  This leads to `this.head.produce()` of this producer being called.  Within this producer, `this` refers to `odds`, and so `this.head.produce()` invoked `mapper.transform(this.head.produce())` of the producer labelled 2.   Now, `this` refers to `evens`, and `this.head.produce()` causes the producer `() -> 1` (labelled 3) to produce 1.
+Let's now trace through what happens when we call `altEvens.head()`.  This method leads to the call `this.head().produce()`, where `this` refers to `altEvens`.  The call to `produce` invoked `mapper.transform(this.head.produce())` of the producer labelled 1 in the figure below.  This leads to `this.head.produce()` of this producer being called.  Within this producer, `this` refers to `odds`, and so `this.head.produce()` invoked `mapper.transform(this.head.produce())` of the producer labelled 2.   Now, `this` refers to `evens`, and `this.head.produce()` causes the producer `() -> 1` (labelled 3) to produce 1.
 
 ![altEvens](figures/infinitelist/infinitelist.004.png)
 
@@ -291,7 +292,7 @@ EagerList.iterate(0, x -> x < 10, x -> x + 2)
     .head();
 ```
 
-The method `iterate` generates all the elements first, then all the elements gets `map` with `x -> x + 1`, then with `x -> x + 2`, then the first element is retrieved.  
+The method `iterate` generates all the elements first, then all the elements gets `map`-ed with `x -> x + 1`, then with `x -> x + 2`, and then the first element is retrieved.  
 
 When we run, 
 ```Java
@@ -329,7 +330,7 @@ To make `filter` lazy, we have to perform the test in the producer that produces
 
 In the code above, we use `null` to indicate that the `head` is filtered for simplicity.  It is not a good practice, however since `null` could be a valid value in an infinite list.
 
-Putting the abuse of `null` aside, the possibility that the head produces a value that is filtered affects the other method. The methods `head` and `tail` have to be changed to:
+Putting the abuse of `null` aside, the possibility that the head produces a value that is filtered affects other methods. The methods `head` and `tail` have to be changed to:
 ```Java
   public T head() {
     T h = this.head.produce();
