@@ -34,6 +34,8 @@ nav:
     - 27. Functions: '27-functions.md'
     - 28. Box and Maybe: '28-box-maybe.md'
     - 29. Lazy Evaluation: '29-lazy.md'
+    - 30. Infinite List: '30-infinitelist.md'
+    - 31. Stream: '31-stream.md'
     - References: 'references.md'
   - Guide:
     - Programming Environments: 'environments.md'
