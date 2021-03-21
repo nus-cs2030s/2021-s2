@@ -137,10 +137,10 @@ return the new computation:
 
 While we have achieved functions as first-class citizens in Java, the code is verbose and ugly.  Fortunately, there is a much cleaner syntax to write functions that applies to interfaces with a single abstract method.
 
-An interface in Java with only one abstract method is called a _functional interface_.  Both `Comparator` and `Transformer` are functional interfaces.  It is recommended that, if a programmer intends an interface to be a functional interface, they should annotate the interface with the `@FunctionalInteface` annotation.
+An interface in Java with only one abstract method is called a _functional interface_.  Both `Comparator` and `Transformer` are functional interfaces.  It is recommended that, if a programmer intends an interface to be a functional interface, they should annotate the interface with the `@FunctionalInterface` annotation.
 
 ```Java
-@FunctionalInteface
+@FunctionalInterface
 interface Transformer<T, R> {
   R transform(T t);
 }

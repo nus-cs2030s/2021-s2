@@ -18,12 +18,12 @@ we are just defining an expression.  We are not invoking the function `x + 1`.  
 
 Consider the following functional interfaces instead:
 ```Java
-@FunctionalInteface
+@FunctionalInterface
 interface Producer<T> {
 	T produce();
 }
 
-@FunctionalInteface
+@FunctionalInterface
 interface Task {
 	void run();
 }
@@ -106,7 +106,7 @@ While other languages such as Scala as native support for lazy variables, Java d
 class Lazy<T> {
   T value;
   boolean evaluated;
-  Producer<T> produce;
+  Producer<T> producer;
 
   public Lazy(Producer<T> producer) {
     evaluated = false;

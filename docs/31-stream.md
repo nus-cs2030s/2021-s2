@@ -20,14 +20,14 @@ Besides, some of the abstractions we have built have similar counterparts in Jav
 |`Lazy<T>`              | N/A                          |
 |`InfiniteList<T>`      | `java.util.stream.Stream<T>` |
 
-There is a subtle and important difference between our `Maybe<T>` and `Optional<T>`, which we will explore in an upcoming unit.  We will focus this unit on `Stream` since Java implementation of `stream is an infinite list with much more functionalities, some of which (such as parallel streams) are beyond what we can build ourselves in CS2030S.
+There is a subtle and important difference between our `Maybe<T>` and `Optional<T>`, which we will explore in an upcoming unit.  We will focus this unit on `Stream` since the Java implementation of `stream is an infinite list with much more functionalities, some of which (such as parallel streams) are beyond what we can build ourselves in CS2030S.
 
 ## Building a Stream
 
 To start, let's see how we can build a stream object:
 
 - We can use the static factory method `of` (e.g., `Stream.of(1, 2, 3)`)
-- We can use the `generate` and `iterate` method (similar to our `InfiniteList`)
+- We can use the `generate` and `iterate` methods (similar to our `InfiniteList`)
 - We can convert an array into a `Stream` using `Arrays::stream`
 - We can convert a `List` instance (or any `Collection` instance) into a `Stream` using `List::stream`
 
@@ -41,7 +41,7 @@ A terminal operation is an operation on the stream that triggers the evaluation 
 
 The `forEach` method is a terminal operation that takes in a stream and applies a lambda expression to each element.  
 The lambda expression to apply does not return any value.  Java provides the [`Consumer<T>`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html) functional interface for this.   Typical use is
-```
+```Java
 Stream.of(1, 2, 3).forEach(System.out::println);
 Stream.generate(() -> 1).forEach(System.out::println); // infinite loop
 ```
@@ -103,8 +103,8 @@ Stream.iterate(0, x -> x + 1).peek(System.out::println).takeWhile(x < 5).forEach
 One of the more powerful terminal operations in `Stream` is `reduce`, also known as `fold` or `accumulate` elsewhere, the `reduce` operation applies a lambda repeatedly on the elements of the stream to reduce it into a single value.  
 
 For instance,
-```
-Stream.of(1, 2, 3).reduce(0, (x, y) -> x + y)
+```Java
+Stream.of(1, 2, 3).reduce(0, (x, y) -> x + y);
 ```
 returns the sum of all elements in the stream.
 
