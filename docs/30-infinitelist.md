@@ -8,7 +8,7 @@ Let's consider first how we can represent an eagerly evaluated, finite list, rec
 class EagerList<T> {
   private final T head;
   private final EagerList<T> tail;
-  private static EagerList<?> EMPTY = (EagerList<?>) new EmptyList(); 
+  private static EagerList<?> EMPTY = new EmptyList(); 
 
   public EagerList(T head, EagerList<T> tail) {
     this.head = head;
@@ -317,7 +317,7 @@ Now, let's consider how we would filter an `InfiniteList`.  This is a bit tricki
   }
 ```
 
-There are two things wrong with this.  First,  Line 3 `cond.test(this.head())` is actually eager.  It computes the head to test if it passes the given condition.  Second, Line 5 is eager, it produces the tail to recursively filter it.
+There are two things wrong with this.  First,  Line 3 `cond.test(this.head())` is actually eager.  It computes the head to test if it passes the given condition.  Second, Line 6 is eager, it produces the tail to recursively filter it.
 
 To make `filter` lazy, we have to perform the test in the producer that produces the head. But if the test fails, we have to mark the head as filtered.
 

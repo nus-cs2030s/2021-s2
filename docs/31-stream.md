@@ -188,9 +188,9 @@ void fiveHundredPrime() {
 The code is still considered simple, and understandable for many, but I am sure some of us will encounter a bug the first time we write this (either forgot to increment the counter or put the increment in the wrong place).  If you look at the code, there are a couple of components:
 
 - Lines 3 and 9 deal with iterating through different numbers for primality testing
-- Line 4 is the test
+- Line 5 is the test of whether a number is prime
 - Lines 2, 4, and 7, deal with limiting the output to 500 primes
-- Line 5 is the action to perform on the prime
+- Line 6 is the action to perform on the prime
 
 With streams, we can write it like the following:
 ```Java
