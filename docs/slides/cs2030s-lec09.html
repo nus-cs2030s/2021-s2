@@ -24,6 +24,57 @@ class: middle, center
 
 ### 22 March 2021
 ---
+class: middle
+
+### Announcements
+
+- Lab 7 to be released this Thursday
+- Deadline extended by one week (5 April)
+- Lab 8 is cancelled (Lab 9 becomes Lab 8)
+
+---
+class: middle
+
+### `EagerList<T>`
+
+```Java
+class EagerList<T> {
+  private T head;
+  private EagerList<T> tail;
+   :
+}
+```
+  
+---
+class: middle
+
+.small[
+```java
+EagerList<Integer> l = EagerList
+    .iterate(1, i -> i < 10, i -> i + 1) 
+    .filter(i -> i % 3 == 0)  
+    .map(i -> i * 2);  
+l.head();        
+l.tail().head(); 
+l.tail().tail().head();
+```
+]
+---
+class: middle
+
+### `InfiniteList<T>`
+
+.small[
+```java
+class InfiniteList<T> {
+  private Producer<T> head;
+  private Producer<InfiniteList<T>> tail;
+   :
+}
+```
+]
+
+---
 class: middle 
 
 .small[
@@ -61,7 +112,7 @@ class: middle center
 ---
 class: middle wide
 
-# Data sources
+## Data sources
 
 - Static factory methods `of`, `generate`, `iterate`
 
@@ -71,14 +122,14 @@ class: middle wide
 ---
 class: middle
 
-# Terminal Operations
+## Terminal Operations
 
 - `forEach`
 
 ---
 class: middle
 
-# Intermediate Operations 
+## Intermediate Operations 
 
 - `filter`, `map`
 - `flatMap`
@@ -89,7 +140,7 @@ Let's look at some examples...
 ---
 class: middle wide
 
-# Some operations are *stateful*
+## Some operations are *stateful*
 
 - `sorted`
 - `distinct`
@@ -108,7 +159,7 @@ Stream.iterate(0, x -> x + 1)
 ---
 class: middle
 
-# More Terminal Operations
+## More Terminal Operations
 - `reduce`
 - `noneMatch`, `allMatch`, `anyMatch`
 - `count`
