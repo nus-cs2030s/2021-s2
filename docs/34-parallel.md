@@ -5,7 +5,7 @@
 After attending this lecture, students should:
 
 - be aware that a program can be broken into subtasks to run parallelly and/or concurrently 
-- be aware of the issues caused by running the subtasks parallelly and concurrently.
+- be aware of the issues caused by running subtasks parallelly and concurrently.
 - be aware that there exist tradeoffs in the number of subtasks and the processing overhead.
 - be familiar with how to process a stream parallelly and correctly.
 
@@ -15,9 +15,9 @@ So far, the programs that we have written in CS2030S run _sequentially_.  What t
 
 ### What is concurrency?
 
-A single-core processor can only execute one instruction at one time -- this means that only one _process_  (or less precisely speaking, one application) can run at any one time.  Yet, when we use the computer, it _feels_ as if we are running multiple processes at the same time.  The operating system, behind the scene, is switching between the different processes, to give the user an illusion that they are running at the same time.
+A single-core processor can only execute one instruction at one time -- this means that only one _process_ (or less precisely speaking, one application) can run at any one time.  Yet, when we use the computer, it _feels_ as if we are running multiple processes at the same time.  The operating system, behind the scenes, is switching between the different processes, to give the user the illusion that they are running at the same time.
 
-We can write a program so that it runs concurrently -- by dividing the computation into subtasks called _threads_.  The operating system, behind the scene, can switch between the different threads, to give the user an illusion that the threads are running at the same time.  Such multi-thread programs are useful in two ways: (i) it allows us, the programmers, to separate the unrelated tasks into threads, and write each thread separately; (ii) it improves the utilization of the processor.  For instance, if I/O is in one thread, and UI rendering is in another, then when the processor is waiting for I/O to complete, it can switch to the rendering thread to make sure that the slow I/O does not affect the responsiveness of UI.
+We can write a program so that it runs concurrently -- by dividing the computation into subtasks called _threads_. Such multi-thread programs are useful in two ways: (i) it allows us, the programmers, to separate unrelated tasks into threads, and write each thread separately; (ii) it improves the utilization of the processor.  For instance, if I/O is in one thread, and UI rendering is in another, then when the processor is waiting for I/O to complete, it can switch to the rendering thread to make sure that the slow I/O does not affect the responsiveness of UI.
 
 ### What is parallelism?
 
@@ -35,7 +35,7 @@ Parallel computing is one of the major topics in computer science.  One can teac
 
 ## Parallel Stream 
 
-We have seen that Java `Stream` class is a powerful and useful class for processing data in a declarative style.  But, we have not fully unleashed the power of `Stream`.  The neatest thing about `Stream` is that it allows parallel operations on the elements of the stream in one single line of code.
+We have seen that the Java `Stream` class is a powerful and useful class for processing data in a declarative style.  But, we have not fully unleashed the power of `Stream`.  The neatest thing about `Stream` is that it allows parallel operations on the elements of the stream in one single line of code.
 
 Let's consider the following program that prints out all the prime numbers between 2,030,000 and 2,040,000.
 
@@ -64,12 +64,12 @@ Suppose now that we want to compute the number of primes between 2,030,000 and 2
     IntStream.range(2_030_000, 2_040_000)
         .filter(x -> isPrime(x))
         .parallel()
-        .count()
+        .count();
 ```
 
-The code above produces the same output regardless of it is being parallelized or not.
+The code above produces the same output regardless if it is being parallelized or not.
 
-Note that the task above is stateless and does not produce any side effects.  Furthermore, each element is processed individually without depending on other elements.  Such computation is sometimes known as _embarrassingly parallel_.  The only communication needed for each of the parallel subtasks is to combine the result of `count()` from the subtasks into the final count (which has been implemented in `Stream` for us.
+Note that the task above is stateless and does not produce any side effects.  Furthermore, each element is processed individually without depending on other elements.  Such computation is sometimes known as _embarrassingly parallel_.  The only communication needed for each of the parallel subtasks is to combine the result of `count()` from the subtasks into the final count (which has been implemented in `Stream` for us).
 
 ### How to parallelize a stream
 
@@ -105,7 +105,7 @@ list.stream()
 
 would cause `ConcurrentModificationException` to be thrown.  Note that this non-interference rule applies even if we are using `stream()` instead of `parallelStream()`.
 
-### Stateless
+### Stateful vs. Stateless
 A stateful lambda is one where the result depends on any state that might change during the execution of the stream.
 
 For instance, the `generate` and `map` operations below are stateful, since they depend on the state of the standard input. Parallelizing this may lead to incorrect output.  To ensure that the output is correct, additional work needs to be done to ensure that state updates are visible to all parallel subtasks.
@@ -146,7 +146,7 @@ list.parallelStream()
 ```
 
 ### Associativity
-The `reduce` operation is inherently parallelizable, as we can easily reduce each sub-streams and then use the `combiner` to combine the results.  Consider this example:
+The `reduce` operation is inherently parallelizable, as we can easily reduce each sub-stream and then use the `combiner` to combine the results.  Consider this example:
 
 ```Java
 Stream.of(1,2,3,4).reduce(1, (x, y) -> x * y, (x, y) -> x * y);
@@ -172,7 +172,7 @@ Let's go back to:
 IntStream.range(2_030_000, 2_040_000)
     .filter(x -> isPrime(x))
     .parallel()
-    .count()
+    .count();
 ```
  
 How much time can we save by parallelizing the code above?
