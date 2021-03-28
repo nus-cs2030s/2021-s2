@@ -1,4 +1,4 @@
-# Unit 33: Logger
+# Unit 32: Logger
 
 This note is inspired by [The Best Introduction to Monad](https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/#), but is adapted to the OO-context with Java.
 
@@ -8,7 +8,7 @@ In this unit, we are going to build a general abstraction step-by-step, get stuc
 
 Let's start with some methods that we wish to operate over `int`.  Let's use some trivial functions so that we don't get distracted by its details.
 
-```
+```Java
 int incr(int x) {
   return x + 1;
 }
@@ -22,14 +22,14 @@ These methods are pure functions without side effects, they take in one argument
 
 Just like mathematical functions, we can compose them together in arbitrary order to form more complex operations.
 
-```
+```Java
 incr(abs(-4));
 abs(incr(incr(5)));
 ```
 
-But, suppose now we want to return not only an `int`, but some additional information related to the operation on `int`.  For instance, let's suppose we want to return a string describing the operation (for logging).  Java does not support returning multiple values, so let's returns a `Pair`.
+But, suppose now we want to return not only an `int`, but some additional information related to the operation on `int`.  For instance, let's suppose we want to return a string describing the operation (for logging).  Java does not support returning multiple values, so let's return a `Pair`.
 
-```
+```Java
 Pair<Integer,String> incrWithLog(int x) {
   return Pair.of(incr(x), "incr " + x);
 }
@@ -41,13 +41,13 @@ Pair<Integer,String> absWithLog(int x) {
 
 Now, we can't compose the methods as cleanly as before.
 
-```
+```Java
 incrWithLog(absWithLog(-4));  // error
 ```
 
 We will need to change our methods to take in `Pair<Integer,String>` as the argument.
 
-```
+```Java
 Pair<Integer,String> incrWithLog(Pair<Integer,String> p) {
   return Pair.of(incr(p.first), p.second + " incr " + p.first);
 }
@@ -58,7 +58,7 @@ Pair<Integer,String> absWithLog(Pair<Integer,String> p) {
 ```
 
 We can now compose the methods.
-```
+```Java
 incrWithLog(absWithLog(Pair.of(-4, "")));  // error
 ```
 
@@ -72,11 +72,15 @@ class Logger {
 
   private Logger(int value, String log) {
     this.value = value;
-	this.log = log;
+	  this.log = log;
   }
 
   public static Logger of(int value) {
-	return new Logger(value, "");
+	  return new Logger(value, "");
+  }
+
+  public static Logger of(int value, String log) {
+	  return new Logger(value, log);
   }
 
   Logger incrWithLog() {
@@ -87,14 +91,14 @@ class Logger {
     return Logger.of(abs(this.value), this.log + "abs " + this.value + "; ");
   }
 
-  String toString() {
+  public String toString() {
     return "value: " + this.value + ", log: " + this.log;
   }
 }
 ```
 
 We can use the class above as:
-```
+```Java
 Logger x = Logger.of(4);
 Logger z = x.incrWithLog().absWithLog();
 ```
@@ -105,14 +109,14 @@ Note that we can now chain the methods together to compose them.  Additionally, 
 
 There are many possible operations on `int`, and we do not want to add a method `fooWithLog` for every function `foo`.  One way to make `Logger` general is to abstract out the `int` operation and provide that as a lambda expression to `Logger`.  This is what the `map` method does. 
 
-```
+```Java
   Logger map(Transformer<Integer,Integer> transformer) {
-	return Logger.of(transformer.transform(this.value), this.log); 
+	  return Logger.of(transformer.transform(this.value), this.log); 
   }
 ```
 
 We can use it like:
-```
+```Java
 Logger.of(4).map(x -> incr(x)).map(x -> abs(x))
 ```
 
@@ -122,16 +126,16 @@ But, `map` allows us to only apply the function to the value.  What should we do
 
 To fix this, we will need to pass in a lambda expression that takes in an integer, but return us a pair of integer and a string, in other words, return us a `Logger`.  We call our new method `flatMap`.
 
-```
+```Java
   Logger flatMap(Transformer<Integer,Logger> transformer) {
-    Logger logger = transformer.transform(this.value)
-	return Logger.of(logger.value, logger.log + this.log); 
+    Logger logger = transformer.transform(this.value);
+	  return Logger.of(logger.value, logger.log + this.log); 
   }
 ```
 
 By making `flatMap` takes in a lambda that returns a pair of integer and string, `Logger` can rely on these lambda to tell it how to update the log messages.  Now, if we have methods like this:
 
-```
+```Java
 Logger incrWithLog(int x) {
   return Logger.of(incr(x), "incr " + x + "; ");
 }
@@ -142,17 +146,17 @@ Logger absWithLog(int x) {
 ```
 
 We can write:
-```
+```Java
 Logger.of(4)
       .flatMap(x -> incrWithLog(x))
-      .flatMap(x -> absWithlog(x))
+      .flatMap(x -> absWithLog(x))
 ```
 
 to now compose the methods `incr` and `abs` together, along with the log messages!
 
 ## Making Logger More General
 
-We started with operation on `int`, but our `Logger` class is fairly general and should be able to add a log message to any operation of any type.  We can make it so by making `Logger` a generic class.
+We started with an operation on `int`, but our `Logger` class is fairly general and should be able to add a log message to any operation of any type.  We can make it so by making `Logger` a generic class.
 
 ```Java
 // version 0.2
@@ -165,16 +169,20 @@ class Logger<T> {
 	this.log = log;
   }
 
-  public static Logger of(T value) {
-	return new Logger(value, "");
+  public static <T> Logger<T> of(T value) {
+	return new Logger<>(value, "");
+  }
+
+  public static <T> Logger<T> of(T value, String log) {
+	  return new Logger<>(value, log);
   }
 
   public <R> Logger<R> flatMap(Transformer<? super T, ? extends Logger<? extends R>> transformer) {
-    Logger<R> logger = transformer.transform(this.value)
-	return new Logger(logger.value, logger.log + this.log);
+    Logger<? extends R> logger = transformer.transform(this.value);
+	return new Logger<>(logger.value, logger.log + this.log);
   }
 
-  String toString() {
+  public String toString() {
     return "value: " + this.value + ", log: " + this.log;
   }
 }
