@@ -36,6 +36,9 @@ nav:
     - 29. Lazy Evaluation: '29-lazy.md'
     - 30. Infinite List: '30-infinitelist.md'
     - 31. Stream: '31-stream.md'
+    - 32. Loggable: '32-logger.md'
+    - 33. Monad: '33-monad.md'
+    - 34. Parallel Streams: '34-parallel.md'
     - References: 'references.md'
   - Guide:
     - Programming Environments: 'environments.md'

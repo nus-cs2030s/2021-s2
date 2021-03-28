@@ -100,7 +100,7 @@ If your GitHub account has 2FA enabled, SSH is the recommended method for authen
 
 ## Lab Timeline
 
-The lab assignment is released before every Thursday at 8 am, with a deadline (usually one week after released) given.  You must submit each lab assignment before the deadline.
+The lab assignment is released before every Thursday at 8 am, with a deadline (usually {--one week--} {++five days++} after released) given.  You must submit each lab assignment before the deadline.
 
 ## General Advice
 

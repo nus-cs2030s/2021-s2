@@ -1,8 +1,7 @@
-# Unit 32: Logger
+# Unit 32: Loggable
 
-This note is inspired by [The Best Introduction to Monad](https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/#), but is adapted to the OO-context with Java.
 
-So far in the class, we have seen very general abstractions that support the `flatMap` operation.  But, it is not clear where this operation comes from, why is it fundamental, nor why is it useful.
+So far in the class, we have seen very general abstractions that support the `flatMap` operation.  But, it is not clear where this operation comes from, why is it fundamental, nor why is it useful[^1]
 
 In this unit, we are going to build a general abstraction step-by-step, get stuck at some point, and see how `flatMap` comes to our rescue, and hopefully, through this exercise, you will get some appreciation of `flatMap`.
 
@@ -66,29 +65,29 @@ Let's do it in a more OO-way, by writing a class to replace `Pair`.
 
 ```Java
 // version 0.1
-class Logger {
+class Loggable {
   private final int value;
   private final String log;
 
-  private Logger(int value, String log) {
+  private Loggable(int value, String log) {
     this.value = value;
 	  this.log = log;
   }
 
-  public static Logger of(int value) {
-	  return new Logger(value, "");
+  public static Loggable of(int value) {
+	  return new Loggable(value, "");
   }
 
-  public static Logger of(int value, String log) {
-	  return new Logger(value, log);
+  public static Loggable of(int value, String log) {
+	  return new Loggable(value, log);
   }
 
-  Logger incrWithLog() {
-    return Logger.of(incr(this.value), this.log + "incr " + this.value + "; ");
+  Loggable incrWithLog() {
+    return Loggable.of(incr(this.value), this.log + "incr " + this.value + "; ");
   }
 
-  Logger absWithLog() {
-    return Logger.of(abs(this.value), this.log + "abs " + this.value + "; ");
+  Loggable absWithLog() {
+    return Loggable.of(abs(this.value), this.log + "abs " + this.value + "; ");
   }
 
   public String toString() {
@@ -99,87 +98,83 @@ class Logger {
 
 We can use the class above as:
 ```Java
-Logger x = Logger.of(4);
-Logger z = x.incrWithLog().absWithLog();
+Loggable x = Loggable.of(4);
+Loggable z = x.incrWithLog().absWithLog();
 ```
 
 Note that we can now chain the methods together to compose them.  Additionally, the log messages get passed from one call to another and get "composed" as well.
 
-## Making `Logger` general
+## Making `Loggable` general
 
-There are many possible operations on `int`, and we do not want to add a method `fooWithLog` for every function `foo`.  One way to make `Logger` general is to abstract out the `int` operation and provide that as a lambda expression to `Logger`.  This is what the `map` method does. 
+There are many possible operations on `int`, and we do not want to add a method `fooWithLog` for every function `foo`.  One way to make `Loggable` general is to abstract out the `int` operation and provide that as a lambda expression to `Loggable`.  This is what the `map` method does. 
 
 ```Java
-  Logger map(Transformer<Integer,Integer> transformer) {
-	  return Logger.of(transformer.transform(this.value), this.log); 
+  Loggable map(Transformer<Integer,Integer> transformer) {
+	  return Loggable.of(transformer.transform(this.value), this.log); 
   }
 ```
 
 We can use it like:
 ```Java
-Logger.of(4).map(x -> incr(x)).map(x -> abs(x))
+Loggable.of(4).map(x -> incr(x)).map(x -> abs(x))
 ```
 
 We can still chain the methods together to compose them.
 
 But, `map` allows us to only apply the function to the value.  What should we do to the log messages?  Since the given lambda returns an int, it is not sufficient to tell us what message we want to add to the log.
 
-To fix this, we will need to pass in a lambda expression that takes in an integer, but return us a pair of integer and a string, in other words, return us a `Logger`.  We call our new method `flatMap`.
+To fix this, we will need to pass in a lambda expression that takes in an integer, but return us a pair of integer and a string, in other words, return us a `Loggable`.  We call our new method `flatMap`.
 
 ```Java
-  Logger flatMap(Transformer<Integer,Logger> transformer) {
-    Logger logger = transformer.transform(this.value);
-	  return Logger.of(logger.value, logger.log + this.log); 
+  Loggable flatMap(Transformer<Integer,Loggable> transformer) {
+    Loggable l = transformer.transform(this.value);
+	  return new Loggable(l.value, l.log + this.log); 
   }
 ```
 
-By making `flatMap` takes in a lambda that returns a pair of integer and string, `Logger` can rely on these lambda to tell it how to update the log messages.  Now, if we have methods like this:
+By making `flatMap` takes in a lambda that returns a pair of integer and string, `Loggable` can rely on these lambda to tell it how to update the log messages.  Now, if we have methods like this:
 
 ```Java
-Logger incrWithLog(int x) {
-  return Logger.of(incr(x), "incr " + x + "; ");
+Loggable incrWithLog(int x) {
+  return new Loggable(incr(x), "incr " + x + "; ");
 }
 
-Logger absWithLog(int x) {
-  return Logger.of(abs(x), "abs " + x + "; ");
+Loggable absWithLog(int x) {
+  return new Loggable(abs(x), "abs " + x + "; ");
 }
 ```
 
 We can write:
 ```Java
-Logger.of(4)
+Loggable.of(4)
       .flatMap(x -> incrWithLog(x))
       .flatMap(x -> absWithLog(x))
 ```
 
 to now compose the methods `incr` and `abs` together, along with the log messages!
 
-## Making Logger More General
+## Making Loggable More General
 
-We started with an operation on `int`, but our `Logger` class is fairly general and should be able to add a log message to any operation of any type.  We can make it so by making `Logger` a generic class.
+We started with an operation on `int`, but our `Loggable` class is fairly general and should be able to add a log message to any operation of any type.  We can make it so by making `Loggable` a generic class.
 
 ```Java
 // version 0.2
-class Logger<T> {
+class Loggable<T> {
   private final T value;
   private final String log;
 
-  private Logger(T value, String log) {
+  private Loggable(T value, String log) {
     this.value = value;
 	this.log = log;
   }
 
-  public static <T> Logger<T> of(T value) {
-	return new Logger<>(value, "");
+  public static <T> Loggable<T> of(T value) {
+	return new Loggable<>(value, "");
   }
 
-  public static <T> Logger<T> of(T value, String log) {
-	  return new Logger<>(value, log);
-  }
-
-  public <R> Logger<R> flatMap(Transformer<? super T, ? extends Logger<? extends R>> transformer) {
-    Logger<? extends R> logger = transformer.transform(this.value);
-	return new Logger<>(logger.value, logger.log + this.log);
+  public <R> Loggable<R> flatMap(Transformer<? super T, ? extends Loggable<? extends R>> transformer) {
+    Loggable<? extends R> l = transformer.transform(this.value);
+	return new Loggable<>(l.value, l.log + this.log);
   }
 
   public String toString() {
@@ -187,3 +182,5 @@ class Logger<T> {
   }
 }
 ```
+
+[^1]: This note is inspired by [The Best Introduction to Monad](https://blog.jcoglan.com/2011/03/05/translation-from-haskell-to-javascript-of-selected-portions-of-the-best-introduction-to-monads-ive-ever-read/#).

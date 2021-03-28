@@ -7,9 +7,9 @@ After this lecture, students should:
 - Understand what are functors and monads
 - Understand the laws that a functor and monad must obey and be able to verify them
 
-## Generalizing `Logger<T>`
+## Generalizing `Loggable<T>`
 
-We have just created a class `Logger<T>` with a `flatMap` method that allows us to operate on the value encapsulated inside, along with some "side information".  `Logger<T>` follows a pattern that we have seen many times before.  We have seen this in `Maybe<T>` and `Lazy<T>`, and `InfiniteList<T>`.  Each of these classes has:
+We have just created a class `Loggable<T>` with a `flatMap` method that allows us to operate on the value encapsulated inside, along with some "side information".  `Loggable<T>` follows a pattern that we have seen many times before.  We have seen this in `Maybe<T>` and `Lazy<T>`, and `InfiniteList<T>`.  Each of these classes has:
 
 - an `of` method to initialize the value and side information.
 - have a `flatMap` method to update the value and side information.
@@ -19,7 +19,7 @@ Different classes above have different side information that is initialized, sto
 - `Maybe<T>` stores the side information of whether the value is there or not there.
 - `Lazy<T>` stores the side information of whether the value has been evaluated or not.
 - `InfiniteList<T>` stores the side information that the values in the list may or may not be evaluated.
-- `Logger<T>` stores the side information of a log describing the operations done on the value.
+- `Loggable<T>` stores the side information of a log describing the operations done on the value.
 
 These classes that we wrote follow certain patterns that make them well behaved when we create them with `of` and chain them with `flatMap`.  Such classes that are "well behaved" are examples of a programming construct called _monads_.  A monad must follow three laws, to behave well.  Let's examine the laws below.
 
@@ -27,33 +27,33 @@ These classes that we wrote follow certain patterns that make them well behaved 
 
 Before we list down the first and second laws formally, let's try to get some intuition over the desired behavior first.
 
-The `of` method in a monad should behave like an identity.  It creates a new monad by initializing our monad with a value and its side information.   For instance, in our `Logger<T>`,
+The `of` method in a monad should behave like an identity.  It creates a new monad by initializing our monad with a value and its side information.   For instance, in our `Loggable<T>`,
 ```Java
-  public static <T> Logger<T> of(T value) {
-  return new Logger<>(value, "");
-  }
+public static <T> Loggable<T> of(T value) {
+  return new Loggable<>(value, "");
+}
 ```
 The logger is initialized with empty side information (e.g., empty string as a log message).
 
 Now, let's consider the lambda that we wish to pass into `flatMap`  -- such a lambda takes in a value, compute it, and wrap it in a "new" monad, together with the correponding side information.  For instance,
 
 ```Java
-Logger<Integer> incrWithLog(int x) {
-  return new Logger<>(incr(x), "incr " + x + "; ");
+Loggable<Integer> incrWithLog(int x) {
+  return new Loggable<>(incr(x), "incr " + x + "; ");
 }
 ```
 
-What should we expect when we take a fresh new monad `Logger.of(4)` and call `flatMap` with a function `incrWithLog`?  Since `Logger.of(4)` is new with no operation performed on it yet, calling 
+What should we expect when we take a fresh new monad `Loggable.of(4)` and call `flatMap` with a function `incrWithLog`?  Since `Loggable.of(4)` is new with no operation performed on it yet, calling 
 ```Java
-Logger.of(4).flatMap(x -> incrWithLog(x)) 
+Loggable.of(4).flatMap(x -> incrWithLog(x)) 
 ```
-should just result in the same value exactly as calling `incrWithLog(4)`.  So, we expect that, after calling the above, we have a `Logger` with a value 5 and a log message of `"incr 4"`.
+should just result in the same value exactly as calling `incrWithLog(4)`.  So, we expect that, after calling the above, we have a `Loggable` with a value 5 and a log message of `"incr 4"`.
 
-Our `of` method should not do anything extra to the value and side information -- it should simply wrap the value 4 into the `Logger`.  Our `flatMap` method should not do anything extra to the value and the side information, it should simply apply the given lambda expression to the value.
+Our `of` method should not do anything extra to the value and side information -- it should simply wrap the value 4 into the `Loggable`.  Our `flatMap` method should not do anything extra to the value and the side information, it should simply apply the given lambda expression to the value.
 
-Now, suppose we take an instance of `Logger`, called `logger`, that has already been operated on one or more times with `flatMap`, and contain some side information.  What should we expect when we call:
+Now, suppose we take an instance of `Loggable`, called `logger`, that has already been operated on one or more times with `flatMap`, and contain some side information.  What should we expect when we call:
 ```Java
-logger.flatMap(x -> Logger.of(x))
+logger.flatMap(x -> Loggable.of(x))
 ```
 
 Since `of` should behave like an identity, it should not change the value or add extra side information.  The `flatMap` above should do nothing and the expression above should be the same as `logger`.
@@ -61,9 +61,11 @@ Since `of` should behave like an identity, it should not change the value or add
 What we have just described above is called the _left identity law_ and the _right identity law_ of monads.  To be more general, let `Monad` be a type that is a monad and `monad` be an instance of it.
 
 The left identity law says:
+
 - `Monad.of(x).flatMap(x -> f(x))` must be the same as `f(x)`
 
 The right identity law says:
+
 - `monad.flatMap(x -> Monad.of(x))` must be the same as `monad`
 
 ## Associative Law
@@ -77,10 +79,10 @@ int absIncr(int x) {
 
 and call it `absIncr(x)`.  The effects should be exactly the same.  It does not matter if we group the functions together into another function before applying it to a value x.
 
-Recall that after we build our `Logger` class, we were able to compose the functions `incr` and `abs` by chaining the `flatMap`:
+Recall that after we build our `Loggable` class, we were able to compose the functions `incr` and `abs` by chaining the `flatMap`:
 
 ```Java
-Logger.of(4)
+Loggable.of(4)
       .flatMap(x -> incrWithLog(x))
       .flatMap(x -> absWithLog(x))
 ```
@@ -89,14 +91,14 @@ We should get the resulting value as `abs(incr(4))`, along with the appropriate 
 
 Another way to call `incr` and then `abs` is to write something like this:
 ```Java
-Logger<Integer> absIncrWithLog(int x) {
+Loggable<Integer> absIncrWithLog(int x) {
   return incrWithLog(x).flatMap(y -> absWithLog(y));
 }
 ```
 
 We have composed the methods `incrWithLog` and `absWithLog` and grouped them under another method.  Now, if we call:
 ```Java
-Logger.of(4)
+Loggable.of(4)
       .flatMap(x -> absIncrWithLog(x))
 ```
 
@@ -110,26 +112,26 @@ This example leads us to the third law of monads: regardless of how we group tha
 
 If our monads follow the laws above, we can safely write methods that receive a monad from others, operate on it, and return it to others.  We can also safely create a monad and pass it to the clients to operate on.  Our clients can then call our methods in any order and operate on the monads that we create, and the effect on its value and side information is as expected.
 
-Let's try to make our `Logger` misbehave a little.  Suppose we change our `Logger<T>` to be as follows:
+Let's try to make our `Loggable` misbehave a little.  Suppose we change our `Loggable<T>` to be as follows:
 
 ```Java hl_lines="12 17"
 // version 0.3 (NOT a monad)
-class Logger<T> {
+class Loggable<T> {
   private final T value;
   private final String log;
 
-  private Logger(T value, String log) {
+  private Loggable(T value, String log) {
     this.value = value;
 	this.log = log;
   }
 
-  public static <T> Logger<T> of(T value) {
-	return new Logger<>(value, "Logging starts: ");
+  public static <T> Loggable<T> of(T value) {
+	return new Loggable<>(value, "Logging starts: ");
   }
 
-  public <R> Logger<R> flatMap(Transformer<? super T, ? extends Logger<? extends R>> transformer) {
-    Logger<? extends R> logger = transformer.transform(this.value);
-	 return new Logger(logger.value, logger.log + "\n" + this.log);
+  public <R> Loggable<R> flatMap(Transformer<? super T, ? extends Loggable<? extends R>> transformer) {
+    Loggable<? extends R> logger = transformer.transform(this.value);
+	 return new Loggable(logger.value, logger.log + "\n" + this.log);
   }
 
   public String toString() {
@@ -138,22 +140,22 @@ class Logger<T> {
 }
 ```
 
-Our `of` adds a little initialization message.  Our `flatMap` adds a little new line before appending with the given log message.  Now, our `Logger<T>` is not that well behaved anymore.
+Our `of` adds a little initialization message.  Our `flatMap` adds a little new line before appending with the given log message.  Now, our `Loggable<T>` is not that well behaved anymore.
 
-Suppose we have two methods `foo` and `bar`, both take in an `x` and perform a series of operations on `x`.  Both returns us a `Logger` instance on the final value and its log.
+Suppose we have two methods `foo` and `bar`, both take in an `x` and perform a series of operations on `x`.  Both returns us a `Loggable` instance on the final value and its log.
 
 ```Java
-Logger<Integer> foo(int x) {
-  return Logger.of(x)
+Loggable<Integer> foo(int x) {
+  return Loggable.of(x)
       .flatMap(...)
-    .flatMap(...)
+      .flatMap(...)
        :
   ;
 }
-Logger<Integer> bar(int x) {
-  return Logger.of(x)
+Loggable<Integer> bar(int x) {
+  return Loggable.of(x)
       .flatMap(...)
-    .flatMap(...)
+      .flatMap(...)
        :
   ;
 }
@@ -170,7 +172,7 @@ We will find that the string `"Logging starts"` appears twice in our logs and th
 
 We will end this unit with a brief discussion on _functors_, another common abstraction in functional-style programming.  A functor is a simpler construction than a monad in that it only ensures lambdas can be applied sequentially to the value, without worrying about side information.
 
-Recall that when we build our `Logger<T>` abstraction, we add a `map` that only updates the value but changes nothing to the side information.  One can think of a functor as an abstraction that supports `map`.  
+Recall that when we build our `Loggable<T>` abstraction, we add a `map` that only updates the value but changes nothing to the side information.  One can think of a functor as an abstraction that supports `map`.  
 
 A functor needs to adhere to two laws:
 
