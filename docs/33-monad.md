@@ -112,7 +112,7 @@ If our monads follow the laws above, we can safely write methods that receive a 
 
 Let's try to make our `Logger` misbehave a litte.  Suppose we change our `Logger<T>` to be as follows:
 
-```Java hl_lines="12 16"
+```Java hl_lines="12 17"
 // version 0.3 (NOT a monad)
 class Logger<T> {
   private final T value;
