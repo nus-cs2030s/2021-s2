@@ -78,16 +78,12 @@ class Loggable {
 	  return new Loggable(value, "");
   }
 
-  public static Loggable of(int value, String log) {
-	  return new Loggable(value, log);
-  }
-
   Loggable incrWithLog() {
-    return Loggable.of(incr(this.value), this.log + "incr " + this.value + "; ");
+    return new Loggable(incr(this.value), this.log + "incr " + this.value + "; ");
   }
 
   Loggable absWithLog() {
-    return Loggable.of(abs(this.value), this.log + "abs " + this.value + "; ");
+    return new Loggable(abs(this.value), this.log + "abs " + this.value + "; ");
   }
 
   public String toString() {
@@ -110,7 +106,7 @@ There are many possible operations on `int`, and we do not want to add a method 
 
 ```Java
   Loggable map(Transformer<Integer,Integer> transformer) {
-	  return Loggable.of(transformer.transform(this.value), this.log); 
+	  return new Loggable(transformer.transform(this.value), this.log); 
   }
 ```
 
