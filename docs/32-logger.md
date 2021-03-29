@@ -71,11 +71,11 @@ class Loggable {
 
   private Loggable(int value, String log) {
     this.value = value;
-	  this.log = log;
+    this.log = log;
   }
 
   public static Loggable of(int value) {
-	  return new Loggable(value, "");
+    return new Loggable(value, "");
   }
 
   Loggable incrWithLog() {
