@@ -58,7 +58,7 @@ Pair<Integer,String> absWithLog(Pair<Integer,String> p) {
 
 We can now compose the methods.
 ```Java
-incrWithLog(absWithLog(Pair.of(-4, "")));  // error
+incrWithLog(absWithLog(Pair.of(-4, ""))); 
 ```
 
 Let's do it in a more OO-way, by writing a class to replace `Pair`.
