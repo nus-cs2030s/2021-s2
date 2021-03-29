@@ -28,6 +28,139 @@ class: middle
 
 ### Announcements
 
+---
+class: middle
+
+### Function as cross-barrier state manipulator
+
+---
+class: middle,center
+
+![of](../figures/monad/monad.001.png)
+
+---
+class: middle,center
+
+![map](../figures/monad/monad.002.png)
+
+---
+class: middle,center
+
+![flatMap](../figures/monad/monad.003.png)
+
+---
+class: middle
+
+.smaller[
+```Java
+return Maybe.of(map.get(student))
+            .flatMap(map -> Maybe.of(map.get(modue))
+            .flatMap(map -> Maybe.of(map.get(assessment)))
+            .orElse("No such entry");
+```
+]
+---
+class: middle,wide
+
+.smaller[
+```Java
+return Maybe.of(map.get(student))          .flatMap(map -> Maybe.of(map
+                   .get(modue))            .flatMap(map -> Maybe.of(map
+                   .get(assessment)))      .orElse("No such entry");
+```
+]
+
+---
+class: middle,wide
+
+- `Maybe<T>`: item might be missing
+- `Lazy<T>`: item is evaluated on demand
+- `Loggable<T>`: item is logged
+- `InfiniteList<T>`: items in a lazily-evaluated list
+- `Array<T>`: items in an array
+- `Box<T>`: item in a box
+
+---
+class: middle,center
+
+### Left Identity Law
+
+`Monad.of(x).flatMap(y -> f(y))` 
+
+is equivalent to
+
+`f(x)`
+
+---
+class: middle,center
+
+![left](../figures/monad/monad.004.png)
+
+
+---
+class: middle,center
+
+### Right Identity Law
+
+`monad.flatMap(x -> Monad.of(x))` 
+
+is equivalent to
+
+`monad`
+
+---
+class: middle,center
+
+![right](../figures/monad/monad.005.png)
+
+---
+class: middle,center,wide
+
+### Associative Law
+
+`monad.flatMap(x -> f(x)).flatMap(x -> g(x))`
+
+is equivalent to
+
+`monad.flatMap(x -> f(x).flatMap(x -> g(x)))`
+
+---
+class: middle,center
+
+![associative](../figures/monad/monad.006.png)
+
+---
+class: middle,center
+
+![associative](../figures/monad/monad.007.png)
+
+---
+class: middle
+
+A monad have two methods `of` and `flatMap` and obey the three laws.
+
+---
+class: middle
+
+A functor have two methods `of` and `map` and obey the two laws.
+
+---
+class: middle,center
+
+`functor.map(x -> x)` 
+
+is just 
+
+`functor`
+
+---
+class: middle,center
+
+`functor.map(x -> f(x)).map(x -> g(x))` 
+
+is just 
+
+`functor.map(x -> g(f))`
 
 ---
 class: middle
