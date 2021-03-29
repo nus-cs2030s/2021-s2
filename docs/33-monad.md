@@ -131,7 +131,7 @@ class Loggable<T> {
 
   public <R> Loggable<R> flatMap(Transformer<? super T, ? extends Loggable<? extends R>> transformer) {
     Loggable<? extends R> logger = transformer.transform(this.value);
-	 return new Loggable(logger.value, logger.log + "\n" + this.log);
+	 return new Loggable(logger.value, logger.log + this.log + "\n");
   }
 
   public String toString() {
@@ -172,7 +172,7 @@ We will find that the string `"Logging starts"` appears twice in our logs and th
 
 We will end this unit with a brief discussion on _functors_, another common abstraction in functional-style programming.  A functor is a simpler construction than a monad in that it only ensures lambdas can be applied sequentially to the value, without worrying about side information.
 
-Recall that when we build our `Loggable<T>` abstraction, we add a `map` that only updates the value but changes nothing to the side information.  One can think of a functor as an abstraction that supports `map`.  
+Recall that when we build our `Loggable<T>` abstraction, we add a `map` that only updates the value but changes nothing to the side information.  One can think of a functor as an abstraction that supports `map`.
 
 A functor needs to adhere to two laws:
 
