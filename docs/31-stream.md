@@ -148,7 +148,7 @@ Consider the method below, which checks if a given `int` is a prime:
 
 ```Java
 boolean isPrime(int x) {
-  for (i = 2; i <= x-1; i++) {
+  for (int i = 2; i <= x-1; i++) {
     if (x % i == 0) {
       return false;
     }

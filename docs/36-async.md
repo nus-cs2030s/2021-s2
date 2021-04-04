@@ -2,7 +2,7 @@
 
 ## Limitations of `Thread`
 
-Writing code directly with the `Thread` class gives us control on how many threads to create, what they do, how they communicate with each other, and some level of control on which thread gets executed when.  While Java's `Thread` is already a higher-level abstraction compared to, say, the `pthread` library in C and C++, it still a fair amount of effort to write complex multi-threaded programs in Java.
+Writing code directly with the `Thread` class gives us control on how many threads to create, what they do, how they communicate with each other, and some level of control on which thread gets executed when.  While Java's `Thread` is already a higher-level abstraction compared to, say, the `pthread` library in C and C++, it still takes a fair amount of effort to write complex multi-threaded programs in Java.
 
 Consider the situation where we have a series of tasks that we wish to execute _concurrently_ and we want to organize them such that:
 - Task A must start first
@@ -11,7 +11,7 @@ Consider the situation where we have a series of tasks that we wish to execute _
 
 We also want to handle exceptions gracefully -- if one of the tasks encounters an exception, the other tasks not dependent on it should still be completed.
 
-Implement the above using `Thread` requires careful coordination.  Firstly, there are no methods in `Thread` that return a value.  We need the threads to communicate through shared variables.  Secondly, there is no mechanism to specify the execution order and dependencies among them -- which thread to start after another thread completes.  Finally, we have to consider the possibility of exceptions in each of our tasks. 
+Implementing the above using `Thread` requires careful coordination.  Firstly, there are no methods in `Thread` that return a value.  We need the threads to communicate through shared variables.  Secondly, there is no mechanism to specify the execution order and dependencies among them -- which thread to start after another thread completes.  Finally, we have to consider the possibility of exceptions in each of our tasks. 
 
 Another drawback of using `Thread` is its overhead -- the creation of `Thread` instances takes up some resources in Java.  As much as possible, we should reuse our `Thread` instances to run multiple tasks.  For instance, the same `Thread` instance could have run Tasks A, B, and E in the example above.  Managing the `Thread` instances itself and deciding which `Thread` instance should run which `Thread` is a gigantic undertaking.
 
@@ -19,7 +19,7 @@ Another drawback of using `Thread` is its overhead -- the creation of `Thread` i
 
 What we need is a higher-level abstraction that allows programmers to focus on specifying the tasks and their dependencies, without worrying about the details.  Suppose we want to run the tasks in a single thread, we could do the following:
 
-```
+```Java
 int foo(int x) {
 	int a = taskA(x);
 	int b = taskB(a);
@@ -32,7 +32,7 @@ int foo(int x) {
 
 We could also use monads to chain up the computations.  Let's say that one of the tasks might not produce a value, then we can use the `Maybe<T>` monad:
 
-```
+```Java
 Maybe<Integer> foo(int x) {
 	Maybe<Integer> a = Maybe.of(x);
 	Maybe<Integer> b = a.flatMap(i -> taskB(i));
@@ -45,7 +45,7 @@ Maybe<Integer> foo(int x) {
 
 If we want to perform the tasks lazily, then we can use the `Lazy<T>` monad:
 
-```
+```Java
 Lazy<Integer> foo(int x) {
 	Lazy<Integer> a = Lazy.of(x);
 	Lazy<Integer> b = a.flatMap(i -> taskB(i));
@@ -58,7 +58,7 @@ Lazy<Integer> foo(int x) {
 
 Wouldn't it be nice if there is a monad that allows us to perform the tasks concurrently?  [`java.util.concurrent.CompletableFuture`](https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/concurrent/CompletableFuture.html) does just that!  Here is an example of how to use it:
 
-```
+```Java
 CompletableFuture<Integer> foo(int x) {
 	CompletableFuture<Integer> a = CompletableFuture.completedFuture(x);
 	CompletableFuture<Integer> b = a.thenComposeAsync(i -> taskB(i));
@@ -69,7 +69,7 @@ CompletableFuture<Integer> foo(int x) {
 }
 ```
 
-We can then run `foo(x).get()` to wait for all the concurrent tasks to complete and return us the value.  `CompletableFuture<T>` is a monad that encapsulates a value that is either there or not there _yet_.  Such abstraction is also known as a promise in other languages -- it encapsulates the promise to produce a value.
+We can then run `foo(x).get()` to wait for all the concurrent tasks to complete and return us the value.  `CompletableFuture<T>` is a monad that encapsulates a value that is either there or not there _yet_.  Such an abstraction is also known as a promise in other languages -- it encapsulates the promise to produce a value.
 
 ## The `CompletableFuture` Monad
 
@@ -106,8 +106,8 @@ Let's look at some examples.  Let's reuse our method that computes the i-th prim
 ```Java
 int findIthPrime(int i) {
 	return Stream
-	    .iterate(2, i -> i + 1)
-        .filter(i -> isPrime(i))
+	    .iterate(2, x -> x + 1)
+        .filter(x -> isPrime(x))
 		.limit(i)
         .reduce((x, y) -> y)
 		.orElse(0);

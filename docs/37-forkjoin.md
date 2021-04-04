@@ -20,7 +20,8 @@ new Thread(() -> {
 }).start();
 
 for (int i = 0; i < 100; i++) {
-  queue.add(() -> System.out.println(i));
+  int count = i;
+  queue.add(() -> System.out.println(count));
 }
 ```
 
@@ -34,7 +35,7 @@ The Fork-join model is essentially a parallel divide-and-conquer model of comput
 
 In Java, we can create a task that we can fork and join as an instance of abstract class `RecursiveTask<T>`.  `RecursiveTask<T>` supports the methods `fork()`, which submits a smaller version of the task for execution, and `join()` (which waits for the smaller tasks to complete and return).   `RecursiveTask<T>` has an abstract method `compute()`, which we, as the client, have to define to specify what computation we want to compute.
 
-Here is a simple `RecursiveTask<T>` that recursively sum up the content of an array:
+Here is a simple `RecursiveTask<T>` that recursively sums up the content of an array:
 ```Java
 class Summer extends RecursiveTask<Integer> {
     private static final int FORK_THRESHOLD = 2;

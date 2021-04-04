@@ -40,7 +40,7 @@ Java provides more than one way to create a thread.  The `Thread` class also con
 
 ### Names
 
-Every thread in Java has a name, printing out its name is useful for peeking under the hood of what is happening.  We can use the instance method `getName()` to find out the name of a thread, and the class method `Thread.currentThread()` to get the reference of the current running thread.
+Every thread in Java has a name, printing out its name is useful for peeking under the hood to see what is happening.  We can use the instance method `getName()` to find out the name of a thread, and the class method `Thread.currentThread()` to get the reference of the current running thread.
 
 ```Java
     System.out.println(Thread.currentThread().getName());
@@ -57,7 +57,6 @@ Every thread in Java has a name, printing out its name is useful for peeking und
         System.out.print("*");
       }
     }).start();
-  }
 ```
 
 Note that the above will also print the name of the thread called `main`, which is a thread created automatically for us every time our program runs and the class method `main()` is invoked.
@@ -129,5 +128,5 @@ In our examples, we often use `Thread.sleep()` in our methods to pretend that we
 
 Two more things to note:
 - The example above shows how we use `isAlive()` to periodically check if another thread is still running.
-- The program exits only after all the threads created run to its completion.
+- The program exits only after all the threads created run to their completion.
 
