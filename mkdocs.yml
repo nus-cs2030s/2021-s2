@@ -39,6 +39,9 @@ nav:
     - 32. Loggable: '32-logger.md'
     - 33. Monad: '33-monad.md'
     - 34. Parallel Streams: '34-parallel.md'
+    - 35. Threads: '35-thread.md'
+    - 36. Async: '36-async.md'
+    - 37. Fork and Join: '37-forkjoin.md'
     - References: 'references.md'
   - Guide:
     - Programming Environments: 'environments.md'
