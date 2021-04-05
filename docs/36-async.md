@@ -69,7 +69,8 @@ CompletableFuture<Integer> foo(int x) {
 }
 ```
 
-We can then run `foo(x).get()` to wait for all the concurrent tasks to complete and return us the value.  `CompletableFuture<T>` is a monad that encapsulates a value that is either there or not there _yet_.  Such an abstraction is also known as a promise in other languages -- it encapsulates the promise to produce a value.
+We can then run `foo(x).get()` to wait for all the concurrent tasks to complete and return us the value.  `CompletableFuture<T>` is a monad that encapsulates a value that is either there or not there _yet_.  Such an abstraction is also known as a promise in other languages (e.g., `Promise` in JavaScript and `std::promise` in C++)
+-- it encapsulates the promise to produce a value.
 
 ## The `CompletableFuture` Monad
 
