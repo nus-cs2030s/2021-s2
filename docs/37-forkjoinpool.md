@@ -74,7 +74,7 @@ To run this task, we run:
     int sum = task.compute();
 ```
 
-The line `task.compute()` above is just like another method invocation.  It causes the method `compute()` to be invoked, and if the array is big enough, two new `Summer` instances, `left` and `right`, to be created.  `left.  We then call `left.fork()`, which adds the tasks to a thread pool so that one of the threads can call its `compute()` method.  We subsequently call `right.compute()` (which is a normal method call).  Finally, we call `left.join()`, which blocks until the computation of the recursive sum is completed and returned.  We add the result from `left` and `right` together and return the sum.
+The line `task.compute()` above is just like another method invocation.  It causes the method `compute()` to be invoked, and if the array is big enough, two new `Summer` instances, `left` and `right`, to be created.  `left`.  We then call `left.fork()`, which adds the tasks to a thread pool so that one of the threads can call its `compute()` method.  We subsequently call `right.compute()` (which is a normal method call).  Finally, we call `left.join()`, which blocks until the computation of the recursive sum is completed and returned.  We add the result from `left` and `right` together and return the sum.
 
 There are other ways we can combine and order the execution of `fork()`, `compute()`, and `join()`.  Some are better than others.  We will explore more in the exercises.
 
