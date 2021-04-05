@@ -29,7 +29,7 @@ class: middle
 ### Announcements
 
 - PE1 Q2 still being marked
-- Mock PE this lab session
+- Mock PE this week
 
 ---
 class: middle
@@ -41,9 +41,99 @@ Changes to exam procedure (watch out for announcements)
 - You will be given time to login and setup
 - Explicit commands to get and submit your code
 
+---
+class: middle, center
+
+## Threads
+
+---
+class: middle, center
+
+## `Thread`
+
+---
+class: middle, center
+
+## Sychronous Programming
+
+---
+class: middle, center
+
+## Asynchronous Programming
+
+---
+class: middle
+
+### Drawback of Programming with `Thread` Directly
+
+- Overhead
+- Exception handling?
+- Not easy to pass information around
 
 ---
 class: middle wide
+
+.tiny[
+```Java
+int foo(int x) {
+    int a = taskA(x);
+    int b = taskB(a);
+    int c = taskC(a);
+    int d = taskD(a);
+    int e = taskE(b, c)
+    return e;
+}
+```
+]
+
+---
+class: middle wide
+
+.tiny[
+```Java
+Maybe<Integer> foo(int x) {
+    Maybe<Integer> a = Maybe.of(x);
+    Maybe<Integer> b = a.flatMap(i -> taskB(i));
+    Maybe<Integer> c = a.flatMap(i -> taskC(i));
+    Maybe<Integer> d = a.flatMap(i -> taskD(i));
+    Maybe<Integer> e = b.combine(c, (i, j) -> taskE(i, j));
+    return e;
+}
+```
+]
+
+---
+class: middle wide
+
+.tiny[
+```Java
+Lazy<Integer> foo(int x) {
+    Lazy<Integer> a = Maybe.of(x);
+    Lazy<Integer> b = a.flatMap(i -> taskB(i));
+    Lazy<Integer> c = a.flatMap(i -> taskC(i));
+    Lazy<Integer> d = a.flatMap(i -> taskD(i));
+    Lazy<Integer> e = b.combine(c, (i, j) -> taskE(i, j));
+    return e;
+}
+```
+]
+---
+class: middle, wide
+
+.tiny[
+```Java
+CompletableFuture<Integer> foo(int x) {
+    CompletableFuture<Integer> a = CompletableFuture.completedFuture(x);
+    CompletableFuture<Integer> b = a.thenComposeAsync(i -> taskB(i));
+    CompletableFuture<Integer> c = a.thenComposeAsync(i -> taskC(i));
+    CompletableFuture<Integer> d = a.thenComposeAsync(i -> taskD(i));
+    CompletableFuture<Integer> e = b.thenCombineAsync(c, (i, j) -> taskE(i, j));
+    return e;
+}
+```
+]
+
+---
 
 # Fork and Join
 
