@@ -11,7 +11,7 @@ Consider the situation where we have a series of tasks that we wish to execute _
 
 We also want to handle exceptions gracefully -- if one of the tasks encounters an exception, the other tasks not dependent on it should still be completed.
 
-Implementing the above using `Thread` requires careful coordination.  Firstly, there are no methods in `Thread` that return a value.  We need the threads to communicate through shared variables.  Secondly, there is no mechanism to specify the execution order and dependencies among them -- which thread to start after another thread completes.  Finally, we have to consider the possibility of exceptions in each of our tasks. 
+Implementing the above using `Thread` requires careful coordination.  Firstly, there are no methods in `Thread` that return a value.  We need the threads to communicate through shared variables.  Secondly, there is no mechanism to specify the execution order and dependencies among them -- which thread to start after another thread completes.  Finally, we have to consider the possibility of exceptions in each of our tasks.
 
 Another drawback of using `Thread` is its overhead -- the creation of `Thread` instances takes up some resources in Java.  As much as possible, we should reuse our `Thread` instances to run multiple tasks.  For instance, the same `Thread` instance could have run Tasks A, B, and E in the example above.  Managing the `Thread` instances itself and deciding which `Thread` instance should run which `Thread` is a gigantic undertaking.
 
@@ -99,6 +99,10 @@ The methods above run the given lambda expression in the same thread as the call
 
 After we have set up all the tasks to run asynchronously, we have to wait for them to complete.  We can call `get()` to get the result.  Since `get()` is a synchronous call, i.e., it blocks until the `CompletableFuture` completes, to maximize concurrency, we should only call `get()` as the final step in our code.
 
+The method `CompletableFuture::get` throws a couple of checked exceptions: `InterruptedException` and `ExecutionException`, which we need to catch and handle.  The former refers to the exception that the thread has been interrupted, while the latter refers to errors/exceptions during execution.
+
+An alternative to `get()` is `join()`.  `join()` behaves just like `get()` except that no checked exception is thrown.
+
 ### Example
 
 Let's look at some examples.  Let's reuse our method that computes the i-th prime number.
@@ -130,11 +134,36 @@ CompletableFuture<Integer> diff = ith.thenCombine(jth, (x, y) -> x - y);
 
 This statement creates another `CompletableFuture` which runs asynchronously that will compute the difference between the two prime numbers.  At this point, we can move on to run other tasks, or if we just want to wait until the result is ready, we call
 ```Java
-diff.get();
+diff.join();
 ```
 
 to get the difference between the two primes[^1].
 
-[^1]: The more astute students would have noticed that there is plenty of repetition in checking of primes between the two calls to `findIthPrime` -- and they would be correct! 
+[^1]: There is repeated computation in primality checks between the two calls to `findIthPrime` here, which one could optimize.  We don't do that here to keep the example simple.
 
+### Handling Exceptions
 
+One of the advantages of using `CompletableFuture<T>` instead of `Thread` to handle concurrency is its ability to handle exceptions.  `CompletableFuture<T>` has three methods that deal with exceptions: `exceptionally`, `whenComplete`, and `handle`.   We will focus on `handle` since it is the most general.
+
+Suppose we have a computation inside a `CompletableFuture<T>` that might throw an exception.  Since the computation is asynchronous and could run in a different thread, the question of which thread should catch and handle the exception arises.  `CompletableFuture<T>` keeps things simpler by storing the exception and passing it down the chain of calls, until `join()` is called.  `join()` might throw `CompletionException` and whoever calls `join()` will be responsible for handling this exception.  The `CompletionException` contains information on the original exception.
+
+For instance, the code below would throw a `CompletionException` with a `NullPointerException` contains within it.
+
+```Java
+CompletableFuture.<Integer>supplyAsync(() -> null)
+  .thenApply(x -> x + 1)
+  .join();
+```
+
+Suppose we want to continue chaining our tasks despite exceptions.  We can use the `handle` method, to handle the exception.  The `handle` method takes in a `BiFunction` (similar to `cs2030s.fp.Combiner`).  The first parameter to the `BiFunction` is the value, the second is the exception, the third is the return value.
+
+Only one of the first two parameters is not `null`.  If the value is `null`, this means that an exception has been thrown.  Otherwise, the exception is `null`[^2].    
+
+Here is a simple example where we use `handle` to replace a default value.
+```Java
+  cf.thenApply(x -> x + 1)
+    .handle((t, e) -> (e == null) ? t : 0)
+    .join();
+```
+
+[^2]: This is another instance where Java uses `null` to indicates a missing value.  We can't use `null` as a legit value due to this flawed design.
