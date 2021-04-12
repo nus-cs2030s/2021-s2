@@ -26,214 +26,378 @@ class: middle, center
 ---
 class: middle wide
 
-# Composition 
-Models the HAS-A relationship
+### Announcements 
 
-.tiny[
-```Java
-class Circle {
-	private double x;  
-	private double y; 
-	private double r;  
-  
-	public Circle(double x, double y, double r) {
-	  this.x = x;
-	  this.y = y;
-	  this.r = r;
-	}
-}
-```
-]
----
-class: middle wide
+### Lab 8
 
-# Composition 
-`Circle` HAS-A `Point`
-
-.tiny[
-```Java
-class Circle {
-	private Point c;  
-	private double r;  
-  
-	public Circle(Point c, double r) {
-	  this.c = c;
-	  this.r = r;
-	}
-}
-```
-]
-
-
+- Due on 16 April 2021 (Friday), 23:59
+- Late penalty is waived until Monday 23:59 (19 April, 2021)
 
 ---
 class: middle wide
 
-# Inheritance 
-Models the IS-A relationship
+### Final Exam
 
-.tiny[
+- 28 April 2021 (Wednesday), 17:00 - 19:00
+- Scope: Everything
+- Duration: 2 hours
+- Online via Luminus Quiz
+- Open book (printed materials only)
+
+---
+class: middle,center
+
+![figures](figures/cs2030s-lec01/cs2030s-lec01.001.png)
+
+---
+class: middle
+
+Real-world software is complex, evolves continuously, and is a product of team work. 
+
+---
+class: middle
+
+CS2030S teaches you how to write better code, where "better" means:
+
+- more human-friendly
+- easier to change and maintain
+- fewer crashes
+
+through programming paradigms, idioms, and language design.
+
+---
+class: middle
+
+### Reducing Boiler Plates
+
+- Code becomes more succinct and easier to read
+- Change should happen only in one place
+
+---
+class: middle
+
+### The Abstraction Principle
+
+"Each significant piece of functionality in a program should be implemented in just one place in the source code. Where similar functions are carried out by distinct pieces of code, it is generally beneficial to combine them into one by abstracting out the varying parts." 
+
+-- _Benjamin C. Pierce_
+
+---
+class: middle,wide
+.smaller[
 ```Java
-class Circle {
-	private Point c;  
-	private double r;  
-  
-	public Circle(Point c, double r) {
-	  this.c = c;
-	  this.r = r;
-	}
-}
+    String lastName = user.getLastName();
+    if (lastName == null) {
+      lastName = "";
+    } 
+    show(lastName.toUpperCase());
+
+    String firstName = user.getFirstName();
+    if (firstName == null) {
+      firstName = "";
+    }
+    show(firstName.toUpperCase());
 ```
 ]
 ---
-class: middle wide
+class: middle,wide
+.smaller[
+```Java
+    PhoneNumber phoneNumber = user.getOfficeNumber();
+    if (phoneNumber == null) {
+      phoneNumber = user.getMainLineNumber();
+    }
+    save(phoneNumber.toString());
 
-# Inheritance 
-A `ColoredCircle` IS-A `Circle`
+    PhoneNumber mobileNumber = user.getMobileNumber();
+    if (mobileNumber == null) {
+      mobileNumber = user.getMainLineNumber();
+    }
+    save(mobileNumber.toString());
+```
+]
 
+---
+class: middle,wide
+.smaller[
+```java
+    int code;
+    Address addr = user.getAddress();
+    if (addr == null) {
+      if (addr.getCountry().equals("Singapore")) {
+        code = addr.getPostalCode();
+      } else {
+        code = 0;
+      }
+    } else {
+      code = 0;
+    }
+```
+]
+---
+class: middle
+.smaller[
+```Java
+  void handleName(String name) {
+    if (name == null) {
+      name = "";
+    } 
+    show(name.toUpperCase());
+  }
+
+  handleName(user.getLastName());
+  handleName(user.getFirstName());
+```
+]
+---
+class: middle
+.smaller[
+```Java
+  void handlePhoneNumber(User user, PhoneNumber num) {
+    if (num == null) {
+      num = user.getMainLineNumber();
+    } 
+    save(num.toString());
+  }
+
+  handlePhoneNumber(user, user.getOfficeNumber());
+  handlePhoneNumber(user, user.getMobileNumber());
+```
+]
+
+---
+class: middle, wide
 .tiny[
 ```Java
-class ColoredCircle extends Circle {
-	private Color color;
-  
-	public ColoredCircle(Point center, double radius, Color color) {
-	  super(center, radius);  // call the parent's constructor
-	  this.color = color;
+  public static <T> void handle(T item, Producer<T> p, Transformer<T,String> t, 
+      Consumer<String> c) {
+    if (item == null) {
+      item = p.produce();
+    } 
+    c.consume(t.transform(item));
+  }
+```
+]
+
+---
+class: middle, wide
+.tiny[
+```Java
+  public static void handleName(String name) {
+    handle(name, 
+        () -> "",
+        x -> x.toUpperCase(),
+        x -> show(x));
+  }
+
+  public static void handlePhoneNumber(User user, PhoneNumber number) {
+    handle(number, 
+        () -> user.getMainLineNumber(),
+        x -> x.toString(),
+        x -> save(x));
+  }
+```
+]
+---
+class: middle,wide
+.smaller[
+```Java
+    int code;
+    Address addr = user.getAddress();
+    if (addr == null) {
+      if (addr.getCountry().equals("Singapore")) {
+        code = addr.getPostalCode();
+      } else {
+        code = 0;
+      }
+    } else {
+      code = 0;
+    }
+```
+]
+---
+class: middle, wide
+.tiny[
+```Java
+  public static <T,R> void get(T item, BooleanCondition<T> bc, Transformer<T,R> t,
+      Producer<R> p) {
+    if (item == null) {
+	  if (bc.test(item)) {
+	 	return t.transform(item);
+	  } else {
+		return p.produce();
+	  }
+	}  else {
+	  return p.produce();
 	}
   }
 ```
 ]
 
 ---
-class: middle wide
-
-## Inheritance in Python
-
-.tiny[
-```python
-class Circle:
-    def __init__(self, x, y, radius):
-        self.x = x
-        self.y = y
-        self.radius = radius
-
-class ColoredCircle(Circle):
-    def __init__(self, x, y, radius, color):
-        self.color = color
-        Circle.__init__(self, x, y, radius)
-```
-]
-
----
-class: middle wide
-
-## Bad Use of Inheritance
-
+class: middle, wide
 .tiny[
 ```Java
-class Point {
-	private double x;
-	private double y;
-	  :
-}
-  
-class Circle extends Point {
-	private double radius;
-	  :
-}
-  
-class Cylinder extends Circle {
-	private double height;
-	  :
-}
+  public static void handleName(String name) {
+    Optional.of(name)
+      .or(() -> Optional.of(""))
+      .map(s -> s.toUpperCase())
+      .ifPresent(s -> show(s));
+  }
+
+  public static void handlePhoneNumber(User user, PhoneNumber number) {
+    Optional.of(number)
+      .or(() -> Optional.of(user.getMainLineNumber()))
+      .map(p -> p.toString())
+      .ifPresent(s -> show(s));
+  }
 ```
 ]
 
 ---
-
-class: middle wide
-
-# Polymorphism 
-
-
----
-
-class: middle wide
-
-# Abstract Classes
+class: middle, wide
+.smaller[
+```Java
+    int code = Optional.of(addr)
+      .filter(a -> a.getCountry().equals("Singapore"))
+      .map(a -> a.getPostalCode())
+      .orElse(0);
+```
+]
 
 ---
-
-class: middle wide
-
-# Interfaces
+class: middle, center
+background-image: url(figures/memes/expand-mind-abstraction.jpg)
 
 ---
+class: middle, center
 
-class: middle wide
-
-# The Abstraction Barrier
-
----
-
-class: middle wide
-
-# Liskov Substitution Principle
+# OOP vs FP
 
 ---
-
-class: middle wide
-
-# SOLID Principles
+class: middle, center
+background-image: url(figures/memes/two-buttons-oop-vs-fp.jpg)
 
 ---
-class: middle wide
+class: middle, center
 
-# The Compiler is your friend!
-
----
-class: middle wide
-
-# Static Typing
+We are not telling you "OOP is better" or "FP is better"
 
 ---
-class: middle wide
+class: middle, center
 
-# Handling complex code
-
----
-class: middle wide
-
-# Isolating moving parts
-
-Information Hiding / Encapsulation
+"Here are different ways you can write your code.  Pick one that is best for you."
 
 ---
-class: middle wide
+class: middle
 
-# Minimizing moving parts
-
-Immutability
-
----
-class: middle wide
-
-# Handling complex code
+- Core strength of OOP is polymorphism (easy to extend)
+- Core strength of FP is referential transparency (easy to reason)
 
 ---
-class: middle wide
+class: middle
 
-# Handling complex code
-
----
-class: middle wide
-
-# Handling complex code
+"OO programming is good, when you know what it is.  Functional programming is good, when you know what it is.  And functional OO programming is also good, once you know what it is" - Uncle Bob.
 
 ---
-class: middle wide
+class: middle, center
+background-image: url(figures/memes/both-buttons-oop-vs-fp.jpg)
 
-# Handling complex code
+---
+class: middle, center
+
+# Java vs. Other Languages
+
+---
+class: middle, center
+
+### Java is a nice OOP language, but a clunky FP language
+
+But, sometimes, you have no choice.
+
+---
+class: middle
+
+### If you have to use Java, consider other libraries with immutability collections and other monadic constructs
+
+- JOOL, Vavr, Fugue
+- Google Guava
+- Apache Commons
+- etc
+
+---
+class: middle
+
+
+### If you have other languages to choose from:
+
+- *Parallel/Concurrent*: Erlang, Go, etc
+- *Functional*: Haskell, Erlang, OCaml, F#, etc
+- *OO Functional*: JS, Kotlin, Scala, Groovy, Switft, etc, 
+
+---
+class: middle, center
+
+### What's Next After CS2030S?
+
+---
+class: middle, center
+
+### CS2103T Intro to Software Engineering
+
+(and other Software Engineering modules)
+
+---
+class: middle
+
+- work in teams
+- version control
+- program analysis
+-  :
+
+---
+class: middle, center
+
+### CS2104 Concepts of Programming Languages
+
+(and other Programming Language modules)
+
+---
+class: middle
+
+- pure functional languages
+- how to build a compiler
+- how to implement a language
+-   :
+
+---
+class: middle, center
+
+### CS3210 Parallel Computing
+### CS3211 Parallel and Concurrent Programming
+
+(and CS2106 Operating Systems before that)
+
+---
+class: middle
+
+- designing, programming, debugging multi-threaded programs
+- parallelization with GPU/CUDA
+-   :
+
+---
+class: middle
+
+CS2030S _has taught_ you how to write better code, where "better" means:
+
+- more human-friendly
+- easier to change and maintain
+- fewer crashes
+
+---
+class: middle,center
+
+## The End
 
 ---
 class: bottom
