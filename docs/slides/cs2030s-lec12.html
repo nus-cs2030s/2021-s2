@@ -26,6 +26,12 @@ class: middle, center
 ---
 class: middle wide
 
+# Writing code that is Extensible
+
+---
+
+class: middle wide
+
 # Composition 
 Models the HAS-A relationship
 
@@ -63,8 +69,6 @@ class Circle {
 }
 ```
 ]
-
-
 
 ---
 class: middle wide
@@ -125,6 +129,9 @@ class ColoredCircle(Circle):
 ]
 
 ---
+background-image: url(figures/memes/two-buttons-extends-vs-compose.jpg)
+
+---
 class: middle wide
 
 ## Bad Use of Inheritance
@@ -154,7 +161,35 @@ class Cylinder extends Circle {
 class: middle wide
 
 # Polymorphism 
+_many forms_
 
+The ability of objects to take on many forms.
+
+---
+class: middle wide
+
+# Polymorphism 
+
+.tiny[
+```Java
+void say(Object obj) {
+    System.out.println("Hi, I am " + obj.toString());
+}
+
+
+Point p = new Point(0, 0);
+say(p);
+Circle c = new Circle(p, 4);
+say(c);
+```
+]
+---
+
+class: middle wide
+
+# Abstract Classes
+
+So general that it should not be instantiated.
 
 ---
 
@@ -162,11 +197,63 @@ class: middle wide
 
 # Abstract Classes
 
+```Java
+abstract class Shape {
+    abstract public double getArea();
+}
+```
 ---
 
 class: middle wide
 
+# In Python
+.tiny[
+```python
+from abc import ABC, abstractmethod
+class Shape:
+    @abstractmethod
+    def getArea(self):
+        pass
+ 
+class Circle(Shape):
+    def noofsides(self):
+        return ...
+```
+]
+---
+
+
+
+class: middle wide
+
 # Interfaces
+
+For modeling "can do" behavior
+
+---
+class: middle wide
+
+# Interfaces
+
+```Java
+interface GetAreable {
+	double getArea();
+}
+```
+---
+
+class: middle wide
+
+##A class can only inherit from one class (or abstract class).
+
+##A class can implement multiple interfaces.
+
+
+---
+
+class: middle wide
+
+# Minimizing the effect of changing implementation 
 
 ---
 
@@ -178,63 +265,372 @@ class: middle wide
 
 class: middle wide
 
-# Liskov Substitution Principle
+When the client does not know the implementation details of a class/method, they are not dependent on the specific way it has been implemented.
+
+You can make a change to how something is computed and the client is none the wiser.
+
+---
+class: middle
+
+# Liskov Substitution Principle (LSP)
+
+If $S$ is a subclass of $T$, then an object of type $T$ can be replaced by that of type $S$ without changing the _desirable property_ of the program
+
+---
+
+class: middle
+
+##Substitutability _does not_ simply mean "has a subtype relationship". 
+
+Just because a class inherits from another class does not mean it is substitutable.
+---
+
+class: middle
+Recall our `Square` / `Rectangle` example from the recitation.
+
+Consider:
+```Java
+Rectangle r1 = new Rectangle(3,3);
+Rectangle r2 = new Square(3);
+r1.setHeight(2);
+r2.setHeight(2);
+```
+---
+class: middle
+
+
+In `Rectangle`:
+
+```Java
+public void setHeight(double height) {
+	this.height = height;
+}
+```
+The desirable property of the method here is to change the length of rectangle. Nothing more, nothing less.
+
+---
+class: middle
+
+In `Square`:
+```Java
+public void setHeight(double height) {
+	this.height = height;
+	this.length = height;
+}
+```
+We change both sides of the square. This has changed the desirable property of the method. Can't be substituted, but `Square` $<:$ `Rectangle`.
+
+---
+class: middle wide
+
+# SOLID Principles
+
+LSP is the L in SOLID. Although we don't cover this in the module, it is good to know about. 
 
 ---
 
 class: middle wide
 
-# SOLID Principles
+# Generics
+
+Allows us to write re-usable code and still maintain type safety
 
 ---
+
+class: middle wide
+
+Recall our `Pair` class:
+
+.tiny[
+```Java
+class Pair {
+	private Object first;
+	private Object second;
+  
+	public Pair(Object first, Object second) {
+		this.first = first;
+		this.second = second;
+	}
+  
+	Object getFirst() {
+		return this.first;
+	}
+  
+	Object getSecond() {
+		return this.second;
+	}
+  }
+```
+]
+---
+
+class: middle wide
+
+and our `Pair<T>` class:
+
+.tiny[
+```Java
+class Pair<S,T> {
+	private S first;
+	private T second;
+  
+	public Pair(S first, T second) {
+		this.first = first;
+		this.second = second;
+	}
+
+	S getFirst() {
+		return this.first;
+	}
+  
+	T getSecond() {
+		return this.second;
+	}
+}
+```
+]
+---
+background-image: url(figures/memes/bike-fall-raw-types.jpg)
+
+---
+class: middle wide
+
+Things to remember about generics:
+- invariance
+- contravariance
+- covariance
+- PECS (producer extends, consumer super)
+- the effects of type erasure
+- Arrays and Generics are not BFFs
+
+---
+
 class: middle wide
 
 # The Compiler is your friend!
 
 ---
+background-image: url(figures/memes/drake-runtime-vs-compile-time.jpg)
+
+---
+class: middle wide
+Catching errors early (during compile time not during run time)
+
+Why is this preferrable? You can catch these problems before they mainfest themselves in the real world. i.e. Autopilot
+
+There are of course still errors that occur at run time.
+---
 class: middle wide
 
-# Static Typing
+# Type Safety
+
+The compiler uses checks that all of your types line up correctly and type inference to check that your code is type safe before letting you run it.
 
 ---
 class: middle wide
 
-# Handling complex code
+# Handling increasingly complex code
 
 ---
 class: middle wide
 
-# Isolating moving parts
+# Isolating the moving parts
 
-Information Hiding / Encapsulation
-
----
-class: middle wide
-
-# Minimizing moving parts
-
-Immutability
+- Encapsulation
+- Information Hiding
+- Tell Don't Ask
 
 ---
 class: middle wide
 
-# Handling complex code
+# Encapsulation
+.tiny[
+```Java
+class Circle {
+	double x;
+	double y;
+	double r;
+  
+	double getArea() {
+	  return 3.141592653589793 * r * r;
+	}
+  }
+```
+]
+---
+class: middle wide
+
+# Information Hiding
+.tiny[
+```Java
+class Circle {
+	private double x;
+	private double y;
+	private double r;
+  
+	public double getArea() {
+	  return 3.141592653589793 * r * r;
+	}
+  }
+```
+]
+---
+class: middle wide
+
+# Tell, Don't Ask
+.tiny[
+```Java
+double cX = c.getX();
+double cY = c.getY();
+double r = c.getR();
+boolean isInCircle = ((x - cX) * (x - cX) + (y - cY) * (y - cY)) <= r * r;
+```
+]
+
+vs
+
+.tiny[
+```Java
+boolean isInCircle = c.contains(x, y);
+```
+]
+---
+class: middle wide
+
+# Minimizing the moving parts
+- Immutability
+
+---
+class: middle wide
+.tiny[
+```Java
+final class Point {
+    final private double x;
+    final private double y;
+
+    public Point(double x, double y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    public Point moveTo(double x, double y) {
+        return new Point(x, y);
+    }
+}
+```
+]
+---
+class: middle wide
+.tiny[
+```Java
+final class Circle {
+    final private Point c;
+    final private double r;
+
+    public Circle (Point c, double r) {
+        this.c = c;
+        this.r = r;
+    }
+     :
+    public Circle moveTo(double x, double y) {
+        return new Circle(c.moveTo(x, y), r);
+    }
+}
+```
+]
+---
+class: middle wide
+.tiny[
+```Java
+Point p = new Point(0, 0);
+Circle c1 = new Circle(p, 1);
+Circle c2 = new Circle(p, 4);
+c1.moveTo(1, 1); // c1 remains unchanged
+```
+]
+
+Don't have the same issue with aliasing!
+
+Immutability makes our programs easier to reason about.
+---
+
+class: middle wide
+
+“Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live”
+
+__John Woods__
+
 
 ---
 class: middle wide
 
-# Handling complex code
+# Misc Paradigms and Topics
+
+---
+class: middle,center
+
+# Exceptions
+
+---
+class: middle,center
+
+## `try`-`catch`-`finally`
+
+---
+class: middle
+
+```Java
+try {
+  // do something
+} catch (an exception parameter) {
+  // handle exception
+} finally {
+  // clean up code
+  // even if no exception was thrown
+}
+```
+
+---
+class: middle,center
+
+## Exception Hierarchy
+
+---
+background-image: url(figures/cs2030s-lec04/exception/exception.004.png)
+
+---
+class: middle,center
+
+### Checked vs. Unchecked Exceptions
+### Do NOT Use Exception As a Control Flow Mechanism
 
 ---
 class: middle wide
 
-# Handling complex code
+# Asynchronous Programming
+
+Using the `CompletableFuture` class to create pipelines of computation that can be done asychronously.
+
+Known in other languages as Futures (python) or Promises (javascript/source)
 
 ---
 class: middle wide
 
-# Handling complex code
+# `Streams`
 
+Concentrate on what needs to be computed, don't worry about handling loops.
+
+The Java implementation of `InfiniteList`. You have also implemented streams in CS1101S.
+---
+class: middle wide
+
+Using stream in place of loops should make our code simpler, more elegant, and less bug-prone. 
+
+One should note that not all loops can be translated into stream elegantly. 
+
+A double-nested loop, for instance, stretches the elegance of streams. 
+
+A triple-nested loop should perhaps be best written as a loop with appropriate inner components written with lambdas and streams.
 ---
 class: bottom
 
