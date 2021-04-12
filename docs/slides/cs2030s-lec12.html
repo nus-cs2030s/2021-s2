@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 12</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 12
+
+### 12 April 2021
+---
+class: middle wide
+
+# Composition 
+Models the HAS-A relationship
+
+.tiny[
+```Java
+class Circle {
+	private double x;  
+	private double y; 
+	private double r;  
+  
+	public Circle(double x, double y, double r) {
+	  this.x = x;
+	  this.y = y;
+	  this.r = r;
+	}
+}
+```
+]
+---
+class: middle wide
+
+# Composition 
+`Circle` HAS-A `Point`
+
+.tiny[
+```Java
+class Circle {
+	private Point c;  
+	private double r;  
+  
+	public Circle(Point c, double r) {
+	  this.c = c;
+	  this.r = r;
+	}
+}
+```
+]
+
+
+
+---
+class: middle wide
+
+# Inheritance 
+Models the IS-A relationship
+
+.tiny[
+```Java
+class Circle {
+	private Point c;  
+	private double r;  
+  
+	public Circle(Point c, double r) {
+	  this.c = c;
+	  this.r = r;
+	}
+}
+```
+]
+---
+class: middle wide
+
+# Inheritance 
+A `ColoredCircle` IS-A `Circle`
+
+.tiny[
+```Java
+class ColoredCircle extends Circle {
+	private Color color;
+  
+	public ColoredCircle(Point center, double radius, Color color) {
+	  super(center, radius);  // call the parent's constructor
+	  this.color = color;
+	}
+  }
+```
+]
+
+---
+class: middle wide
+
+## Inheritance in Python
+
+.tiny[
+```python
+class Circle:
+    def __init__(self, x, y, radius):
+        self.x = x
+        self.y = y
+        self.radius = radius
+
+class ColoredCircle(Circle):
+    def __init__(self, x, y, radius, color):
+        self.color = color
+        Circle.__init__(self, x, y, radius)
+```
+]
+
+---
+class: middle wide
+
+## Bad Use of Inheritance
+
+.tiny[
+```Java
+class Point {
+	private double x;
+	private double y;
+	  :
+}
+  
+class Circle extends Point {
+	private double radius;
+	  :
+}
+  
+class Cylinder extends Circle {
+	private double height;
+	  :
+}
+```
+]
+
+---
+
+class: middle wide
+
+# Polymorphism 
+
+
+---
+
+class: middle wide
+
+# Abstract Classes
+
+---
+
+class: middle wide
+
+# Interfaces
+
+---
+
+class: middle wide
+
+# The Abstraction Barrier
+
+---
+
+class: middle wide
+
+# Liskov Substitution Principle
+
+---
+
+class: middle wide
+
+# SOLID Principles
+
+---
+class: middle wide
+
+# The Compiler is your friend!
+
+---
+class: middle wide
+
+# Static Typing
+
+---
+class: middle wide
+
+# Handling complex code
+
+---
+class: middle wide
+
+# Isolating moving parts
+
+Information Hiding / Encapsulation
+
+---
+class: middle wide
+
+# Minimizing moving parts
+
+Immutability
+
+---
+class: middle wide
+
+# Handling complex code
+
+---
+class: middle wide
+
+# Handling complex code
+
+---
+class: middle wide
+
+# Handling complex code
+
+---
+class: middle wide
+
+# Handling complex code
+
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Mon Mar 15 13:32:04 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>
