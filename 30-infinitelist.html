@@ -1,0 +1,1696 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2030s.github.io/2021-s2/30-infinitelist.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>30. Infinite List - CS2030S Programming Methodology II</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unit-30-infinite-list" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="CS2030S Programming Methodology II" class="md-header__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2030S Programming Methodology II
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              30. Infinite List
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="CS2030S Programming Methodology II" class="md-nav__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CS2030S Programming Methodology II
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        Introduction (00-03)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Introduction (00-03)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction (00-03)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="00-overview.html" class="md-nav__link">
+        0. Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-compiler.html" class="md-nav__link">
+        1. Program and Compiler
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-type.html" class="md-nav__link">
+        2. Variable and Type
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-function.html" class="md-nav__link">
+        3. Functions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        OOP (04-16)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="OOP (04-16)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          OOP (04-16)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-encapsulation.html" class="md-nav__link">
+        4. Encapsulation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-infohiding.html" class="md-nav__link">
+        5. Information Hiding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-tell-dont-ask.html" class="md-nav__link">
+        6. Tell, Don't Ask
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-static-field.html" class="md-nav__link">
+        7. Class Fields
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-static-method.html" class="md-nav__link">
+        8. Class Methods
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-composition.html" class="md-nav__link">
+        9. Composition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-inheritance.html" class="md-nav__link">
+        10. Inheritance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-overriding.html" class="md-nav__link">
+        11. Overriding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-polymorphism.html" class="md-nav__link">
+        12. Polymorphism
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-lsp.html" class="md-nav__link">
+        13. Liskov Substitution Principle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-abstract.html" class="md-nav__link">
+        14. Abstract Class
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="15-interface.html" class="md-nav__link">
+        15. Interface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="16-wrapper.html" class="md-nav__link">
+        16. Wrapper Class
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Types (17-24)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Types (17-24)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Types (17-24)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="17-casting.html" class="md-nav__link">
+        17. Casting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="18-variance.html" class="md-nav__link">
+        18. Variance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="19-exception.html" class="md-nav__link">
+        19. Exception
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="20-generics.html" class="md-nav__link">
+        20. Generics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="21-erasure.html" class="md-nav__link">
+        21. Type Erasure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="22-unchecked.html" class="md-nav__link">
+        22. Unchecked Warnings
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="23-wildcard.html" class="md-nav__link">
+        23. Wildcards
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="24-inference.html" class="md-nav__link">
+        24. Type Inference
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Functional (25-33)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Functional (25-33)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Functional (25-33)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="25-immutability.html" class="md-nav__link">
+        25. Immutability
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="26-nested-classes.html" class="md-nav__link">
+        26. Nested Classes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="27-functions.html" class="md-nav__link">
+        27. Functions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="28-box-maybe.html" class="md-nav__link">
+        28. Box and Maybe
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="29-lazy.html" class="md-nav__link">
+        29. Lazy Evaluation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          30. Infinite List
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="30-infinitelist.html" class="md-nav__link md-nav__link--active">
+        30. Infinite List
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminary-an-eagerly-evaluated-list" class="md-nav__link">
+    Preliminary: An Eagerly Evaluated List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-infinite-list" class="md-nav__link">
+    An Infinite List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map" class="md-nav__link">
+    Map
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#under-the-hood" class="md-nav__link">
+    Under The Hood
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-a-lazy-list" class="md-nav__link">
+    Filtering A Lazy List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-improvements" class="md-nav__link">
+    Further Improvements
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="31-stream.html" class="md-nav__link">
+        31. Stream
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="32-logger.html" class="md-nav__link">
+        32. Loggable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="33-monad.html" class="md-nav__link">
+        33. Monad
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Parallel (34-37)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Parallel (34-37)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Parallel (34-37)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="34-parallel.html" class="md-nav__link">
+        34. Parallel Streams
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="35-thread.html" class="md-nav__link">
+        35. Threads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="36-async.html" class="md-nav__link">
+        36. Async
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="37-forkjoin.html" class="md-nav__link">
+        37. Fork and Join
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="final-with-answers.pdf" class="md-nav__link">
+        Final
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="environments.html" class="md-nav__link">
+        Programming Environments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Using Unix CLI
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Using Unix CLI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Using Unix CLI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-background.html" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-essentials.html" class="md-nav__link">
+        Essentials
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-advanced.html" class="md-nav__link">
+        Advanced
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vim.html" class="md-nav__link">
+        Using Vim
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugins.html" class="md-nav__link">
+        Vim Plugins on PE
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="style.html" class="md-nav__link">
+        Java Style Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="javadoc.html" class="md-nav__link">
+        JavaDoc Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lab.html" class="md-nav__link">
+        Lab Guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="references.html" class="md-nav__link">
+        References
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#preliminary-an-eagerly-evaluated-list" class="md-nav__link">
+    Preliminary: An Eagerly Evaluated List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#an-infinite-list" class="md-nav__link">
+    An Infinite List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#map" class="md-nav__link">
+    Map
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#under-the-hood" class="md-nav__link">
+    Under The Hood
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#filtering-a-lazy-list" class="md-nav__link">
+    Filtering A Lazy List
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#further-improvements" class="md-nav__link">
+    Further Improvements
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="unit-30-infinite-list">Unit 30: Infinite list</h1>
+<h2 id="preliminary-an-eagerly-evaluated-list">Preliminary: An Eagerly Evaluated List</h2>
+<p>Let's consider first how we can represent an eagerly evaluated, finite list, recursively.  A simple way is to treat the list as a recursive structure, containing a <code>head</code> and a <code>tail</code>, with the <code>tail</code> being a list itself.  We have a special terminating list called <code>EmptyList</code> that we use to terminate the EagerList.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">T</span> <span class="n">head</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">final</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">tail</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="kd">static</span> <span class="n">EagerList</span><span class="o">&lt;?&gt;</span> <span class="n">EMPTY</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EmptyList</span><span class="p">();</span> 
+
+  <span class="kd">public</span> <span class="nf">EagerList</span><span class="p">(</span><span class="n">T</span> <span class="n">head</span><span class="p">,</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">T</span> <span class="nf">head</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">tail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">empty</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">@SuppressWarnings</span><span class="p">(</span><span class="s">&quot;unchecked&quot;</span><span class="p">)</span>
+    <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">temp</span> <span class="o">=</span> <span class="p">(</span><span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">)</span> <span class="n">EMPTY</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">temp</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">EmptyList</span> <span class="kd">extends</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="n">EmptyList</span><span class="p">()</span> <span class="p">{</span>
+      <span class="kd">super</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">head</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">NoSuchElementException</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">tail</span><span class="p">()</span> <span class="p">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="n">java</span><span class="p">.</span><span class="na">util</span><span class="p">.</span><span class="na">NoSuchElementException</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>Let's provide two factory methods called <code>generate</code> and <code>iterate</code>, that will populate our EagerList for us.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">generate</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">EagerList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">generate</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">T</span> <span class="n">init</span><span class="p">,</span> <span class="n">BooleanCondition</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">cond</span><span class="p">,</span> <span class="n">Transformer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="p">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">op</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">cond</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="n">init</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="n">empty</span><span class="p">();</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">EagerList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">init</span><span class="p">,</span> <span class="n">iterate</span><span class="p">(</span><span class="n">op</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">init</span><span class="p">),</span> <span class="n">cond</span><span class="p">,</span> <span class="n">op</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>Let's now provide the standard operation <code>map</code> so that we can transform the items in the list.
+The <code>map</code> method takes a lambda expression as the parameter, applies it recursively to every element in the list, and returns the resulting new list. </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="p">(</span><span class="n">Transformer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="p">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">EagerList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">mapper</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()),</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="n">mapper</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>We can also provide the <code>filter</code> method, that takes in lambda expression as a parameter and tests if each element in the list passes the test.  We return the list containing only the elements that pass the given test.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="p">(</span><span class="n">BooleanCondition</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">EagerList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">(),</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">cond</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">cond</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>We have the special <code>EmptyList</code> cases,
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="p">(</span><span class="n">Transformer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">Object</span><span class="p">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">empty</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="n">EagerList</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="p">(</span><span class="n">BooleanCondition</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">empty</span><span class="p">();</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>The resulting list can be used this way:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">EagerList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">l</span> <span class="o">=</span> <span class="n">EagerList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="c1">// [1, ... 9]</span>
+    <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">3</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">// [3, 6, 9]</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>  <span class="c1">// [6, 12, 18]</span>
+<span class="n">l</span><span class="p">.</span><span class="na">head</span><span class="p">();</span>        <span class="c1">// 6</span>
+<span class="n">l</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">head</span><span class="p">();</span> <span class="c1">// 12</span>
+<span class="n">l</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">tail</span><span class="p">().</span><span class="na">head</span><span class="p">();</span> <span class="c1">// 18</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="an-infinite-list">An Infinite List</h2>
+<p>Lazy evaluation allows us to delay the computation that produces data until the data is needed.  This powerful concept enables us to build computationally-efficient data structures.  We will focus on building a list with a possibly infinite number of elements -- something that couldn't be done without lazy evaluation.  Any eager-evaluation-based solution will just run in an infinite loop if the list is infinitely long.  For instance,</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">EagerList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">i</span> <span class="o">-&gt;</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// infinite loop</span>
+</code></pre></div>
+</td></tr></table>
+<p>Just as we saw in the previous unit, we can delay a computation by using the <code>Producer</code> functional interface (or anything equivalent).  Instead of doing <code>compute()</code> which is immediately evaluated when executed, we replace it with a <code>Producer</code> <code>() -&gt; compute()</code>, which "stores" the computation in an instance of <code>Producer</code>, and we only call it when we invoke the <code>produce()</code> method.</p>
+<p>Instead of storing the head and tail of the list, we can think of an infinite list as consisting of two functions, the first is a function that generates head, and the second is a function that generates the tail.  Our <code>InfiniteList</code> looks like this:</p>
+<p><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">head</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">tail</span><span class="p">;</span>
+
+  <span class="kd">public</span> <span class="nf">InfiniteList</span><span class="p">(</span><span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">T</span> <span class="nf">head</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">tail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+Note that we don't need an <code>EmptyList</code> for now.  We will need it if we have operations that truncate the list to a finite one, but let's not worry about it yet.</p>
+<p>We now change the <code>generate</code> method to be lazy, by passing in a producer instead.  We no longer need to pass in the size, since the list can be infinitely long!
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">generate</span><span class="p">(</span><span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">producer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">producer</span><span class="p">,</span>
+        <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">generate</span><span class="p">(</span><span class="n">producer</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>We can change <code>iterate</code> as well to only iterate through and generate the next element when we need it.  Note that we no longer need to provide the terminating condition <code>cond</code>.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">T</span> <span class="n">init</span><span class="p">,</span> <span class="n">Transformer</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">init</span><span class="p">,</span>
+      <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">iterate</span><span class="p">(</span><span class="n">next</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">init</span><span class="p">),</span> <span class="n">next</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>Here are some examples of how to use the two methods above:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">ones</span> <span class="o">=</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, 1, 1, 1, ....</span>
+<span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">evens</span> <span class="o">=</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 0, 2, 4, 6, ...</span>
+<span class="n">evens</span><span class="p">.</span><span class="na">head</span><span class="p">();</span> <span class="c1">// -&gt; 0</span>
+<span class="n">evens</span> <span class="o">=</span> <span class="n">evens</span><span class="p">.</span><span class="na">tail</span><span class="p">();</span> 
+<span class="n">evens</span><span class="p">.</span><span class="na">head</span><span class="p">();</span> <span class="c1">// -&gt; 2</span>
+</code></pre></div>
+</td></tr></table>
+<p>Both the lists <code>ones</code> and <code>evens</code> are infinitely long, but due to lazy evaluation, we do not generate all the elements in advance, but only when an element is needed.  </p>
+<h2 id="map">Map</h2>
+<p>Let's now write the lazy version of <code>map</code> as well:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="p">(</span><span class="n">Transformer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="p">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+      <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">mapper</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()),</span>
+    <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="n">mapper</span><span class="p">));</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>The <code>map</code> method is lazy. All it does is create a new list initialized with a new lambda expression that applies the given lambda expression <code>mapper</code> to the head and the tail.</p>
+<p>When we run:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>We get an infinite list with elements 1, 3, 5, 7, etc, but the values in the list are not realized until they are needed, just like before.  Only when we call <code>head()</code> will we evaluate the lambda expressions and obtain the results:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">).</span><span class="na">head</span><span class="p">();</span> <span class="c1">// 2</span>
+</code></pre></div>
+</td></tr></table>
+<h2 id="under-the-hood">Under The Hood</h2>
+<p>It is worthwhile to trace through the code and understand how <code>head()</code> works.  For simplicity, let's put all our code together for easy reference.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="kd">private</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">head</span><span class="p">;</span>
+  <span class="kd">private</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">tail</span><span class="p">;</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">generate</span><span class="p">(</span><span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">producer</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">producer</span><span class="p">,</span>
+        <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">generate</span><span class="p">(</span><span class="n">producer</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">iterate</span><span class="p">(</span><span class="n">T</span> <span class="n">init</span><span class="p">,</span> <span class="n">Transformer</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="n">init</span><span class="p">,</span>
+      <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="n">next</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">init</span><span class="p">),</span> <span class="n">next</span><span class="p">));</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="nf">InfiniteList</span><span class="p">(</span><span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">head</span><span class="p">,</span> <span class="n">Producer</span><span class="o">&lt;</span><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;&gt;</span> <span class="n">tail</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">head</span> <span class="o">=</span> <span class="n">head</span><span class="p">;</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">tail</span> <span class="o">=</span> <span class="n">tail</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">T</span> <span class="nf">head</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">tail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">map</span><span class="p">(</span><span class="n">Transformer</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="p">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">mapper</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;&gt;</span><span class="p">(</span>
+        <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">mapper</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()),</span>
+        <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">map</span><span class="p">(</span><span class="n">mapper</span><span class="p">));</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>Let's rewrite the statement
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">).</span><span class="na">head</span><span class="p">();</span> <span class="c1">// 2</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>into something uglier and more verbose, but with intermediate variables to help us explain what happens when the statement above is invoked.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">evens</span> <span class="o">=</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 0, 2, 4, 6, ...</span>
+<span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">odds</span> <span class="o">=</span> <span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, 3, 5, ...</span>
+<span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">altEvens</span> <span class="o">=</span> <span class="n">odds</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, 6, 10, .. </span>
+<span class="n">altEvens</span><span class="p">.</span><span class="na">head</span><span class="p">();</span>
+</code></pre></div>
+</td></tr></table>
+<p>Let's look at what gets created on the heap when we run</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">evens</span> <span class="o">=</span> <span class="n">InfiniteList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 0, 2, 4, 6, ...</span>
+</code></pre></div>
+</td></tr></table>
+<p><img alt="evens" src="figures/infinitelist/infinitelist.001.png" /></p>
+<p>The figure above shows the objects created.  <code>evens</code> is an instance of <code>InfiniteList</code>, with two fields, <code>head</code> and <code>tail</code>, each pointing to an instance of <code>Producer&lt;T&gt;</code>.  The two instances of <code>Producer&lt;T&gt;</code> capture the variable <code>init</code>.  The <code>tail</code> additionally captures the variable <code>next</code>, which itself is an instance of <code>Transformer&lt;T,T&gt;</code>. </p>
+<p>Next, let's look at what gets created on the heap when we run</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">odds</span> <span class="o">=</span> <span class="n">evens</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span> <span class="c1">// 1, 3, 5, ...</span>
+</code></pre></div>
+</td></tr></table>
+<p><img alt="evens" src="figures/infinitelist/infinitelist.002.png" /></p>
+<p>The figure above shows the objects added.  <code>odds</code> is an instance of <code>InfiniteList</code>, with two fields, <code>head</code> and <code>tail</code>, each pointing to an instance of <code>Producer&lt;T&gt;</code>.  The two instances of <code>Producer&lt;T&gt;</code> capture the local variable <code>this</code> and <code>mapper</code> of the method <code>map</code>.  <code>mapper</code> refers to an instance of <code>Transformer&lt;T, T&gt;</code>.  Since the method <code>map</code> of <code>evens</code> is called, the <code>this</code> reference refers to the object <code>evens</code>. </p>
+<p>After calling 
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">altEvens</span> <span class="o">=</span> <span class="n">odds</span><span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span> <span class="c1">// 2, 6, 10, .. </span>
+</code></pre></div>
+</td></tr></table></p>
+<p>We have the following objects set up.</p>
+<p><img alt="altEvens" src="figures/infinitelist/infinitelist.003.png" /></p>
+<p>Let's now trace through what happens when we call <code>altEvens.head()</code>.  This method leads to the call <code>this.head().produce()</code>, where <code>this</code> refers to <code>altEvens</code>.  The call to <code>produce</code> invoked <code>mapper.transform(this.head.produce())</code> of the producer labelled 1 in the figure below.  This leads to <code>this.head.produce()</code> of this producer being called.  Within this producer, <code>this</code> refers to <code>odds</code>, and so <code>this.head.produce()</code> invoked <code>mapper.transform(this.head.produce())</code> of the producer labelled 2.   Now, <code>this</code> refers to <code>evens</code>, and <code>this.head.produce()</code> causes the producer <code>() -&gt; 1</code> (labelled 3) to produce 1.</p>
+<p><img alt="altEvens" src="figures/infinitelist/infinitelist.004.png" /></p>
+<p>The execution now returns to the invocation of <code>mapper.transform(this.head.produce())</code> and call <code>mapper.transform(1)</code> (labelled 4).  This returns the value 2, which we pass into the <code>mapper.transform(2)</code> (labelled 5).  The <code>mapper</code> is <code>x -&gt; x * 2</code> so we have the result 4, which we return from <code>altEvens.head()</code>.</p>
+<p>This process shows a very different order of execution than <code>EagerList</code>.
+If we run, 
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">EagerList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">head</span><span class="p">();</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>The method <code>iterate</code> generates all the elements first, then all the elements gets <code>map</code>-ed with <code>x -&gt; x + 1</code>, then with <code>x -&gt; x + 2</code>, and then the first element is retrieved.  </p>
+<p>When we run, 
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">InfiniteList</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">head</span><span class="p">();</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>The method calls <code>iterate</code> and <code>map</code> only set up the producers that call other producers.  The call to <code>head()</code> is the trigger that causes the chain of producers to produce a value.</p>
+<h2 id="filtering-a-lazy-list">Filtering A Lazy List</h2>
+<p>Now, let's consider how we would filter an <code>InfiniteList</code>.  This is a bit trickier.  The following naive version does not work.
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="c1">// wrong</span>
+  <span class="kd">public</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="p">(</span><span class="n">BooleanCondition</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">cond</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()))</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">cond</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">cond</span><span class="p">);</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>There are two things wrong with this.  First,  Line 3 <code>cond.test(this.head())</code> is actually eager.  It computes the head to test if it passes the given condition.  Second, Line 6 is eager, it produces the tail to recursively filter it.</p>
+<p>To make <code>filter</code> lazy, we have to perform the test in the producer that produces the head. But if the test fails, we have to mark the head as filtered.</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">filter</span><span class="p">(</span><span class="n">BooleanCondition</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">&gt;</span> <span class="n">cond</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Producer</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">newHead</span> <span class="o">=</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">cond</span><span class="p">.</span><span class="na">test</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">())</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">()</span> <span class="p">:</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="n">InfiniteList</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="n">newHead</span><span class="p">,</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">().</span><span class="na">filter</span><span class="p">(</span><span class="n">cond</span><span class="p">));</span>
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>In the code above, we use <code>null</code> to indicate that the <code>head</code> is filtered for simplicity.  It is not a good practice, however since <code>null</code> could be a valid value in an infinite list.</p>
+<p>Putting the abuse of <code>null</code> aside, the possibility that the head produces a value that is filtered affects other methods. The methods <code>head</code> and <code>tail</code> have to be changed to:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>  <span class="kd">public</span> <span class="n">T</span> <span class="nf">head</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">h</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">h</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">.</span><span class="na">produce</span><span class="p">().</span><span class="na">head</span><span class="p">()</span> <span class="p">:</span> <span class="n">h</span><span class="p">;</span>  
+  <span class="p">}</span>
+
+  <span class="kd">public</span> <span class="n">InfiniteList</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">tail</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="n">h</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">head</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>
+    <span class="k">return</span> <span class="n">h</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">?</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">.</span><span class="na">produce</span><span class="p">().</span><span class="na">tail</span><span class="p">()</span> <span class="p">:</span> <span class="k">this</span><span class="p">.</span><span class="na">tail</span><span class="p">.</span><span class="na">produce</span><span class="p">();</span>  
+  <span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="further-improvements">Further Improvements</h2>
+<p>We have seen <code>Maybe&lt;T&gt;</code> as an abstraction that encapsulates a value that is either there or is missing.  Instead of using <code>null</code> to present a value that is not there, it is better to use <code>Maybe&lt;T&gt;</code> to encapsulate the value of the head.</p>
+<p>Further, our implementation of <code>InfiniteList&lt;T&gt;</code> so far does not make use of memoization.  The same value keeps getting produced repeatedly.  We have built the class <code>Lazy&lt;T&gt;</code> that encapsulates a value that is produced on-demand with memoization to guarantee that it is produced at most once.  It is better to use <code>Lazy&lt;T&gt;</code> to encapsulate the value of the head as well.</p>
+<p>We leave the construction of an <code>InfiniteList&lt;T&gt;</code> that uses <code>Lazy&lt;Maybe&lt;T&gt;&gt;</code> for its head as an exercise.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="29-lazy.html" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              29. Lazy Evaluation
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="31-stream.html" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              31. Stream
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright by Department of Computer Science, National University of Singapore 2021
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+        <script src="javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

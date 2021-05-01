@@ -1,0 +1,1583 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://nus-cs2030s.github.io/2021-s2/31-stream.html">
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+    
+    
+      
+        <title>31. Stream - CS2030S Programming Methodology II</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.e35208c4.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ef6f36e2.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"Roboto";--md-code-font-family:"Roboto Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="stylesheets/extra.css">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700">
+    
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL(".",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#unit-31-streams-in-java" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="CS2030S Programming Methodology II" class="md-header__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            CS2030S Programming Methodology II
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              31. Stream
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="CS2030S Programming Methodology II" class="md-nav__button md-logo" aria-label="CS2030S Programming Methodology II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    CS2030S Programming Methodology II
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      <label class="md-nav__link" for="__nav_2">
+        Notes
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Notes" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Notes
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        Introduction (00-03)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Introduction (00-03)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Introduction (00-03)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="00-overview.html" class="md-nav__link">
+        0. Overview
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="01-compiler.html" class="md-nav__link">
+        1. Program and Compiler
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="02-type.html" class="md-nav__link">
+        2. Variable and Type
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="03-function.html" class="md-nav__link">
+        3. Functions
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_2" type="checkbox" id="__nav_2_2" >
+      
+      <label class="md-nav__link" for="__nav_2_2">
+        OOP (04-16)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="OOP (04-16)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_2">
+          <span class="md-nav__icon md-icon"></span>
+          OOP (04-16)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="04-encapsulation.html" class="md-nav__link">
+        4. Encapsulation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="05-infohiding.html" class="md-nav__link">
+        5. Information Hiding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="06-tell-dont-ask.html" class="md-nav__link">
+        6. Tell, Don't Ask
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="07-static-field.html" class="md-nav__link">
+        7. Class Fields
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="08-static-method.html" class="md-nav__link">
+        8. Class Methods
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="09-composition.html" class="md-nav__link">
+        9. Composition
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="10-inheritance.html" class="md-nav__link">
+        10. Inheritance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="11-overriding.html" class="md-nav__link">
+        11. Overriding
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="12-polymorphism.html" class="md-nav__link">
+        12. Polymorphism
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="13-lsp.html" class="md-nav__link">
+        13. Liskov Substitution Principle
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="14-abstract.html" class="md-nav__link">
+        14. Abstract Class
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="15-interface.html" class="md-nav__link">
+        15. Interface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="16-wrapper.html" class="md-nav__link">
+        16. Wrapper Class
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_3" type="checkbox" id="__nav_2_3" >
+      
+      <label class="md-nav__link" for="__nav_2_3">
+        Types (17-24)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Types (17-24)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_3">
+          <span class="md-nav__icon md-icon"></span>
+          Types (17-24)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="17-casting.html" class="md-nav__link">
+        17. Casting
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="18-variance.html" class="md-nav__link">
+        18. Variance
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="19-exception.html" class="md-nav__link">
+        19. Exception
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="20-generics.html" class="md-nav__link">
+        20. Generics
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="21-erasure.html" class="md-nav__link">
+        21. Type Erasure
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="22-unchecked.html" class="md-nav__link">
+        22. Unchecked Warnings
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="23-wildcard.html" class="md-nav__link">
+        23. Wildcards
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="24-inference.html" class="md-nav__link">
+        24. Type Inference
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_4" type="checkbox" id="__nav_2_4" checked>
+      
+      <label class="md-nav__link" for="__nav_2_4">
+        Functional (25-33)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Functional (25-33)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_4">
+          <span class="md-nav__icon md-icon"></span>
+          Functional (25-33)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="25-immutability.html" class="md-nav__link">
+        25. Immutability
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="26-nested-classes.html" class="md-nav__link">
+        26. Nested Classes
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="27-functions.html" class="md-nav__link">
+        27. Functions
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="28-box-maybe.html" class="md-nav__link">
+        28. Box and Maybe
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="29-lazy.html" class="md-nav__link">
+        29. Lazy Evaluation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="30-infinitelist.html" class="md-nav__link">
+        30. Infinite List
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          31. Stream
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="31-stream.html" class="md-nav__link md-nav__link--active">
+        31. Stream
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-stream" class="md-nav__link">
+    Building a Stream
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminal-operations" class="md-nav__link">
+    Terminal Operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate-stream-operations" class="md-nav__link">
+    Intermediate Stream Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate Stream Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flatmapping-a-stream" class="md-nav__link">
+    FlatMapping a Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateful-and-bounded-operations" class="md-nav__link">
+    Stateful and Bounded Operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truncating-an-infinite-list" class="md-nav__link">
+    Truncating an Infinite List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peeking-with-a-consumer" class="md-nav__link">
+    Peeking with a Consumer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-a-stream" class="md-nav__link">
+    Reducing a Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#element-matching" class="md-nav__link">
+    Element Matching
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumed-once" class="md-nav__link">
+    Consumed Once
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-is-this-a-prime" class="md-nav__link">
+    Example: Is this a prime?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-first-500-primes" class="md-nav__link">
+    Example: First 500 primes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caution-avoid-overusing-streams" class="md-nav__link">
+    Caution: Avoid Overusing Streams
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="32-logger.html" class="md-nav__link">
+        32. Loggable
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="33-monad.html" class="md-nav__link">
+        33. Monad
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_5" type="checkbox" id="__nav_2_5" >
+      
+      <label class="md-nav__link" for="__nav_2_5">
+        Parallel (34-37)
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Parallel (34-37)" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_5">
+          <span class="md-nav__icon md-icon"></span>
+          Parallel (34-37)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="34-parallel.html" class="md-nav__link">
+        34. Parallel Streams
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="35-thread.html" class="md-nav__link">
+        35. Threads
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="36-async.html" class="md-nav__link">
+        36. Async
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="37-forkjoin.html" class="md-nav__link">
+        37. Fork and Join
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="final-with-answers.pdf" class="md-nav__link">
+        Final
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      <label class="md-nav__link" for="__nav_4">
+        Guide
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Guide" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Guide
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="environments.html" class="md-nav__link">
+        Programming Environments
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_2" type="checkbox" id="__nav_4_2" >
+      
+      <label class="md-nav__link" for="__nav_4_2">
+        Using Unix CLI
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Using Unix CLI" data-md-level="2">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Using Unix CLI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-background.html" class="md-nav__link">
+        Background
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-essentials.html" class="md-nav__link">
+        Essentials
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="unix-advanced.html" class="md-nav__link">
+        Advanced
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="vim.html" class="md-nav__link">
+        Using Vim
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="plugins.html" class="md-nav__link">
+        Vim Plugins on PE
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="style.html" class="md-nav__link">
+        Java Style Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="javadoc.html" class="md-nav__link">
+        JavaDoc Guide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lab.html" class="md-nav__link">
+        Lab Guide
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="references.html" class="md-nav__link">
+        References
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#building-a-stream" class="md-nav__link">
+    Building a Stream
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terminal-operations" class="md-nav__link">
+    Terminal Operations
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intermediate-stream-operations" class="md-nav__link">
+    Intermediate Stream Operations
+  </a>
+  
+    <nav class="md-nav" aria-label="Intermediate Stream Operations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#flatmapping-a-stream" class="md-nav__link">
+    FlatMapping a Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stateful-and-bounded-operations" class="md-nav__link">
+    Stateful and Bounded Operations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#truncating-an-infinite-list" class="md-nav__link">
+    Truncating an Infinite List
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#peeking-with-a-consumer" class="md-nav__link">
+    Peeking with a Consumer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reducing-a-stream" class="md-nav__link">
+    Reducing a Stream
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#element-matching" class="md-nav__link">
+    Element Matching
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consumed-once" class="md-nav__link">
+    Consumed Once
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-is-this-a-prime" class="md-nav__link">
+    Example: Is this a prime?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#example-first-500-primes" class="md-nav__link">
+    Example: First 500 primes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#caution-avoid-overusing-streams" class="md-nav__link">
+    Caution: Avoid Overusing Streams
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="unit-31-streams-in-java">Unit 31: Streams in Java</h1>
+<p>We have been building and using our own functional interfaces and abstractions. </p>
+<p>Java provides its own version of functional interfaces that are comparable to ours, in the <code>java.util.function</code> package.  The table below shows some commonly used ones:</p>
+<table>
+<thead>
+<tr>
+<th>CS2030S</th>
+<th>java.util.function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BooleanCondition&lt;T&gt;::test</code></td>
+<td><code>Predicate&lt;T&gt;::test</code></td>
+</tr>
+<tr>
+<td><code>Producer&lt;T&gt;::produce</code></td>
+<td><code>Supplier&lt;T&gt;::get</code></td>
+</tr>
+<tr>
+<td><code>Transformer&lt;T,R&gt;::transform</code></td>
+<td><code>Function&lt;T,R&gt;::apply</code></td>
+</tr>
+<tr>
+<td><code>Transformer&lt;T,T&gt;::transform</code></td>
+<td><code>UnaryOp&lt;T&gt;::apply</code></td>
+</tr>
+<tr>
+<td><code>Combiner&lt;S,T,R&gt;::combine</code></td>
+<td><code>BiFunction&lt;S,T,R&gt;::apply</code></td>
+</tr>
+</tbody>
+</table>
+<p>Besides, some of the abstractions we have built have similar counterparts in Java as well:</p>
+<table>
+<thead>
+<tr>
+<th>CS2030S</th>
+<th>Java version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Maybe&lt;T&gt;</code></td>
+<td><code>java.util.Optional&lt;T&gt;</code></td>
+</tr>
+<tr>
+<td><code>Lazy&lt;T&gt;</code></td>
+<td>N/A</td>
+</tr>
+<tr>
+<td><code>InfiniteList&lt;T&gt;</code></td>
+<td><code>java.util.stream.Stream&lt;T&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>There is a subtle and important difference between our <code>Maybe&lt;T&gt;</code> and <code>Optional&lt;T&gt;</code>, which we will explore in an upcoming unit.  We will focus this unit on <code>Stream</code> since the Java implementation of `stream is an infinite list with much more functionalities, some of which (such as parallel streams) are beyond what we can build ourselves in CS2030S.</p>
+<h2 id="building-a-stream">Building a Stream</h2>
+<p>To start, let's see how we can build a stream object:</p>
+<ul>
+<li>We can use the static factory method <code>of</code> (e.g., <code>Stream.of(1, 2, 3)</code>)</li>
+<li>We can use the <code>generate</code> and <code>iterate</code> methods (similar to our <code>InfiniteList</code>)</li>
+<li>We can convert an array into a <code>Stream</code> using <code>Arrays::stream</code></li>
+<li>We can convert a <code>List</code> instance (or any <code>Collection</code> instance) into a <code>Stream</code> using <code>List::stream</code></li>
+</ul>
+<p>Many other APIs in Java return a <code>Stream</code> instance (e.g., <code>Files::lines</code>)</p>
+<h2 id="terminal-operations">Terminal Operations</h2>
+<p>A <code>Stream</code> is lazy, just like <code>InfiniteList</code>.</p>
+<p>A terminal operation is an operation on the stream that triggers the evaluation of the stream.  A typical way of writing code that operates on streams is to chain a series of intermediate operations together, ending with a terminal operation.  </p>
+<p>The <code>forEach</code> method is a terminal operation that takes in a stream and applies a lambda expression to each element.<br />
+The lambda expression to apply does not return any value.  Java provides the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/function/Consumer.html"><code>Consumer&lt;T&gt;</code></a> functional interface for this.   Typical use is
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span>
+<span class="n">Stream</span><span class="p">.</span><span class="na">generate</span><span class="p">(()</span> <span class="o">-&gt;</span> <span class="mi">1</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span> <span class="c1">// infinite loop</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="intermediate-stream-operations">Intermediate Stream Operations</h2>
+<p>An <em>intermediate</em> operation on stream returns another <code>Stream</code>.  Java provides <code>map</code>, <code>filter</code>, <code>flatMap</code>, and other intermediate operations.  Intermediate operations are lazy and do not cause the stream to be evaluated.  </p>
+<h3 id="flatmapping-a-stream">FlatMapping a Stream</h3>
+<p>You have seen <code>flatMap</code> for <code>Box&lt;T&gt;</code>, <code>Maybe&lt;T&gt;</code> and <code>Lazy&lt;T&gt;</code>.  The method <code>flatMap</code> in <code>Stream</code> behaves similarly -- it takes a lambda expression that transforms every element in the stream into another stream.  The resulting stream of streams is then flattened and concatenated together.  </p>
+<p>For instance,
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;hello\nworld&quot;</span><span class="p">,</span> <span class="s">&quot;ciao\nmondo&quot;</span><span class="p">,</span> <span class="s">&quot;Bonjour\nle monde&quot;</span><span class="p">,</span> <span class="s">&quot;Hai\ndunia&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">map</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">lines</span><span class="p">())</span> <span class="c1">// returns a stream of streams</span>
+</code></pre></div>
+</td></tr></table></p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="s">&quot;hello\nworld&quot;</span><span class="p">,</span> <span class="s">&quot;ciao\nmondo&quot;</span><span class="p">,</span> <span class="s">&quot;Bonjour\nle monde&quot;</span><span class="p">,</span> <span class="s">&quot;Hai\ndunia&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">flatMap</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="p">.</span><span class="na">lines</span><span class="p">())</span> <span class="c1">// return a stream of strings</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="stateful-and-bounded-operations">Stateful and Bounded Operations</h3>
+<p>Some intermediate operations are stateful -- they need to keep track of some states to operate.  Two examples are <code>sorted</code> and <code>distinct</code>.</p>
+<p><code>sorted</code> returns a stream with the elements in the stream sorted.  Without argument, it sorts according to the natural order as defined by implementing the <code>Comparable</code> interface.  You can also pass in a <code>Comparator</code> to tell <code>sorted</code> how to sort.</p>
+<p><code>distinct</code> returns a stream with only distinct elements in the stream. </p>
+<p><code>distinct</code> and <code>sorted</code> are also known as <code>bounded</code> operations, since they should only be called on a finite stream -- calling them on an infinite stream is a bad idea!</p>
+<h3 id="truncating-an-infinite-list">Truncating an Infinite List</h3>
+<p>There are several intermediate operations that convert from infinite stream to finite stream: </p>
+<ul>
+<li><code>limit</code> takes in an <code>int</code> <span class="arithmatex">\(n\)</span> and returns a stream containing the first <span class="arithmatex">\(n\)</span> elements of the stream;</li>
+<li><code>takeWhile</code> takes in a predicate and returns a stream containing the elements of the stream, until the predicate becomes false.  The resulting stream might still be infinite if the predicate never becomes false.</li>
+</ul>
+<p>For instance, </p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="na">takeWhile</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">);</span> 
+</code></pre></div>
+</td></tr></table>
+<p>create a (lazy) finite stream of elements 0 to 4.</p>
+<h3 id="peeking-with-a-consumer">Peeking with a <code>Consumer</code></h3>
+<p>A particularly useful intermediate operation of <code>Stream</code> is <code>peek</code>.  <code>peek</code> takes in a <code>Consumer</code>, allowing us to apply a lambda on a "fork" of the stream.  For instance,</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="mi">1</span><span class="p">).</span><span class="na">peek</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">).</span><span class="na">takeWhile</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="p">).</span><span class="na">forEach</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="p">{});</span>
+</code></pre></div>
+</td></tr></table>
+<h3 id="reducing-a-stream">Reducing a Stream</h3>
+<p>One of the more powerful terminal operations in <code>Stream</code> is <code>reduce</code>, also known as <code>fold</code> or <code>accumulate</code> elsewhere, the <code>reduce</code> operation applies a lambda repeatedly on the elements of the stream to reduce it into a single value.  </p>
+<p>For instance,
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span><span class="na">reduce</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table>
+returns the sum of all elements in the stream.</p>
+<p>The method <code>reduce</code> takes in an identity value (<code>0</code> in the example above) and an accumulation function (<code>(x, y) -&gt; x + y</code> above) and returns the reduced value.  The process of reduction is equivalent to the following pseudocode:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code>result = identity
+for each element in the stream
+     result = accumulator.apply(result, element)
+return result
+</code></pre></div>
+</td></tr></table>
+<p>Note that there are constraints on the identity and accumulation function, which are placed due to the potential parallelization of <code>reduce</code>.   We will revisit this operation later.</p>
+<p>Java also overloaded <code>reduce</code> with two other versions -- a simpler one (with <code>null</code> identity) and a more complex one, which supports a different returned type than the type of the elements in the stream.   You can read the <a href="https://docs.oracle.com/en/java/javase/11/docs/api/java.base/java/util/stream/Stream.html#reduce(T,java.util.function.BinaryOperator)">java API</a> for details.</p>
+<h3 id="element-matching">Element Matching</h3>
+<p>Stream also provides terminal operations for testing if the elements pass a given predicate:</p>
+<ul>
+<li><code>noneMatch</code> returns true if none of the elements pass the given predicate.</li>
+<li><code>allMatch</code> returns true if every element passes the given predicate.</li>
+<li><code>anyMatch</code> returns true if at least one element passes the given predicate.</li>
+</ul>
+<h2 id="consumed-once">Consumed Once</h2>
+<p>One of the greatest limitations of <code>Stream</code>, which does not apply to our <code>InfiniteList</code>, is that a stream can only be operated on once.  We cannot iterate through a stream multiple times.  Doing so would lead to an <code>IllegalStateException</code> being thrown.  We have to recreate the stream if we want to operate on the stream more than once.</p>
+<p>Example,
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">Stream</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;</span> <span class="n">s</span> <span class="o">=</span> <span class="n">Stream</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="n">s</span><span class="p">.</span><span class="na">count</span><span class="p">();</span>
+<span class="n">s</span><span class="p">.</span><span class="na">count</span><span class="p">();</span> <span class="c1">// &lt;- error</span>
+</code></pre></div>
+</td></tr></table></p>
+<h2 id="example-is-this-a-prime">Example: Is this a prime?</h2>
+<p>Consider the method below, which checks if a given <code>int</code> is a prime:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">boolean</span> <span class="nf">isPrime</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">x</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>Let's see how we can rewrite this with <code>Stream</code>.  Due to the overhead of wrapper classes, Java provides specialized streams on primitives: <code>IntStream</code>, <code>LongStream</code>, and <code>DoubleStream</code>, with similar set of methods provided.  Since we are dealing with <code>int</code> here, we will use <code>IntStream</code>.  The code above can be rewritten as:</p>
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">boolean</span> <span class="nf">isPrime</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">IntStream</span><span class="p">.</span><span class="na">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+      <span class="p">.</span><span class="na">noneMatch</span><span class="p">(</span><span class="n">i</span> <span class="o">-&gt;</span> <span class="n">x</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table>
+<p>The <code>IntStream::range(x,y)</code> method generates a stream of <code>int</code> from <code>x</code> to <code>y-1</code>.</p>
+<h2 id="example-first-500-primes">Example: First 500 primes</h2>
+<p>What if we want to print out the first 500 prime numbers, starting from 2?  Normally, we would do the following:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="kt">void</span> <span class="nf">fiveHundredPrime</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kt">int</span> <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+  <span class="k">while</span> <span class="p">(</span><span class="n">count</span> <span class="o">&lt;</span> <span class="mi">500</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">isPrime</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">{</span>
+      <span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+      <span class="n">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="n">i</span><span class="o">++</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>The code is still considered simple, and understandable for many, but I am sure some of us will encounter a bug the first time we write this (either forgot to increment the counter or put the increment in the wrong place).  If you look at the code, there are a couple of components:</p>
+<ul>
+<li>Lines 3 and 9 deal with iterating through different numbers for primality testing</li>
+<li>Line 5 is the test of whether a number is prime</li>
+<li>Lines 2, 4, and 7, deal with limiting the output to 500 primes</li>
+<li>Line 6 is the action to perform on the prime</li>
+</ul>
+<p>With streams, we can write it like the following:
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="n">IntStream</span><span class="p">.</span><span class="na">iterate</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">isPrime</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+    <span class="p">.</span><span class="na">limit</span><span class="p">(</span><span class="mi">500</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">forEach</span><span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">::</span><span class="n">println</span><span class="p">);</span>
+</code></pre></div>
+</td></tr></table></p>
+<p>Notice how each of the four components matches neatly with one operation on stream!  </p>
+<p>With a stream, we no longer have to write loops, we have moved the iterations to within each operation in the stream.  We no longer need to maintain states and counters, they are done within each operation as needed as well.  This has another powerful implication: our code becomes more <em>declarative</em>, we only need to concern about what we want at each step, much less about how to do it.  Doing so makes our code more succinct and less bug-prone.</p>
+<h2 id="caution-avoid-overusing-streams">Caution: Avoid Overusing Streams</h2>
+<p>We will end this unit with a note of caution.</p>
+<p>Using stream in place of loops should make our code simpler, more elegant, and less bug-prone.  One should note that not all loops can be translated into stream elegantly.  A double-nested loop, for instance, stretches the elegance of streams.  A triple-nested loop should perhaps be best written as a loop with appropriate inner components written with lambdas and streams.</p>
+<p>As you go through exercises in using streams, you will find more examples of the limitations of streams.</p>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        <a href="30-infinitelist.html" class="md-footer__link md-footer__link--prev" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              30. Infinite List
+            </div>
+          </div>
+        </a>
+      
+      
+        <a href="32-logger.html" class="md-footer__link md-footer__link--next" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              32. Loggable
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright by Department of Computer Science, National University of Singapore 2021
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": ".", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.4ea5477f.min.js"></script>
+      
+        <script src="javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

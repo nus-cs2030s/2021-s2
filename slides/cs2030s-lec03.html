@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 3</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 3
+
+### 25 January 2021
+---
+class: middle
+
+### Announcements
+
+- Recitation 1 is up
+- Lab 0 is ongoing
+- Lab 1 is coming on Thursday
+- Office hours
+
+---
+class: middle
+
+### Lab
+
+- Two more Unix clinics 
+- Bring your own laptop 
+
+---
+class: middle,center
+
+## Inheritance
+
+In Java, we use the `extends` keyword.
+
+---
+class: middle,center
+
+## java.lang.Object
+
+###The mother of all classes!
+
+---
+class: middle,center
+
+## java.lang.Object
+
+We already talked about the `toString()` method
+
+Showed how you could override it in a subclass
+
+---
+class: middle,center
+
+# Polymorphism
+
+### _many_ _forms_
+---
+class: middle,center
+
+# Polymorphism
+
+`equals(Object obj)`
+---
+class: middle,center
+
+### But this is a lot of power, and with great power...
+
+### Lets consider an example
+---
+class: middle,center
+
+# Liskov Substitution Principle (LSP)
+
+Let $\phi(x)$ be a property provable about objects $x$ of type $T$. Then $\phi(y)$ should be true for objects $y$ of type $S$ where $S <: T$.
+
+---
+class: middle,center
+
+# Liskov Substitution Principle (LSP)
+
+If $S$ is a subclass of $T$, then an object of type $T$ can be replaced by that of type $S$ without changing the _desirable property_ of the program
+---
+class: middle,center
+
+# Liskov Substitution Principle (LSP)
+
+Still too abstract? Let's look at an example...
+
+---
+class: middle,center
+
+## How can we prevent people inheriting from our code?
+
+We can use the java keyword `final`
+
+For example `java.lang.Math`
+---
+class: middle,center
+
+## Abstract Classes
+
+_"It can't be real!"_
+
+---
+class: middle
+
+.small[
+```Java
+abstract class Shape {
+    private int numOfAxesOfSymmetry ;
+
+    public boolean isSymmetric() {
+        return numOfAxesOfSymmetry > 0;
+    }
+
+    abstract public double getArea();
+}
+```
+]
+---
+class: middle,center
+
+## Interface
+
+_"What can it do?"_
+
+---
+
+```Java
+interface GetAreable {
+  double getArea();
+}
+```
+
+---
+class: middle
+
+### Implementing an Interface
+
+.tiny[
+```Java
+class Circle extends Shape implements GetAreable {
+  :
+  public double getArea() {
+    :
+  }
+  :
+}
+```
+]
+---
+class: middle, center
+
+If a class $C$ implements an interface $I$
+
+then $C <: I$ 
+
+---
+class: middle
+
+In Java:
+
+- A class can extend at most one class
+- A class can implement zero or more interfaces
+- An interface can extend zero or more interfaces
+
+---
+class: top,center
+
+### Concrete vs Abstract
+
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Sun Jan 24 19:20:15 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>

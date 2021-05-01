@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 1</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 1
+
+### 11 January 2021
+---
+class: middle,center
+
+Ooi <b>Wei Tsang</b><br>
+<b>Boyd</b> Anderson<br>
+<b>Ashish</b> Deepak Dandekar<br>
+
+`cs2030s@comp.nus.edu.sg`
+
+---
+class: middle,center
+
+<b>Enzio</B> Kam (TA)<br>
+<b>Darius</b> Foo (Grad Tutor)<br>
+Chong <b>Yihui</b> (Grad Tutor)<br>
+
+---
+class: middle,center
+
+8 Ph.D. students<br>
+50 UG Tutors<br>
+
+---
+class: middle,center
+
+## Why CS2030<sub>s</sub>?
+
+---
+class: middle,center
+
+![figures](figures/cs2030s-lec01/cs2030s-lec01.001.png)
+
+---
+class: middle,center
+
+![figures](figures/cs2030s-lec01/cs2030s-lec01.002.png)
+
+---
+class: middle
+
+Real-world software is complex, evolves continuously, and is a product of team work. 
+
+---
+class: middle
+
+CS2030S teaches you how to write better code, where "better" means:
+
+- more human-friendly
+- easier to change and maintain
+- fewer crashes
+
+through programming paradigms, idioms, and language design.
+
+---
+class: middle
+
+CS2030S is not a module about 
+
+- algorithms or efficiency
+- software design 
+- Java language and libraries
+
+---
+class: middle,center
+
+## Assessments, Policies, etc.
+
+---
+class: middle
+
+![figures](figures/cs2030s-lec01/cs2030s-lec01.003.png)
+
+---
+class: middle
+
+![figures](figures/cs2030s-lec01/cs2030s-lec01.004.png)
+
+
+---
+class: middle
+
+Compiler is our friend
+
+- it helps us catch errors early
+- but can only based on the code
+- not by running it
+
+---
+class: middle,center
+
+### A well-designed programming language should help us catch errors during compilation phase as soon as possible.
+
+---
+class: middle,center
+
+### Variable: Abstraction over Data
+
+---
+class: middle
+
+### The _type_ of a variable decides the computation that can be performed on a variable.
+
+---
+class: middle
+
+### _Type system_: A set of rules about types of variables, expression, functions, and their interactions.
+
+---
+class: middle
+
+### Static vs. Dynamic Types 
+
+---
+class: middle
+
+### Dynamically Typed
+
+```Python
+x = 4
+x = "5" # Ok
+```
+
+---
+class: middle
+
+### Statically Typed
+
+```Java
+int x;
+x = 4;
+x = "5" // error
+```
+
+---
+class: middle
+
+### When dynamically type language is annoying
+
+```Python
+i = 0
+while i < 100:
+   i = something_slow()
+print("i is " + i)
+```
+
+---
+class: middle
+background-image: url(figures/vivian-dynamically-typed.png)
+
+---
+class: middle,center
+
+### Java is a statically typed language.
+
+---
+class: middle
+
+### The type assigned to variable during declaration is called the _compile-time type_.
+
+---
+class: middle
+
+## Strong vs. Weak Typing 
+
+---
+class: middle
+
+### in C (weak typing)
+
+```C
+int x;
+x = 4;
+x = (int)"5"; // okay, fine..
+```
+
+---
+class: middle
+
+### in Java (strong typing)
+
+```C
+int x;
+x = 4;
+x = (int)"5"; // error
+```
+
+---
+class: middle
+
+### in Java (strong typing)
+
+```C
+int x;
+x = 4;
+x = (int)"5"; // error
+```
+
+---
+class: middle
+
+### Primitive Types in Java
+
+- `byte`, `short`,  `int`, `long` 
+- `float`, `double`
+- `char`
+- `boolean`
+
+---
+class: middle
+
+### Primitive types in Java do not share their values
+
+```Java
+int i = 10;
+int j = i;
+i = i + 1;
+```
+
+---
+class: middle
+
+### Subtype and Supertype
+
+A type $T$ is a _subtype_ of $S$ ($T <: S$) if:
+
+- a piece of code written for variables of type $S$ can also safely be used on variables of type $T$. 
+
+$S$ is a _supertype_ of $T$.
+
+---
+class: middle
+
+### Subtyping Among Java Primitive Types
+
+- `byte` $<:$ `short` $<:$ `int` $<:$ `long`
+- `long` $<:$ `float` $<:$ `double`
+- `char` $<:$ `int`
+
+---
+class: middle
+
+### Subtyping is Reflective and Transitive
+
+- $T <: T$
+- if $S <: T$ and $T <: U$, then $S <: U$.
+
+---
+class: middle
+
+### Java Widening Type Conversion 
+
+Java allows putting a value of type $T$ into a variable of type $S$ iff $T <: S$.
+
+---
+class: middle,center
+
+### Function: Abstraction over Computation
+
+---
+class: middle
+
+.small[
+```C
+int i = 10;
+int fac10 = 1;
+while (i >= 0) {
+  fac10 *= i;
+  i -= 1;
+}
+i = 5;
+int fac5 = 1;
+while (i >= 0) {
+  fac5 *= i;
+  i -= 1;
+}
+```
+]
+
+---
+class: middle
+
+.small[
+```C
+int factorial(int i) {
+	int fac = 1;
+	while (i >= 0) {
+	  fac *= i;
+	  i -= 1;
+	}
+	return fac;
+}
+int fac10 = factorial(10);
+int fac5 = factorial(5);
+```
+]
+
+---
+class: top,center
+
+### Function as an abstraction barrier
+
+---
+class: middle,center
+
+### Abstraction: Composite Data Type
+
+---
+class: middle
+
+```C
+typedef struct {
+	double x;
+	double y;
+	double r;
+} circle;
+```
+
+---
+class: middle
+
+```C
+circle c;
+c.x = 1.0;
+c.y = 1.0;
+c.r = 5.0;
+double area = circle_get_area(c);
+```
+
+---
+class: middle
+
+```C
+double circle_get_area(circle c) {
+	return 3.1415926 * c.r * c.r;
+}
+```
+
+---
+class: middle, center
+
+### Encapsulation: bundle related variables and functions together to create a _class_
+
+---
+class: middle
+
+In Java, the keyword `class` allows us to define a new class named `Circle`.
+
+```Java
+class Circle {
+    double x;
+    double y;
+    double r;
+}
+```
+
+---
+class: middle
+
+```Java
+class Circle {
+    double x;
+    double y;
+    double r;
+    
+    double getArea() {
+      return 3.1415926 * r * r;
+    }
+}
+```
+
+---
+class: middle
+
+In Java classes:
+
+ - Functions are known as _methods_
+ 
+ - The bundled data in the class are known as _fields_ (or members, or states, or attributes)
+
+---
+class: middle
+
+Objects are instances of a class.
+
+In Java, the keyword `new` creates (or _instantiates_) an object of a given class.
+```Java
+Circle c = new Circle();
+```
+
+---
+class: middle
+
+Unlike before, we can now call the method `getArea` on the `Circle` object rather than passing it to the method.
+```Java
+Circle c = new Circle();
+c.r = 10;
+double area = c.getArea();
+```
+
+---
+class: middle, center
+
+# Object-Oriented Programming (OOP)
+
+---
+class: middle
+
+A program runs by instantiating objects of different classes.
+
+These objects interact with each other by calling each others' methods.
+
+---
+class: middle
+
+### An Example: Modelling a Bank
+
+Classes: `BankAccount`, `Customer`, `Teller`, ...
+
+Fields: `balance`, `creditRating`, `accountNumber`, ...
+
+Methods: `withdraw`, `deposit`, `loan`, ...
+
+---
+class: middle
+###Java Reference Types
+
+Everything else that is not a primitive type. Our new `Circle` class is an example.
+
+---
+class: middle, wide
+A reference variable stores only the reference to the value not the value itself.
+```Java
+Circle c1 = new Circle();
+Circle c2 = c1;
+System.out.println(c2.r); // print 0
+c1.r = 10.0;
+System.out.println(c2.r); // print 10.0
+```
+
+---
+class: middle
+
+What about sub/supertype relationships among Java Reference Types?
+
+We will get there don't worry!
+
+---
+class: middle, wide
+
+What happens if we don't initialise our reference variable?
+
+```Java
+Circle c1;
+c1.r = 10.0;  // NullPointerException
+```
+
+All non-initialised variables will have the special reference value `null`.
+
+---
+class: middle, center
+
+## Demo
+
+---
+class: bottom
+
+.tiny[
+Version: v1.1
+
+Last Updated: Mon Jan 11 16:20:11 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>

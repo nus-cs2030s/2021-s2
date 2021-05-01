@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 10</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 10
+
+### 29 March 2021
+---
+class: middle
+
+### Announcements
+
+- Reminder: Lab 7 due next Monday
+- This week lab session: your tutor will arrange
+
+---
+class: middle
+
+### PE2
+
+Changes to exam procedure (watch out for announcements)
+
+- You will be given time to login and setup
+- Explicit commands to get and submit your code
+
+---
+class: middle
+
+background-image: url(../figures/53k674.jpg)
+
+---
+class: middle
+
+### Function as cross-barrier state manipulator
+
+---
+class: middle,center
+
+![of](../figures/monad/monad.001.png)
+
+---
+class: middle,center
+
+![map](../figures/monad/monad.002.png)
+
+---
+class: middle,center
+
+![flatMap](../figures/monad/monad.003.png)
+
+---
+class: middle
+
+.smaller[
+```Java
+return Maybe.of(map.get(student))
+            .flatMap(map -> Maybe.of(map.get(modue))
+            .flatMap(map -> Maybe.of(map.get(assessment)))
+            .orElse("No such entry");
+```
+]
+---
+class: middle,wide
+
+.smaller[
+```Java
+return Maybe.of(map.get(student))          .flatMap(map -> Maybe.of(map
+                   .get(modue))            .flatMap(map -> Maybe.of(map
+                   .get(assessment)))      .orElse("No such entry");
+```
+]
+
+---
+class: middle,wide
+
+- `Maybe<T>`: item might be missing
+- `Lazy<T>`: item is evaluated on demand
+- `Loggable<T>`: item is logged
+- `InfiniteList<T>`: items in a lazily-evaluated list
+- `Array<T>`: items in an array
+- `Box<T>`: item in a box
+
+---
+class: middle,center
+
+### Left Identity Law
+
+`Monad.of(x).flatMap(y -> f(y))` 
+
+is equivalent to
+
+`f(x)`
+
+---
+class: middle,center
+
+![left](../figures/monad/monad.004.png)
+
+
+---
+class: middle,center
+
+### Right Identity Law
+
+`monad.flatMap(y -> Monad.of(y))` 
+
+is equivalent to
+
+`monad`
+
+---
+class: middle,center
+
+![right](../figures/monad/monad.005.png)
+
+---
+class: middle,center,wide
+
+### Associative Law
+
+`monad.flatMap(x -> f(x)).flatMap(x -> g(x))`
+
+is equivalent to
+
+`monad.flatMap(x -> f(x).flatMap(x -> g(x)))`
+
+---
+class: middle,center
+
+![associative](../figures/monad/monad.006.png)
+
+---
+class: middle,center
+
+![associative](../figures/monad/monad.007.png)
+
+---
+class: middle
+
+A monad has two methods `of` and `flatMap` and obeys the three laws above.
+
+---
+class: middle
+
+A functor has two methods `of` and `map` and obeys two laws.
+
+---
+class: middle,center
+
+`functor.map(x -> x)` 
+
+is just 
+
+`functor`
+
+---
+class: middle,center
+
+`functor.map(x -> f(x)).map(x -> g(x))` 
+
+is just 
+
+`functor.map(x -> g(f))`
+
+---
+class: middle
+
+## Parallel and Concurrent Programming
+
+
+---
+class: middle
+
+# Parallel Streams
+
+Let's look at some examples...
+
+---
+class: middle
+
+# Considerations:
+
+- Interference
+- Stateful vs. Stateless
+- Side Effects
+
+---
+class: middle wide
+
+# Parallelising Reduce
+
+.small[
+```Java
+Stream.of(1,2,3,4).reduce(1, (x, y) -> x * y, 
+                                   (x, y) -> x * y);
+```
+]
+
+where the `identity` is `1`, the `combiner` is `(x, y) -> x * y`, and the `accumulator` is `(x, y) -> x * y`
+
+---
+class: middle wide
+
+# Parallelising Reduce
+
+- `combiner.apply(identity, i)` must be equal to `i`.
+
+- The `combiner` and the `accumulator` must be associative
+
+- The `combiner` and the `accumulator` must be compatible
+
+---
+class: middle wide
+
+# Performance of Parallel Streams
+
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Mon Mar 15 13:32:04 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>

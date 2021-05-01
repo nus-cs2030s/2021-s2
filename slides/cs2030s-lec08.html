@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 8</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 8
+
+### 15 March 2021
+---
+class: middle
+
+# What is a function?
+
+- no side effects
+- referential transparency
+
+---
+class: middle
+
+# Pure Functions
+
+No side effects i.e. don't:
+- print to the screen
+- write to files
+- throw exceptions
+- change other variables
+- modify the values of the arguments
+
+---
+class: middle
+```Java
+int square(int i) {
+  return i * i;
+}
+  
+int add(int i, int j) {
+  return i + j;
+}
+```
+---
+
+class: middle
+```Java
+int div(int i, int j) {
+  return i / j;
+}
+
+int incrCount(int i) {
+  return this.count + i;
+}
+```
+---
+class: middle
+
+## Functions as First-Class Citizens in Java
+
+---
+class: middle
+
+# Lambda Expressions 
+## We meet again.
+
+---
+class: middle
+.tiny[
+```Java
+Transformer<Integer, Integer> square = new Transformer<>() {
+	@Override
+	public Integer transform(Integer x) {
+	  return x * x;
+	}
+  };
+```
+]
+---
+class: middle
+.tiny[
+```Java
+Transformer<Integer, Integer> square = x -> x * x;
+```
+]
+---
+class: middle
+
+# Curried Functions
+
+---
+class: middle
+
+# Lambda as Closure
+
+---
+class: center, top
+
+## Abstraction Barrier
+
+---
+class: middle, center
+
+### `Box<T>`
+
+### `Maybe<T>`
+
+---
+class: middle 
+
+### How to be lazy
+
+- Procastinate until the last minute
+- Never repeat yourself
+
+---
+class: middle center
+
+### `Lazy<T>`
+
+---
+class: bottom
+
+.tiny[
+Version: v1.0
+
+Last Updated: Mon Mar 15 13:32:04 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>

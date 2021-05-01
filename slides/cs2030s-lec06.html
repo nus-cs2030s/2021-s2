@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="stylesheets/cs1010.css">
+<link rel="stylesheet" type="text/css" href="stylesheets/dark.css">
+
+<!-- CHANGE TITLE -->
+<title>CS2030S AY20/21 S2 Lecture 6</title>
+<meta charset="utf-8">
+</head>
+<body>
+<textarea id="source">
+class: middle, center
+
+## CS2030<sub>s</sub>
+
+### Programming Methodology II
+---
+class: middle, center
+
+## Lecture 6
+
+### 15 February 2021
+---
+class: middle
+	
+## Midterm 
+### 1st of March, Monday 2-4 pm
+
+---
+class: middle
+	
+### Midterm
+
+- Online using LumiNUS Quiz
+- Proctored via Zoom
+- Practice papers available
+
+---
+class: middle
+	
+### Midterm Scope
+
+- Units 0 - 24
+- Lecture 1 - 6
+- Recitation 1 - 4
+
+---
+class: middle
+	
+We have a survey for those who are unable to take assessments at home (deadline: this Thursday)
+
+We will collect this information and try and make arrangements for you.
+
+---
+class: middle
+
+## Mock Practical
+### During your lab session
+
+## Practical I 
+### 6th of March, Saturday 9 am - 12 pm
+
+---
+class: middle
+	
+### Midterm
+
+- Online using remote `ssh` into special hosts
+- Proctored via Zoom
+
+---
+class: middle
+
+### Practical Assessment Scope
+
+- Unit 0 - 24
+- Lab 1 - 4
+
+---
+class: middle
+
+## "Catch-Up" Session 
+
+- During recess week lecture slot
+- Q&A only, no new materials
+- Optional
+
+---
+class: middle
+
+### Feedback on Lab Tutors
+
+- Mid-semester feedback survey is live 
+- Deadline: This Friday
+
+---
+class: middle
+
+### Can't mix array and generics
+
+.small[
+```Java
+new Pair<String,Integer>[2]; // error
+new Pair<S,T>[2]; // error
+new T[2]; // error
+```
+]
+---
+
+class: middle,center
+
+## Continuing with our `Array<T>`
+
+---
+class: middle,wide
+
+.tiny[
+```Java
+class A {
+  // version 0.5 (with generic array)
+  public static <T> boolean contains(Array<T> array, T obj) {
+    for (int i = 0; i < array.getLength(); i++) {
+      T curr = array.get(i);
+      if (curr.equals(obj)) {
+        return true;
+      }
+    }
+    return false;
+  }
+}
+```
+]
+---
+class: middle
+
+### Upper-Bounded Wildcard
+
+```Java
+Array<? extends Shape>  
+```
+
+`?` can be substituted by a subtype of `Shape`
+
+---
+class: middle
+
+- Covariance: if `S` <: `T`, then  
+     `A<? extends S>` <: `A<? extends T>`
+
+- For any type `S`, `A<S>` <: `A<? extends S>`
+
+---
+class: middle
+
+### Lower-Bounded Wildcard
+
+```Java
+Array<? super Shape>  
+```
+
+`?` can be substituted by a supertype of `Shape`
+
+---
+class: middle
+
+- Contravariance: if `S` <: `T`, then  
+     `A<? super T>` <: `A<? super S>`
+
+- For any type `S`, `A<S>` <: `A<? super S>`
+
+---
+class: middle
+
+## PECS
+
+Producer `extends`; Consumer `super`
+
+---
+class: middle
+
+### Unbounded Wildcard
+
+```Java
+Array<?>  
+```
+
+`?` can be substituted by a type
+
+---
+class: middle
+
+- For any type S, `A<S>` <: `A<?>`
+- For any type S, `A<? super S>` <: `A<?>`
+- For any type S, `A<? extends S>` <: `A<?>`
+
+---
+class: middle
+
+### Diamond Operator `<>`
+
+.small[
+```Java
+Pair<String,Integer> p = new Pair<>();
+```
+]
+
+---
+class: middle
+
+### Type Inference
+
+Infer type argument automatically.  If there are multiple types that match, pick the _most specific one_.
+
+---
+
+
+class: bottom
+
+.tiny[
+Version: v1.1
+
+Last Updated: Mon Feb 15 13:48:27 +08 2021
+]
+</textarea>
+
+<script src="https://remarkjs.com/downloads/remark-latest.min.js">
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+<script src="javascripts/counter.js">
+</script>
+<script>
+remark.macros.scale = function (percentage) {
+	var url = this;
+	return '<img src="' + url + '" style="width: ' + percentage + '" />';
+};
+// ![:scale 50%](image.jpg)
+
+var slideshow = remark.create({
+    navigation: {
+	    scroll: false
+	},
+	ratio: '16:9',
+	highlightStyle: 'ir-black',
+    slideNumberFormat: 'CS2030S AY20/21 S2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;%current%',
+});
+ // Setup MathJax
+  MathJax.Hub.Config({
+	  tex2jax: {
+		inlineMath: [['$', '$']],
+		// inlineMath: [['$', '$'], ['\\(', '\\)']],
+		displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+		skipTags: ['script', 'noscript', 'style', 'pre']
+	  }
+  });
+
+  MathJax.Hub.Configured();
+</script>
+</body>
+</html>
